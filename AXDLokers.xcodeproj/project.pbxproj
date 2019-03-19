@@ -12,6 +12,7 @@
 		DAC5A6A32240135D005C0425 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A12240135D005C0425 /* Main.storyboard */; };
 		DAC5A6A52240135E005C0425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A42240135E005C0425 /* Assets.xcassets */; };
 		DAC5A6A82240135E005C0425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A62240135E005C0425 /* LaunchScreen.storyboard */; };
+		DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5A6B12240CF08005C0425 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		DAC5A6A42240135E005C0425 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAC5A6A72240135E005C0425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAC5A6A92240135E005C0425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAC5A6B12240CF08005C0425 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				DAC5A69D2240135D005C0425 /* AppDelegate.swift */,
 				DAC5A69F2240135D005C0425 /* ViewController.swift */,
 				DAC5A6A12240135D005C0425 /* Main.storyboard */,
+				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
 				DAC5A6A42240135E005C0425 /* Assets.xcassets */,
 				DAC5A6A62240135E005C0425 /* LaunchScreen.storyboard */,
 				DAC5A6A92240135E005C0425 /* Info.plist */,
@@ -137,6 +140,7 @@
 			files = (
 				DAC5A6A02240135D005C0425 /* ViewController.swift in Sources */,
 				DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */,
+				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,8 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
     }
     @objc func dismissSplashController(){
-        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
-        let rootVC = mainVC.instantiateViewController(withIdentifier: "initController")
+        var rootVC: UIViewController!
+        let userId: Int! = UserDefaults.standard.object(forKey: "userId") as? Int
+        if userId == nil || userId == 0 {
+            let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
+            rootVC = mainVC.instantiateViewController(withIdentifier: "loginScreen")
+        } else {
+            let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
+            rootVC = mainVC.instantiateViewController(withIdentifier: "initController")
+        }
         self.window?.rootViewController = rootVC
         self.window?.makeKeyAndVisible()
     }
