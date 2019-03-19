@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:AXDLokers.xcodeproj">
+      location = "self:/Users/pauloprea/Documents/AXD/AXDLokers/AXDLockers.xcodeproj">
    </FileRef>
 </Workspace>

@@ -15,28 +15,60 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Scanner View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="initController" id="BYZ-38-t0r" customClass="ViewController" customModule="AXDLokers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initController" id="BYZ-38-t0r" customClass="QRScannerViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="rGE-Zt-M6k">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No QR code is detected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-Ix-O08">
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Wfb-b5-nn8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T2v-Ix-O08" secondAttribute="trailing" id="5jo-Tt-1Cj"/>
+                            <constraint firstItem="T2v-Ix-O08" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ErS-EB-f0h"/>
+                            <constraint firstItem="rGE-Zt-M6k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MtS-jd-lQw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rGE-Zt-M6k" secondAttribute="trailing" id="bh6-4l-Yh2"/>
+                            <constraint firstItem="rGE-Zt-M6k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="hln-tx-V3M"/>
+                            <constraint firstAttribute="bottom" secondItem="rGE-Zt-M6k" secondAttribute="bottom" id="o3z-FW-VIK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="T2v-Ix-O08" secondAttribute="bottom" id="uMm-WL-BBG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="T2v-Ix-O08" id="EOR-5e-NIQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="383" y="-18"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="NaD-DE-8m3">
             <objects>
-                <viewController storyboardIdentifier="loginScreen" id="3t1-YL-Ebr" customClass="LogInViewController" customModule="AXDLokers" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginScreen" id="3t1-YL-Ebr" customClass="LogInViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n5b-7v-buD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="ftQ-3s-IAB">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eb-0S-pY5">
                                 <rect key="frame" x="32" y="418" width="311" height="19"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
@@ -124,16 +156,20 @@
                         <viewLayoutGuide key="safeArea" id="Wp6-zJ-0hf"/>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="Aag-fw-Zfh" id="BHY-tT-Sp4"/>
+                        <outlet property="logo" destination="aBF-QZ-WaT" id="J0P-hU-3v5"/>
                         <outlet property="password" destination="Mrk-x9-OoE" id="Efb-eB-M3e"/>
+                        <outlet property="tapHereButton" destination="7tZ-b2-9cX" id="teA-tJ-cPG"/>
                         <outlet property="userName" destination="OxC-y0-GcH" id="VYa-Ux-TQC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRA-Eq-QtT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-945" y="-596"/>
+            <point key="canvasLocation" x="-692" y="-73"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Image" width="1080" height="1920"/>
         <image name="logoWhite" width="225" height="66"/>
     </resources>
 </document>
