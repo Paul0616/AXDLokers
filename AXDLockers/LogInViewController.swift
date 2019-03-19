@@ -10,8 +10,9 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var userNameTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var tapHereButton: UIButton!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var loginButton: UIButton!

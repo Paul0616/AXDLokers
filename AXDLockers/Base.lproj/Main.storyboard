@@ -55,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="383" y="-18"/>
+            <point key="canvasLocation" x="303" y="-73"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="NaD-DE-8m3">
@@ -65,9 +65,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="ftQ-3s-IAB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="ftQ-3s-IAB">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eb-0S-pY5">
                                 <rect key="frame" x="32" y="418" width="311" height="19"/>
@@ -135,16 +134,20 @@
                             <constraint firstItem="7tZ-b2-9cX" firstAttribute="top" secondItem="Mrk-x9-OoE" secondAttribute="bottom" id="9pr-sI-2pM"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="top" secondItem="OxC-y0-GcH" secondAttribute="bottom" constant="32" id="Emv-qg-vRG"/>
                             <constraint firstItem="Aag-fw-Zfh" firstAttribute="trailing" secondItem="Mrk-x9-OoE" secondAttribute="trailing" constant="-35" id="JG9-Ag-mBY"/>
+                            <constraint firstItem="ftQ-3s-IAB" firstAttribute="leading" secondItem="Wp6-zJ-0hf" secondAttribute="leading" id="LNU-0q-HHo"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="leading" secondItem="6eb-0S-pY5" secondAttribute="leading" id="Nma-dQ-TmK"/>
                             <constraint firstItem="jJZ-Gk-QhI" firstAttribute="leading" secondItem="Mrk-x9-OoE" secondAttribute="leading" id="NrL-Vn-cYW"/>
                             <constraint firstItem="aBF-QZ-WaT" firstAttribute="centerY" secondItem="Wp6-zJ-0hf" secondAttribute="centerY" id="RTK-WT-pzp"/>
+                            <constraint firstItem="ftQ-3s-IAB" firstAttribute="bottom" secondItem="n5b-7v-buD" secondAttribute="bottom" id="Tu3-rD-qJ9"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="trailing" secondItem="6eb-0S-pY5" secondAttribute="trailing" id="VOb-j7-3XW"/>
                             <constraint firstItem="33W-g0-Qjy" firstAttribute="centerY" secondItem="Wp6-zJ-0hf" secondAttribute="centerY" id="X5Q-y7-H1P"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="top" secondItem="6eb-0S-pY5" secondAttribute="bottom" constant="6" id="Zdf-cH-Ril"/>
                             <constraint firstItem="OxC-y0-GcH" firstAttribute="top" secondItem="33W-g0-Qjy" secondAttribute="bottom" constant="6" id="a1m-DK-0LB"/>
+                            <constraint firstItem="ftQ-3s-IAB" firstAttribute="top" secondItem="n5b-7v-buD" secondAttribute="top" id="d6D-My-FNd"/>
                             <constraint firstItem="Wp6-zJ-0hf" firstAttribute="trailing" secondItem="Mrk-x9-OoE" secondAttribute="trailing" constant="32" id="g9V-cJ-xV8"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="leading" secondItem="Wp6-zJ-0hf" secondAttribute="leading" constant="32" id="gm5-fI-dVD"/>
                             <constraint firstItem="jJZ-Gk-QhI" firstAttribute="top" secondItem="Mrk-x9-OoE" secondAttribute="bottom" constant="6" id="i4e-jI-jhe"/>
+                            <constraint firstItem="ftQ-3s-IAB" firstAttribute="trailing" secondItem="Wp6-zJ-0hf" secondAttribute="trailing" id="iBB-As-xXm"/>
                             <constraint firstItem="OxC-y0-GcH" firstAttribute="leading" secondItem="33W-g0-Qjy" secondAttribute="leading" id="kR7-5e-KBk"/>
                             <constraint firstItem="7tZ-b2-9cX" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Mrk-x9-OoE" secondAttribute="trailing" id="krH-Wa-mLY"/>
                             <constraint firstItem="OxC-y0-GcH" firstAttribute="trailing" secondItem="33W-g0-Qjy" secondAttribute="trailing" id="qwm-7L-y7x"/>
@@ -158,9 +161,9 @@
                     <connections>
                         <outlet property="loginButton" destination="Aag-fw-Zfh" id="BHY-tT-Sp4"/>
                         <outlet property="logo" destination="aBF-QZ-WaT" id="J0P-hU-3v5"/>
-                        <outlet property="password" destination="Mrk-x9-OoE" id="Efb-eB-M3e"/>
+                        <outlet property="passwordTextField" destination="Mrk-x9-OoE" id="xao-hb-rHH"/>
                         <outlet property="tapHereButton" destination="7tZ-b2-9cX" id="teA-tJ-cPG"/>
-                        <outlet property="userName" destination="OxC-y0-GcH" id="VYa-Ux-TQC"/>
+                        <outlet property="userNameTextField" destination="OxC-y0-GcH" id="oEL-Mj-XGd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRA-Eq-QtT" userLabel="First Responder" sceneMemberID="firstResponder"/>
