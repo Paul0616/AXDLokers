@@ -12,14 +12,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var tapHereButton: UIButton!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
-    var usernameText: String?
+    var userEmailText: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        userNameTextField.delegate = self
+        userEmailTextField.delegate = self
         passwordTextField.delegate = self
         self.logo.alpha = 0
         // Do any additional setup after loading the view.
@@ -33,22 +33,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.passwordTextField.text = nil
-        self.userNameTextField.text = usernameText
+        self.userEmailTextField.text = userEmailText
         // Or to rotate and lock
         // AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
         
     }
     
     @IBAction func tapLogin(_ sender: UIButton) {
-        if userNameTextField.text != nil {
-            UserDefaults.standard.set(1, forKey: "userId")
-            Switcher.updateRootVC()
+        if userEmailTextField.text != nil && passwordTextField.text != nil {
+            let encryptedPassword = encryptPassword(password: passwordTextField.text!)
+            getNewToken(userEmail: userEmailTextField.text!, encryptedPassword: encryptedPassword)
+            //UserDefaults.standard.set(1, forKey: "userId")
+            //Switcher.updateRootVC()
         }
     }
     //MARK: - UItextfieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
-        if textField == userNameTextField{
+        if textField == userEmailTextField{
             passwordTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
