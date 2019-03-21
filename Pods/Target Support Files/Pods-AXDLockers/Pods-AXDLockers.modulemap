@@ -1,0 +1,6 @@
+framework module Pods_AXDLockers {
+  umbrella header "Pods-AXDLockers-umbrella.h"
+
+  export *
+  module * { export * }
+}
