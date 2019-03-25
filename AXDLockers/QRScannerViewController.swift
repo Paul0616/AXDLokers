@@ -23,8 +23,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     var captureSession = AVCaptureSession()
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
-//    var messageFrameView: UIView?
-//    var msgLabel: UILabel!
     var codeWasdetected: Bool = false
     
     let restRequests = RestRequests()
@@ -88,26 +86,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             view.addSubview(qrCodeFrameView) //view
             view.bringSubviewToFront(qrCodeFrameView) //view
         }
-//        if let messageFrameView = messageFrameView {
-//            messageFrameView.backgroundColor = UIColor(red:0.43, green:0.61, blue:0.59, alpha:1.0)//UIColor.r.cgColor
-//            messageFrameView.layer.cornerRadius = 6
-//            messageFrameView.translatesAutoresizingMaskIntoConstraints = false
-//
-//            view.addSubview(messageFrameView) //view
-//            view.bringSubviewToFront(messageFrameView)
-//            messageFrameView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//            messageFrameView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//            if let msgLabel = msgLabel {
-//                msgLabel.text = ""
-//                msgLabel.backgroundColor = UIColor(red:0.27, green:0.37, blue:0.36, alpha:1.0)
-//                msgLabel.textColor = UIColor.white
-//                messageFrameView.addSubview(msgLabel)
-//                msgLabel.translatesAutoresizingMaskIntoConstraints = false
-//                msgLabel.bottomAnchor.constraint(equalTo: messageFrameView.bottomAnchor).isActive = true
-//                msgLabel.widthAnchor.constraint(equalTo: messageFrameView.widthAnchor, multiplier: 1).isActive = true
-//                msgLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40).isActive = true
-//            }
-//        }
+
     }
     @IBAction func closePopupAction(_ sender: UIButton) {
         codeWasdetected = false
@@ -127,11 +106,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         print(errorMessage)
     }
     
-    func tokenWasReceived(tokenJSON: NSArray!, requestID: Int) {
-        
-    }
-    
-    func resultedData(data: Data!) {
+    func resultedData(data: Data!, requestID: Int) {
         print(data!)
     }
     

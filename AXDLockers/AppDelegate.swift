@@ -13,11 +13,8 @@ import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
-    func resultedJsonArray(json: NSArray!) {
-        
-    }
-    
-    func resultedData(data: Data!) {
+   
+    func resultedData(data: Data!, requestID: Int) {
         let json = try? JSON(data: data)
         
         if json?["createdBy"].type == SwiftyJSON.Type.string {
@@ -32,31 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
         }
     }
     
-    
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorCode)
-        
-        
         Switcher.updateRootVC(isLogged: false)
     }
-    
-    func tokenWasReceived(tokenJSON: NSArray!, requestID: Int) {
-        if let json = tokenJSON, requestID == USERS_REQUEST {
-            print(json)
-            let item = json.firstObject as! NSDictionary
-            UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
-            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
-            let isAdmin = item["isSuperAdmin"] as! Int
-            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
-            UserDefaults.standard.set(item["tokenExpiresAt"] as! Int, forKey: "tokenExpiresAt")
-            restRequests.checkUser(userId: item["id"] as! Int)
-        }
-    }
-    
+
 
     var window: UIWindow?
     let restRequests = RestRequests()
-    let USERS_REQUEST = 2
+    
     
     //MARK: - Launcher Screen
     private func splashScreen(){
@@ -73,41 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
             //userId is not set or zero go to login screen
             Switcher.updateRootVC(isLogged: false)
         } else {
-            
-            if let tokenExpiresAt = UserDefaults.standard.object(forKey: "tokenExpiresAt") as? Double {
-                let timeInSeconds = (Date().timeIntervalSince1970 as Double).rounded()
-                if timeInSeconds > tokenExpiresAt {
-                    print("token expired")
-                    if let userEmail = UserDefaults.standard.object(forKey: "userEmail") as? String,
-                       let encryptedPassword = UserDefaults.standard.object(forKey: "encryptedPassword") as? String {
-                        restRequests.getNewToken(userEmail: userEmail, encryptedPassword: encryptedPassword, requestId: USERS_REQUEST)
-                    } else {
-                        print("userEmail or encryptedPassword in not set")
-                        Switcher.updateRootVC(isLogged: false)
-                    }
-                } else {
-                    restRequests.checkUser(userId: userId)
-                }
-            } else {
-               print("tokenExpiredAt not set")
-               Switcher.updateRootVC(isLogged: false)
-            }
+            let param = [userIdREST_Key: userId] as NSDictionary
+            restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
         }
     }
-    
-//    private func isTokenExpired() -> Bool {
-//        if let tokenExpiresAt = UserDefaults.standard.object(forKey: "tokenExpiresAt") as? Double {
-//            let timeInSeconds = (Date().timeIntervalSince1970 as Double).rounded()
-//            if timeInSeconds > tokenExpiresAt {
-//                print("token expired")
-//                return true
-//            } else {
-//                return false
-//            }
-//        } else {
-//            return true
-//        }
-//    }
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

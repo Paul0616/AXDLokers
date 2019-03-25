@@ -23,8 +23,11 @@ let lockersREST_Action = "lockers"
 let emailREST_Key = "email"
 let passwordREST_Key = "password"
 let qrCodeREST_Key = "qrCode"
+let userIdREST_Key = "userId"
 //requests IDs
 let LOCKERS_REQUEST = 1
+let CHECK_USERS_REQUEST = 2
+let TOKEN_REQUEST = 3
 
 func getURL() -> String {
     var url: String = ""

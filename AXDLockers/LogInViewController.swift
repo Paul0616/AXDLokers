@@ -10,8 +10,22 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate{
    
-    func resultedData(data: Data!) {
-        
+    func resultedData(data: Data!, requestID: Int) {
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+            print(json)
+            let items = json["items"] as! NSArray
+            let item = items[0] as! NSDictionary
+            UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
+            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
+            let isAdmin = item["isSuperAdmin"] as! Int
+            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
+            UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
+            Switcher.updateRootVC(isLogged: true)
+        } catch let error as NSError
+        {
+            print(error)
+        }
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
@@ -32,20 +46,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
-    func tokenWasReceived(tokenJSON: NSArray!, requestID: Int) {
-        if let json = tokenJSON, requestID == USERS_REQUEST {
-            print(json)
-            let item = json.firstObject as! NSDictionary
-            UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
-            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
-            let isAdmin = item["isSuperAdmin"] as! Int
-            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
-            UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
-            Switcher.updateRootVC(isLogged: true)
-        }
-    }
-    
+
     
     
     
@@ -56,7 +57,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
     @IBOutlet weak var loginButton: UIButton!
     var userEmailText: String?
     let restRequests = RestRequests()
-    let USERS_REQUEST = 3
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,9 +89,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             let encryptedPassword = encryptPassword(password: passwordTextField.text!)
             UserDefaults.standard.set(userEmailTextField.text!, forKey: "userEmail")
             UserDefaults.standard.set(encryptedPassword, forKey: "encryptedPassword")
-            restRequests.getNewToken(userEmail: userEmailTextField.text!, encryptedPassword: encryptedPassword, requestId: USERS_REQUEST)
-            //UserDefaults.standard.set(1, forKey: "userId")
-            //Switcher.updateRootVC()
+            restRequests.checkForRequest(parameters: nil, requestID: TOKEN_REQUEST)
         }
     }
     //MARK: - UItextfieldDelegate
