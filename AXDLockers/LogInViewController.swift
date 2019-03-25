@@ -8,7 +8,45 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
+class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate{
+   
+    func resultedData(data: Data!) {
+        
+    }
+    
+    func treatErrors(_ errorCode: Int!, errorMessage: String) {
+        print(errorMessage)
+        if errorCode == 404 {
+            print("User does not exist or User email/password is not correct")
+            let alertController = UIAlertController(title: "Login error",
+                                                    message: "User does not exist or User email/password is not correct",
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        if errorMessage.contains("The Internet connection appears to be offline."){
+            let alertController = UIAlertController(title: "Internet connection",
+                                                    message: "The Internet connection appears to be offline.",
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func tokenWasReceived(tokenJSON: NSArray!) {
+        if let json = tokenJSON {
+            print(json)
+            let item = json.firstObject as! NSDictionary
+            UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
+            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
+            let isAdmin = item["isSuperAdmin"] as! Int
+            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
+            UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
+            Switcher.updateRootVC(isLogged: true)
+        }
+    }
+    
+    
     
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -17,11 +55,18 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     var userEmailText: String?
+    let restRequests = RestRequests()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userEmailTextField.delegate = self
         passwordTextField.delegate = self
         self.logo.alpha = 0
+        restRequests.delegate = self
+        if let userEmail = UserDefaults.standard.object(forKey: "userEmail") as? String {
+            userEmailText = userEmail
+        }
         // Do any additional setup after loading the view.
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 5, options: [.curveEaseOut], animations: {
             self.logo.transform = CGAffineTransform(translationX: 0, y: -180)
@@ -42,7 +87,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     @IBAction func tapLogin(_ sender: UIButton) {
         if userEmailTextField.text != nil && passwordTextField.text != nil {
             let encryptedPassword = encryptPassword(password: passwordTextField.text!)
-            getNewToken(userEmail: userEmailTextField.text!, encryptedPassword: encryptedPassword)
+            
+            
+            restRequests.getNewToken(userEmail: userEmailTextField.text!, encryptedPassword: encryptedPassword)
             //UserDefaults.standard.set(1, forKey: "userId")
             //Switcher.updateRootVC()
         }
@@ -69,3 +116,4 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
      */
     
 }
+

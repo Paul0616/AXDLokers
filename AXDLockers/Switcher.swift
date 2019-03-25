@@ -12,30 +12,22 @@ import Alamofire
 
 class Switcher {
     
-    static func updateRootVC(){
+    
+    
+    static func updateRootVC(isLogged: Bool){
         
-        let userId: Int! = UserDefaults.standard.object(forKey: "userId") as? Int
         var rootVC : UIViewController?
-        
-//        var request: Request? {
-//            didSet {
-//                oldValue?.cancel()
-//
-//                title = request?.description
-//                refreshControl?.endRefreshing()
-//                headers.removeAll()
-//                body = nil
-//                elapsedTime = nil
-//            }
-//        }
-        print(userId)
+        if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
+            print("userId=\(userId)")
+        } else {
+            print("userId not set")
+        }
         
         
-        if(userId == nil || userId == 0){
+        
+        if(!isLogged){ //user is not logged
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScreen") as! LogInViewController
-        }else{
-            //let url:String = getURL()
-           // Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
+        } else { //check if still logged and get new token if is neccesary
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "initController") as! QRScannerViewController
         }
         
@@ -43,6 +35,7 @@ class Switcher {
         appDelegate.window?.rootViewController = rootVC
         appDelegate.window?.makeKeyAndVisible()
     }
+    
     
 }
 

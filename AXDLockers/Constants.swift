@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 import SwiftyJSON
 import CommonCrypto
 
@@ -47,6 +46,10 @@ func addREST_Filter(parameters: [String]) -> String {
     }
     return filterString
 }
+func addRest_Token() -> String {
+    let tokenString: String = "access-token"
+    return tokenString
+}
 func encryptPassword(password: String) -> String {
     
     var digest = [UInt8](repeating: 0, count: Int(CC_SHA512_DIGEST_LENGTH))
@@ -63,9 +66,10 @@ func encryptPassword(password: String) -> String {
     return digestHex
 }
 
-func getItems(json: NSDictionary) -> NSArray! {
+func getItems(json: NSDictionary!) -> NSArray {
     //var items: NSDictionary
     let items = json["items"] as! NSArray
     return items
 }
+
 

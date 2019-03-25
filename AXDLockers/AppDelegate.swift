@@ -7,12 +7,56 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
+    func resultedJsonArray(json: NSArray!) {
+        
+    }
+    
+    func resultedData(data: Data!) {
+        let json = try? JSON(data: data)
+        
+        if json?["createdBy"].type == SwiftyJSON.Type.string {
+            print("string")
+        }
+        if json?["createdBy"].type == SwiftyJSON.Type.null {
+            print("null")
+        }
+       
+        if json!.count > 0 {
+            Switcher.updateRootVC(isLogged: true)
+        }
+    }
+    
+    
+    func treatErrors(_ errorCode: Int!, errorMessage: String) {
+        print(errorCode)
+        
+        
+        Switcher.updateRootVC(isLogged: false)
+    }
+    
+    func tokenWasReceived(tokenJSON: NSArray!) {
+        if let json = tokenJSON {
+            print(json)
+            let item = json.firstObject as! NSDictionary
+            UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
+            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
+            let isAdmin = item["isSuperAdmin"] as! Int
+            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
+            UserDefaults.standard.set(item["tokenExpiresAt"] as! Int, forKey: "tokenExpiresAt")
+            restRequests.checkUser(userId: item["id"] as! Int)
+        }
+    }
+    
 
     var window: UIWindow?
-
+    let restRequests = RestRequests()
+    
     //MARK: - Launcher Screen
     private func splashScreen(){
         let launchScreenVC = UIStoryboard.init(name: "LaunchScreen", bundle: nil)
@@ -22,11 +66,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(dismissSplashController), userInfo: nil, repeats: false)
     }
     @objc func dismissSplashController(){
-        Switcher.updateRootVC()
+        let userId: Int! = UserDefaults.standard.object(forKey: "userId") as? Int
+        //let wasLogged = userId != nil && userId != 0
+        if userId == nil || userId == 0 {
+            //userId is not set or zero go to login screen
+            Switcher.updateRootVC(isLogged: false)
+        } else {
+            if let tokenExpiresAt = UserDefaults.standard.object(forKey: "tokenExpiresAt") as? Double {
+                let timeInSeconds = (Date().timeIntervalSince1970 as Double).rounded()
+                if timeInSeconds > tokenExpiresAt {
+                    print("token expired")
+                    if let userEmail = UserDefaults.standard.object(forKey: "userEmail") as? String,
+                       let encryptedPassword = UserDefaults.standard.object(forKey: "encryptedPassword") as? String {
+                        restRequests.getNewToken(userEmail: userEmail, encryptedPassword: encryptedPassword)
+                    } else {
+                        print("userEmail or encryptedPassword in not set")
+                        Switcher.updateRootVC(isLogged: false)
+                    }
+                } else {
+                    restRequests.checkUser(userId: userId)
+                }
+            } else {
+               print("tokenExpiredAt not set")
+               Switcher.updateRootVC(isLogged: false)
+            }
+        }
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+       
+        restRequests.delegate = self
         self.splashScreen()
         return true
     }
@@ -55,4 +125,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 
