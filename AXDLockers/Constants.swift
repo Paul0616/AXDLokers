@@ -18,8 +18,13 @@ let urlFolders: [String] = ["v1"]
 //REST Control Actions
 let tokensREST_Action = "tokens"
 let usersREST_Action = "users"
-let emailREST_Action = "email"
-let passwordREST_Action = "password"
+let lockersREST_Action = "lockers"
+//REST Keys
+let emailREST_Key = "email"
+let passwordREST_Key = "password"
+let qrCodeREST_Key = "qrCode"
+//requests IDs
+let LOCKERS_REQUEST = 1
 
 func getURL() -> String {
     var url: String = ""

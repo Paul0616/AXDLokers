@@ -10,12 +10,15 @@ import UIKit
 import AVFoundation
 
 
-class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, RestRequestsDelegate {
+    
+    
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var messageFrame: UIView!
     @IBOutlet weak var msglabel: UILabel!
     @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var closePopup: UIButton!
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -24,9 +27,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 //    var msgLabel: UILabel!
     var codeWasdetected: Bool = false
     
+    let restRequests = RestRequests()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        restRequests.delegate = self
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
        
         guard let captureDevice = deviceDiscoverySession.devices.first else {
@@ -66,7 +73,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         // Start video capture.
         captureSession.startRunning()
-        
+        view.bringSubviewToFront(logOutButton)
         // Move the message label and top bar to the front
         view.bringSubviewToFront(messageLabel)
         
@@ -102,6 +109,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 //            }
 //        }
     }
+    @IBAction func closePopupAction(_ sender: UIButton) {
+        codeWasdetected = false
+        messageFrame.isHidden = true
+    }
     
     @IBAction func logOutAction(_ sender: UIButton) {
         UserDefaults.standard.removeObject(forKey: "token")
@@ -111,6 +122,19 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         UserDefaults.standard.removeObject(forKey: "encryptedPassword")
         Switcher.updateRootVC(isLogged: false)
     }
+    
+    func treatErrors(_ errorCode: Int!, errorMessage: String) {
+        print(errorMessage)
+    }
+    
+    func tokenWasReceived(tokenJSON: NSArray!, requestID: Int) {
+        
+    }
+    
+    func resultedData(data: Data!) {
+        print(data!)
+    }
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Check if the metadataObjects array is not nil and it contains at least one object.
         
@@ -133,9 +157,12 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             if metadataObj.stringValue != nil && !codeWasdetected {
                 codeWasdetected = true
                 msglabel.text = metadataObj.stringValue
-//                let generator = UIImpactFeedbackGenerator(style: .heavy)
-//                generator.impactOccurred()
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+               // let generator = UIImpactFeedbackGenerator(style: .heavy)
+               // generator.impactOccurred()
+                //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                AudioServicesPlayAlertSound(1105) //1352
+                let param = [qrCodeREST_Key: metadataObj.stringValue!] as NSDictionary
+                restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
             }
         }
     }

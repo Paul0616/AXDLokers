@@ -33,8 +33,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
         }
     }
     
-    func tokenWasReceived(tokenJSON: NSArray!) {
-        if let json = tokenJSON {
+    func tokenWasReceived(tokenJSON: NSArray!, requestID: Int) {
+        if let json = tokenJSON, requestID == USERS_REQUEST {
             print(json)
             let item = json.firstObject as! NSDictionary
             UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
@@ -56,7 +56,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
     @IBOutlet weak var loginButton: UIButton!
     var userEmailText: String?
     let restRequests = RestRequests()
-    
+    let USERS_REQUEST = 3
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,9 +87,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
     @IBAction func tapLogin(_ sender: UIButton) {
         if userEmailTextField.text != nil && passwordTextField.text != nil {
             let encryptedPassword = encryptPassword(password: passwordTextField.text!)
-            
-            
-            restRequests.getNewToken(userEmail: userEmailTextField.text!, encryptedPassword: encryptedPassword)
+            UserDefaults.standard.set(userEmailTextField.text!, forKey: "userEmail")
+            UserDefaults.standard.set(encryptedPassword, forKey: "encryptedPassword")
+            restRequests.getNewToken(userEmail: userEmailTextField.text!, encryptedPassword: encryptedPassword, requestId: USERS_REQUEST)
             //UserDefaults.standard.set(1, forKey: "userId")
             //Switcher.updateRootVC()
         }
