@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4016050622412CD100D57C14 /* Switcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4016050522412CD100D57C14 /* Switcher.swift */; };
+		4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026FBBD224A558A00924B64 /* AddAddressViewController.swift */; };
+		4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026FBBF224A584300924B64 /* CityTableViewCell.swift */; };
 		408B4AFD22437DC30044583B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFC22437DC30044583B /* Constants.swift */; };
 		408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFE2243A6C20044583B /* RestRequests.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
@@ -23,6 +25,8 @@
 /* Begin PBXFileReference section */
 		2716C6D5081AA02CE89AB346 /* Pods-AXDLockers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.debug.xcconfig"; sourceTree = "<group>"; };
 		4016050522412CD100D57C14 /* Switcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switcher.swift; sourceTree = "<group>"; };
+		4026FBBD224A558A00924B64 /* AddAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAddressViewController.swift; sourceTree = "<group>"; };
+		4026FBBF224A584300924B64 /* CityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 		408B4AFC22437DC30044583B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		408B4AFE2243A6C20044583B /* RestRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequests.swift; sourceTree = "<group>"; };
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				408B4AFC22437DC30044583B /* Constants.swift */,
 				408B4AFE2243A6C20044583B /* RestRequests.swift */,
 				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
+				4026FBBD224A558A00924B64 /* AddAddressViewController.swift */,
+				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
 			);
 			path = AXDLockers;
 			sourceTree = "<group>";
@@ -137,6 +143,7 @@
 				TargetAttributes = {
 					DAC5A6992240135D005C0425 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -225,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
@@ -232,6 +240,7 @@
 				4016050622412CD100D57C14 /* Switcher.swift in Sources */,
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
+				4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +396,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ro.duoline.AXDLockers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -406,7 +415,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ro.duoline.AXDLockers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

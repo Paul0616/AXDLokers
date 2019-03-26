@@ -19,15 +19,18 @@ let urlFolders: [String] = ["v1"]
 let tokensREST_Action = "tokens"
 let usersREST_Action = "users"
 let lockersREST_Action = "lockers"
+let citiesREST_Action = "cities"
 //REST Keys
 let emailREST_Key = "email"
 let passwordREST_Key = "password"
 let qrCodeREST_Key = "qrCode"
 let userIdREST_Key = "userId"
+let stateREST_Key = "state"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
 let TOKEN_REQUEST = 3
+let CITIES_REQUEST = 4
 
 func getURL() -> String {
     var url: String = ""

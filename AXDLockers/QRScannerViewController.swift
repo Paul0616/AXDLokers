@@ -104,25 +104,39 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
-        if errorCode == 404 {
-            let alertController = UIAlertController(title: "Locker not found",
-                                                    message: "This QRCode was not found in database. Would you like to add it and associate it with new locker?",
-                                                    preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                print("OK")
-                self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
-            }))
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
-                print("Cancel")
-                self.codeWasdetected = false
-            }))
-            self.present(alertController, animated: true, completion: nil)
-        }
-        self.showToast(message: errorMessage)
+        self.showToast(message: "Error code: \(errorCode!)")
     }
     
     func resultedData(data: Data!, requestID: Int) {
-        print(data!)
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+            
+            let items = json["items"] as! NSArray
+            print(items.count)
+            if items.count > 0 {
+                print("item found")
+            } else {
+               showAlert()
+            }
+        } catch let error as NSError
+        {
+            print(error)
+        }
+    }
+    
+    private func showAlert(){
+        let alertController = UIAlertController(title: "Locker not found",
+                                                message: "This QRCode was not found in database. Would you like to add it and associate it with new locker?",
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            print("OK")
+            self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
+            print("Cancel")
+            self.codeWasdetected = false
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
