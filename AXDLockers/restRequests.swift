@@ -76,6 +76,9 @@ class RestRequests: NSObject {
                             case TOKEN_REQUEST:
                                 self.delegate?.resultedData(data: response.data!, requestID: requestID)
                                 break
+                            case CITIES_REQUEST:
+                                self.getCities()
+                                break
                             default:
                                 print(requestID)
                             }
@@ -107,6 +110,9 @@ class RestRequests: NSObject {
                 break
             case TOKEN_REQUEST:
                 UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
+                break
+            case CITIES_REQUEST:
+                self.getCities()
                 break
             default:
                 print(requestID)
@@ -160,4 +166,24 @@ class RestRequests: NSObject {
             })
     }
 
+    func getCities() {
+        var url: String = getURL()
+        url.append(contentsOf: citiesREST_Action)
+        let param: Parameters = [
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String,
+            "expand": stateREST_Key
+        ]
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: CHECK_USERS_REQUEST)
+            })
+    }
 }
