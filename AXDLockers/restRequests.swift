@@ -13,11 +13,9 @@ import SwiftyJSON
 
 protocol RestRequestsDelegate: class {
     func treatErrors(_ errorCode: Int!, errorMessage: String)
-    func tokenWasReceived(tokenJSON: NSArray!, requestID: Int)
-    func resultedData(data: Data!)
-    //    func getLocation(_ location: CLLocation)
-    //    func isLocationAvailable(_ isLocationAvailable: Bool, status: CLAuthorizationStatus?)
+    func resultedData(data: Data!, requestID: Int)
 }
+
 class RestRequests: NSObject {
     weak var delegate: RestRequestsDelegate?
     
@@ -25,12 +23,13 @@ class RestRequests: NSObject {
         //init
     }
     
-    func checkForRequest(parameters: NSDictionary, requestID: Int){
-        if UserDefaults.standard.object(forKey: "token") as? String == nil {
+    func checkForRequest(parameters: NSDictionary!, requestID: Int){
+        if UserDefaults.standard.object(forKey: "token") as? String == nil && requestID != TOKEN_REQUEST {
             Switcher.updateRootVC(isLogged: false)
             return
         }
         var mustRequestToken: Bool = false
+        //UserDefaults.standard.set(1000.00 as! Double, forKey: "tokenExpiresAt")
         if let tokenExpiresAt = UserDefaults.standard.object(forKey: "tokenExpiresAt") as? Double {
             let now = (Date().timeIntervalSince1970 as Double).rounded()
             if now > tokenExpiresAt {
@@ -55,7 +54,7 @@ class RestRequests: NSObject {
                     .validate()
                     .responseJSON(completionHandler: {response in
                         guard response.result.isSuccess else {
-                            let message = "Internet appear to be offline: \(String(describing: response.result.error!))"
+                            let message = "Connection error: \(String(describing: response.result.error!))"
                             let statusCode = response.response?.statusCode
                             self.delegate?.treatErrors(statusCode, errorMessage: message)
                             return
@@ -70,11 +69,18 @@ class RestRequests: NSObject {
                             case LOCKERS_REQUEST:
                                 self.getLockers(qrCode: parameters)
                                 break
+                            case CHECK_USERS_REQUEST:
+                                let userId = parameters[userIdREST_Key] as! Int
+                                self.checkUser(userId: userId)
+                                break
+                            case TOKEN_REQUEST:
+                                self.delegate?.resultedData(data: response.data!, requestID: requestID)
+                                break
                             default:
                                 print(requestID)
                             }
                 
-                            
+                            //mustRequestToken = false
                             
                         }  catch let error as NSError
                         {
@@ -89,10 +95,18 @@ class RestRequests: NSObject {
                 print("userEmail or encryptedPassword in not set")
                 Switcher.updateRootVC(isLogged: false)
             }
-        } else {
+        }
+        else {
             switch (requestID) {
             case LOCKERS_REQUEST:
                 self.getLockers(qrCode: parameters)
+                break
+            case CHECK_USERS_REQUEST:
+                let userId = parameters[userIdREST_Key] as! Int
+                self.checkUser(userId: userId)
+                break
+            case TOKEN_REQUEST:
+                UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
                 break
             default:
                 print(requestID)
@@ -101,15 +115,17 @@ class RestRequests: NSObject {
 
     }
     
-    func getLockers(qrCode: NSDictionary){
+    func getLockers(qrCode: NSDictionary!){
         var url: String = getURL()
         url.append(contentsOf: lockersREST_Action)
         var param: Parameters = [
             //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
             addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
         ]
+        if let qrCode = qrCode{
+            param[addREST_Filter(parameters: [qrCodeREST_Key])] = qrCode[qrCodeREST_Key]
+        }
         
-        param[addREST_Filter(parameters: [qrCodeREST_Key])] = qrCode[qrCodeREST_Key]
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
             .validate()
             .responseJSON(completionHandler: {response in
@@ -119,7 +135,7 @@ class RestRequests: NSObject {
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
                 }
-                self.delegate?.resultedData(data: response.data!)
+                self.delegate?.resultedData(data: response.data!, requestID: LOCKERS_REQUEST)
             })
     }
     
@@ -140,30 +156,8 @@ class RestRequests: NSObject {
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
                 }
-                self.delegate?.resultedData(data: response.data!)
+                self.delegate?.resultedData(data: response.data!, requestID: CHECK_USERS_REQUEST)
             })
     }
-    func getNewToken(userEmail: String, encryptedPassword: String, requestId: Int){
-        var url: String = getURL()
-        url.append(contentsOf: tokensREST_Action)
-        let param: Parameters = [
-            addREST_Filter(parameters: [emailREST_Key]): userEmail,
-            addREST_Filter(parameters: [passwordREST_Key]): encryptedPassword
-        ]
-        //    url.append(contentsOf: addREST_Filter(parameters: [emailREST_Action], value: userEmail))
-        //    url.append(contentsOf: "&")
-        //    url.append(contentsOf: addREST_Filter(parameters: [passwordREST_Action], value: encryptedPassword))
-        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
-            .validate()
-            .responseJSON(completionHandler: {response in
-                guard response.result.isSuccess else {
-                    let message = "Error while fetching token: \(String(describing: response.result.error!))"
-                    let statusCode = response.response?.statusCode
-                    self.delegate?.treatErrors(statusCode, errorMessage: message)
-                    return
-                }
-                self.delegate?.resultedData(data: response.data!)
-                
-            })
-    }
+
 }

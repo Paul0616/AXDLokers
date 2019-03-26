@@ -15,10 +15,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     
     @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var messageFrame: UIView!
-    @IBOutlet weak var msglabel: UILabel!
+   // @IBOutlet weak var messageFrame: UIView!
+   // @IBOutlet weak var msglabel: UILabel!
     @IBOutlet weak var logOutButton: UIButton!
-    @IBOutlet weak var closePopup: UIButton!
+  //  @IBOutlet weak var closePopup: UIButton!
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -38,7 +38,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             print("Failed to get the camera device")
             return
         }
-        messageFrame.layer.cornerRadius = 6
+        //messageFrame.layer.cornerRadius = 6
 
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
@@ -88,10 +88,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
 
     }
-    @IBAction func closePopupAction(_ sender: UIButton) {
-        codeWasdetected = false
-        messageFrame.isHidden = true
-    }
+//    @IBAction func closePopupAction(_ sender: UIButton) {
+//        codeWasdetected = false
+//        //messageFrame.isHidden = true
+//    }
     
     @IBAction func logOutAction(_ sender: UIButton) {
         UserDefaults.standard.removeObject(forKey: "token")
@@ -104,6 +104,21 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
+        if errorCode == 404 {
+            let alertController = UIAlertController(title: "Locker not found",
+                                                    message: "This QRCode was not found in database. Would you like to add it and associate it with new locker?",
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                print("OK")
+                self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
+                print("Cancel")
+                self.codeWasdetected = false
+            }))
+            self.present(alertController, animated: true, completion: nil)
+        }
+        self.showToast(message: errorMessage)
     }
     
     func resultedData(data: Data!, requestID: Int) {
@@ -126,20 +141,43 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
-            view.bringSubviewToFront(messageFrame)
-            messageFrame.isHidden = false
+            //view.bringSubviewToFront(messageFrame)
+            //messageFrame.isHidden = false
 
             if metadataObj.stringValue != nil && !codeWasdetected {
                 codeWasdetected = true
-                msglabel.text = metadataObj.stringValue
+               // msglabel.text = metadataObj.stringValue
                // let generator = UIImpactFeedbackGenerator(style: .heavy)
                // generator.impactOccurred()
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
+                
                 let param = [qrCodeREST_Key: metadataObj.stringValue!] as NSDictionary
                 restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
             }
         }
+    }
+}
+extension UIViewController {
+    
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 75))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = message
+        toastLabel.lineBreakMode = .byWordWrapping
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
     }
 }
 
