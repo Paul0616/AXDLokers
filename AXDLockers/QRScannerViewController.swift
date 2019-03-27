@@ -111,7 +111,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
             
-            let items = json["items"] as! NSArray
+            let items = json[KEY_items] as! NSArray
             print(items.count)
             if items.count > 0 {
                 print("item found")
@@ -166,7 +166,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
                 
-                let param = [qrCodeREST_Key: metadataObj.stringValue!] as NSDictionary
+                let param = [KEY_qrCode: metadataObj.stringValue!] as NSDictionary
                 restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
             }
         }

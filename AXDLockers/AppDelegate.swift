@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
             //userId is not set or zero go to login screen
             Switcher.updateRootVC(isLogged: false)
         } else {
-            let param = [userIdREST_Key: userId!] as NSDictionary
+            let param = [KEY_userId: userId!] as NSDictionary
             restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
         }
     }

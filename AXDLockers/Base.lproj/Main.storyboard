@@ -343,6 +343,20 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="AXN-8R-uab">
                                 <rect key="frame" x="177.5" y="265" width="20" height="20"/>
                             </activityIndicatorView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsy-pN-j8n">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mjR-gD-h3i"/>
+                                    <barButtonItem title="Save Locker Address" id="wGt-fo-Wlu">
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="onSave:" destination="34Z-m5-euB" id="75Z-5Z-6qE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bvN-oa-lBb"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -350,7 +364,7 @@
                             <constraint firstItem="UT4-zT-26m" firstAttribute="top" secondItem="hXW-xf-Xsn" secondAttribute="bottom" constant="8" id="0Ys-cC-4Og"/>
                             <constraint firstItem="AXN-8R-uab" firstAttribute="top" secondItem="wMg-MX-t6q" secondAttribute="top" constant="19" id="0f7-6Z-rtl"/>
                             <constraint firstItem="BdL-1p-jfw" firstAttribute="top" secondItem="wMg-MX-t6q" secondAttribute="bottom" id="3vq-6f-oGB"/>
-                            <constraint firstItem="BdL-1p-jfw" firstAttribute="bottom" secondItem="dUG-Vh-L7A" secondAttribute="bottom" id="6Na-c8-hob"/>
+                            <constraint firstAttribute="bottom" secondItem="Qsy-pN-j8n" secondAttribute="bottom" id="6jo-DA-76O"/>
                             <constraint firstItem="Cfi-wS-z04" firstAttribute="top" secondItem="dUG-Vh-L7A" secondAttribute="top" constant="8" id="7fp-yd-aug"/>
                             <constraint firstItem="wMg-MX-t6q" firstAttribute="trailing" secondItem="dUG-Vh-L7A" secondAttribute="trailing" id="EYM-h0-K0X"/>
                             <constraint firstItem="BdL-1p-jfw" firstAttribute="leading" secondItem="dUG-Vh-L7A" secondAttribute="leading" id="Ib8-RC-eV6"/>
@@ -358,6 +372,7 @@
                             <constraint firstItem="BdL-1p-jfw" firstAttribute="trailing" secondItem="dUG-Vh-L7A" secondAttribute="trailing" id="NjW-Q0-mV1"/>
                             <constraint firstItem="hXW-xf-Xsn" firstAttribute="top" secondItem="Cfi-wS-z04" secondAttribute="bottom" constant="8" id="OgT-mA-eXA"/>
                             <constraint firstItem="UT4-zT-26m" firstAttribute="leading" secondItem="dUG-Vh-L7A" secondAttribute="leading" constant="8" id="P01-zh-kYc"/>
+                            <constraint firstItem="Qsy-pN-j8n" firstAttribute="leading" secondItem="5D0-Vt-oJ7" secondAttribute="leading" id="Peb-im-cNj"/>
                             <constraint firstItem="dUG-Vh-L7A" firstAttribute="trailing" secondItem="hXW-xf-Xsn" secondAttribute="trailing" constant="8" id="X1s-lN-2uO"/>
                             <constraint firstItem="wMg-MX-t6q" firstAttribute="leading" secondItem="dUG-Vh-L7A" secondAttribute="leading" id="a9t-Gd-EhR"/>
                             <constraint firstItem="hXW-xf-Xsn" firstAttribute="leading" secondItem="dUG-Vh-L7A" secondAttribute="leading" constant="8" id="dZ6-Qq-2he"/>
@@ -365,13 +380,18 @@
                             <constraint firstItem="dUG-Vh-L7A" firstAttribute="trailing" secondItem="55D-5e-kuV" secondAttribute="trailing" constant="8" id="qXv-VK-xDJ"/>
                             <constraint firstItem="55D-5e-kuV" firstAttribute="leading" secondItem="dUG-Vh-L7A" secondAttribute="leading" constant="8" id="sg9-Ju-kKJ"/>
                             <constraint firstItem="wMg-MX-t6q" firstAttribute="top" secondItem="55D-5e-kuV" secondAttribute="bottom" constant="16" id="vw4-x9-6Xd"/>
+                            <constraint firstAttribute="trailing" secondItem="Qsy-pN-j8n" secondAttribute="trailing" id="wpZ-FG-A5K"/>
                             <constraint firstItem="55D-5e-kuV" firstAttribute="top" secondItem="UT4-zT-26m" secondAttribute="bottom" constant="8" id="xBE-e6-fCU"/>
+                            <constraint firstItem="BdL-1p-jfw" firstAttribute="bottom" secondItem="Qsy-pN-j8n" secondAttribute="bottom" id="xQf-PI-Snc"/>
                             <constraint firstItem="55D-5e-kuV" firstAttribute="top" secondItem="UT4-zT-26m" secondAttribute="bottom" constant="8" id="z6l-s9-ljh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dUG-Vh-L7A"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="AXN-8R-uab" id="Z3i-4v-7km"/>
+                        <outlet property="saveBarButton" destination="wGt-fo-Wlu" id="Rl1-UZ-AwE"/>
                         <outlet property="streetTextField" destination="hXW-xf-Xsn" id="2qA-ug-WKU"/>
                         <outlet property="tableCities" destination="BdL-1p-jfw" id="T9w-TF-CTw"/>
                         <outlet property="zipCodeTextField" destination="55D-5e-kuV" id="H7x-Le-Zgh"/>

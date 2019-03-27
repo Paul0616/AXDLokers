@@ -14,7 +14,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
         do {
             let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
             print(json)
-            let items = json["items"] as! NSArray
+            let items = json[KEY_items] as! NSArray
             let item = items[0] as! NSDictionary
             UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
             UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")

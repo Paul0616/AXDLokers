@@ -20,6 +20,7 @@
 		DAC5A6A52240135E005C0425 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A42240135E005C0425 /* Assets.xcassets */; };
 		DAC5A6A82240135E005C0425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A62240135E005C0425 /* LaunchScreen.storyboard */; };
 		DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5A6B12240CF08005C0425 /* LogInViewController.swift */; };
+		DADC98FA224ABE6D00ABA881 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC98F9224ABE6D00ABA881 /* City.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		DAC5A6A72240135E005C0425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DAC5A6A92240135E005C0425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAC5A6B12240CF08005C0425 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		DADC98F9224ABE6D00ABA881 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
 				4026FBBD224A558A00924B64 /* AddAddressViewController.swift */,
 				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
+				DADC98F9224ABE6D00ABA881 /* City.swift */,
 			);
 			path = AXDLockers;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
 				DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */,
 				4016050622412CD100D57C14 /* Switcher.swift in Sources */,
+				DADC98FA224ABE6D00ABA881 /* City.swift in Sources */,
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
 				4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */,

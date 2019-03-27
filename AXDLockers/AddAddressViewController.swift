@@ -15,18 +15,33 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var zipCodeTextField: UITextField!
     @IBOutlet weak var tableCities: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
     
-    var cities: [String] = [String]()
+    var cities = [City]()
+    //var cities: [String] = [String]()
+    var selectedCityId: Int = 0
     let restRequests = RestRequests()
-    
+    let PAGE_SIZE: Int = 20
+    var isLoading: Bool = false
+    var isLastPage: Bool = true
+    var loadedPages: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         restRequests.delegate = self
         activityIndicator.startAnimating()
-        restRequests.checkForRequest(parameters: nil, requestID: CITIES_REQUEST)
+        saveBarButton.isEnabled = false
+        isLoading = true
+        let param = ["per-page": PAGE_SIZE] as NSDictionary
+        restRequests.checkForRequest(parameters: param, requestID: CITIES_REQUEST)
     }
+    @IBAction func onSave(_ sender: UIBarButtonItem) {
+        if streetTextField.text != "" && zipCodeTextField.text != "" && selectedCityId != 0 {
+            print("\(streetTextField.text) - \(zipCodeTextField.text) - \(selectedCityId)")
+        }
+    }
+    
     //MARK: -  UITableView protocol
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cities.count
@@ -34,26 +49,56 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath) as! CityTableViewCell
-        cell.textLabel?.text = cities[indexPath.row]
+        cell.textLabel?.text = cities[indexPath.row].name
         return cell
     }
-    //MARK: -  UISearchBar protocol
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == cities.count-1 && !isLoading && !isLastPage {
+            //we are at the last cell and need to load more
+            loadedPages = loadedPages + 1
+            let param = ["per-page": PAGE_SIZE, "page": loadedPages] as NSDictionary
+            restRequests.checkForRequest(parameters: param, requestID: CITIES_REQUEST)
+        }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCityId = cities[indexPath.row].id
+        makeButtonBarEnabled()
+    }
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        selectedCityId = 0
+        makeButtonBarEnabled()
+    }
+    //MARK: -  UISearchBar protocol
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        selectedCityId = 0
+        makeButtonBarEnabled()
+        cities.removeAll()
+        activityIndicator.startAnimating()
+        isLoading = true
+        let param = ["likeName": searchBar.text!, "per-page": PAGE_SIZE, "page": loadedPages] as NSDictionary
+        restRequests.checkForRequest(parameters: param, requestID: CITIES_REQUEST)
     }
-    
+    //MARK: - ButtonBarEnabled
+    func makeButtonBarEnabled(){
+        if streetTextField.text != "" && zipCodeTextField.text != "" && selectedCityId != 0 {
+            saveBarButton.isEnabled = true
+        } else {
+            saveBarButton.isEnabled = false
+        }
+    }
     //MARK: - UItextfieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         if textField == streetTextField {
             zipCodeTextField.becomeFirstResponder()
+            makeButtonBarEnabled()
         }
         
         if textField == zipCodeTextField {
             textField.resignFirstResponder()
+            makeButtonBarEnabled()
             //attemptLogin()
         }
         return true
@@ -66,37 +111,25 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func resultedData(data: Data!, requestID: Int) {
-        do {
-            activityIndicator.stopAnimating()
-            let json = try? JSON(data: data)
-            if json!.count > 0 {
-                for element in json! {
-                    print(element)
-                }
+        activityIndicator.stopAnimating()
+        isLoading = false
+        let json = try? JSON(data: data)
+        if let meta: JSON = getMeta(json: json) {
+            let currentPage = meta["currentPage"].int
+            if loadedPages != currentPage {
+                loadedPages = currentPage!
             }
-            if json?["createdBy"].type == SwiftyJSON.Type.string {
-                print("string")
-            }
-            if json?["createdBy"].type == SwiftyJSON.Type.null {
-                print("null")
-            }
-            let json1 = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-            
-            let items = json1["items"] as! NSArray
-            
-            if items.count > 0 {
-                for item in items {
-                    print(item)
-//                    if let object = item as! NSDictionary {
-//                        cities.append(object["name"] as String)
-//                    }
-                }
-            }
-            
-        } catch let error as NSError
-        {
-            print(error)
         }
+        isLastPage = isLastPageLoaded(json: json)
+        if let items: JSON = getItems(json: json), items.count > 0 {
+            for (_, value) in items {
+                let state = value[KEY_state][KEY_name].string!
+                let cityId = value[KEY_id].int!
+                let city = City.init(name: value[KEY_name].string! + ", " + state, id: cityId)!
+                cities.append(city)
+            }
+        }
+        tableCities.reloadData()
     }
     /*
     // MARK: - Navigation

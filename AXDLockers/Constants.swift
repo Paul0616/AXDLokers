@@ -21,11 +21,16 @@ let usersREST_Action = "users"
 let lockersREST_Action = "lockers"
 let citiesREST_Action = "cities"
 //REST Keys
-let emailREST_Key = "email"
-let passwordREST_Key = "password"
-let qrCodeREST_Key = "qrCode"
-let userIdREST_Key = "userId"
-let stateREST_Key = "state"
+let KEY_userEmail = "email"
+let KEY_password = "password"
+let KEY_qrCode = "qrCode"
+let KEY_userId = "userId"
+let KEY_state = "state"
+let KEY_name = "name"
+let KEY_items = "items"
+let KEY_meta = "_meta"
+let KEY_links = "_links"
+let KEY_id = "id"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
@@ -77,10 +82,42 @@ func encryptPassword(password: String) -> String {
     return digestHex
 }
 
-func getItems(json: NSDictionary!) -> NSArray {
+func getItems(json: JSON!) -> JSON! {
     //var items: NSDictionary
-    let items = json["items"] as! NSArray
+    var items:JSON!
+    for (key, value) in json! {
+        if key == KEY_items {
+            items = value
+            break
+        }
+    }
     return items
+}
+
+func getMeta(json: JSON!) -> JSON! {
+    //var items: NSDictionary
+    var items:JSON!
+    for (key, value) in json! {
+        if key == KEY_meta {
+            items = value
+            break
+        }
+    }
+    return items
+}
+
+func isLastPageLoaded(json: JSON!) -> Bool {
+    //var items: NSDictionary
+    var lastPage:Bool = true
+    for (key, value) in json! {
+        if key == KEY_links {
+            if value["next"].count > 0 {
+                lastPage = false
+            }
+            break
+        }
+    }
+    return lastPage
 }
 
 
