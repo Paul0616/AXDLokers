@@ -17,12 +17,14 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var zipCodeLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var addaddressButton: UIButton!
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
     
     @IBOutlet weak var lockerSizeTextField: UITextField!
     
     
     var activeField: UITextField?
-    
+    var address: Address!
     override func viewDidLoad() {
         super.viewDidLoad()
         lockerImage.tintColor = UIColor(red:0.70, green:0.76, blue:1.00, alpha:1.0)
@@ -30,6 +32,21 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
         lockerSizeTextField.delegate = self
         self.scrollView.isScrollEnabled = false
         addaddressButton.layer.cornerRadius = 6
+        
+        if let address = address {
+            streetLabel.text = address.street
+            cityLabel.text = address.cityName + ", " + address.stateName
+            zipCodeLabel.text = address.zipCode
+        }
+        if let number = UserDefaults.standard.value(forKeyPath: "lockerNumber") {
+            let nr = number as! String
+            lockerNumberTextField.text = nr
+        }
+        if let size = UserDefaults.standard.value(forKeyPath: "lockerSize") {
+            let sz = size as! String
+            lockerSizeTextField.text = sz
+        }
+        saveBarButton.isEnabled = validation()
         // Do any additional setup after loading the view.
     }
     
@@ -41,6 +58,13 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
         deregisterFromKeyboardNotifications()
     }
     
+    func validation() -> Bool {
+        if lockerNumberTextField.text != "" && address != nil && lockerSizeTextField.text != "" {
+            return true
+        } else {
+            return false
+        }
+    }
     func registerForKeyboardNotifications(){
         //Adding notifies on keyboard appearing
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -98,12 +122,15 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
     //MARK: - UItextfieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
+        saveBarButton.isEnabled = validation()
         if textField == lockerNumberTextField {
             lockerSizeTextField.becomeFirstResponder()
+            UserDefaults.standard.set(lockerNumberTextField.text, forKey: "lockerNumber")
         }
         
         if textField == lockerSizeTextField {
             textField.resignFirstResponder()
+            UserDefaults.standard.set(lockerSizeTextField.text, forKey: "lockerSize")
             //attemptLogin()
         }
         return true
@@ -119,6 +146,17 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
         activeField = nil
     }
     
+    @IBAction func cancelAction(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "lockerSize")
+        UserDefaults.standard.removeObject(forKey: "lockerNumber")
+        dismiss(animated: true, completion: nil)
+//        let scannerViewController = (self.storyboard?.instantiateViewController(withIdentifier: "initController"))!
+//        self.present(scannerViewController, animated: true, completion: nil)
+    }
+    @IBAction func saveAction(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "lockerSize")
+        UserDefaults.standard.removeObject(forKey: "lockerNumber")
+    }
     /*
     // MARK: - Navigation
 

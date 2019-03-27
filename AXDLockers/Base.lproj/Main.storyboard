@@ -138,8 +138,8 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="569  Dry Pine Bay Rd" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxn-FS-qYD">
-                                                <rect key="frame" x="101" y="442" width="150" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uxn-FS-qYD">
+                                                <rect key="frame" x="81" y="442" width="150" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="s7w-5l-K0O"/>
                                                 </constraints>
@@ -147,8 +147,8 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P0M 1N0" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsw-Uf-e1C">
-                                                <rect key="frame" x="101" y="467" width="150" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsw-Uf-e1C">
+                                                <rect key="frame" x="81" y="467" width="150" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="xUt-jN-3ii"/>
                                                 </constraints>
@@ -162,8 +162,8 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copper Cliff, Ontario" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-vx-0W7">
-                                                <rect key="frame" x="101" y="492" width="150" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-vx-0W7">
+                                                <rect key="frame" x="81" y="492" width="150" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="can-Uk-kYC"/>
                                                 </constraints>
@@ -178,18 +178,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3G0-sF-uDb">
-                                                <rect key="frame" x="259" y="442" width="100" height="50"/>
+                                                <rect key="frame" x="239" y="442" width="120" height="50"/>
                                                 <color key="backgroundColor" red="0.70044489379999997" green="0.76045788660000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Ysa-Uf-xO1"/>
-                                                    <constraint firstAttribute="width" constant="100" id="idU-VJ-sCJ"/>
+                                                    <constraint firstAttribute="width" constant="120" id="idU-VJ-sCJ"/>
                                                 </constraints>
-                                                <state key="normal" title="Add address">
+                                                <state key="normal" title="Choose address">
                                                     <color key="titleColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="addAddressAction:" destination="Em6-y4-DOe" eventType="touchUpInside" id="hnh-0M-vzr"/>
-                                                    <segue destination="34Z-m5-euB" kind="show" identifier="addAddressSegue" id="Lpr-Zq-7SG"/>
+                                                    <segue destination="OAW-Kb-8iJ" kind="show" id="ulY-I9-Ysv"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -253,15 +253,26 @@
                         <viewLayoutGuide key="safeArea" id="dEX-uE-SnG"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add locker" id="goT-Rw-Pnx">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="Gla-1k-fyv"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="iBk-A0-8yP">
+                            <connections>
+                                <action selector="cancelAction:" destination="Em6-y4-DOe" id="Ynw-rc-kKz"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="keH-DN-XPg">
+                            <connections>
+                                <action selector="saveAction:" destination="Em6-y4-DOe" id="e1Q-Ia-YEc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
                         <outlet property="addaddressButton" destination="3G0-sF-uDb" id="fge-Rx-9mx"/>
+                        <outlet property="cancelBarButton" destination="iBk-A0-8yP" id="cSY-Mr-d6T"/>
                         <outlet property="cityLabel" destination="xYF-vx-0W7" id="jhf-ry-HzM"/>
                         <outlet property="lockerImage" destination="dbB-7H-kOb" id="SiS-dn-ezX"/>
                         <outlet property="lockerNumberTextField" destination="Ru3-qO-LJE" id="VRU-LD-W7Z"/>
                         <outlet property="lockerSizeTextField" destination="WpZ-3w-ay7" id="3fl-iB-em7"/>
+                        <outlet property="saveBarButton" destination="keH-DN-XPg" id="SzS-wa-1aq"/>
                         <outlet property="scrollView" destination="tKh-a2-qol" id="EFS-pQ-oE1"/>
                         <outlet property="streetLabel" destination="Uxn-FS-qYD" id="d0u-cu-yEd"/>
                         <outlet property="zipCodeLabel" destination="wsw-Uf-e1C" id="8gM-td-BiT"/>
@@ -270,6 +281,89 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NcC-6c-MuG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2064.8000000000002" y="-73.763118440779621"/>
+        </scene>
+        <!--Choose address-->
+        <scene sceneID="HDs-1A-4JK">
+            <objects>
+                <tableViewController id="gOf-hk-H4b" customClass="ChooseAddressViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TXq-Bq-8oP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search by street name" id="c5B-m8-mVr">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressCell" rowHeight="130" id="o5c-bm-eni" customClass="AddressTableViewCell" customModule="AXDLockers" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o5c-bm-eni" id="lTT-vM-LtI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="129.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="11 Red Lake Hwy, Harrisburg, Pennsylvania, 30254" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7Y-Su-Ejz">
+                                            <rect key="frame" x="8" y="16" width="359" height="41"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uYo-eJ-fw9">
+                                            <rect key="frame" x="8" y="65" width="343" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdf-kO-jAF">
+                                            <rect key="frame" x="8" y="90" width="359" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Tdf-kO-jAF" secondAttribute="bottom" constant="16" id="0jl-u6-GZF"/>
+                                        <constraint firstItem="Tdf-kO-jAF" firstAttribute="leading" secondItem="lTT-vM-LtI" secondAttribute="leading" constant="8" id="0y1-ef-kv6"/>
+                                        <constraint firstItem="K7Y-Su-Ejz" firstAttribute="top" secondItem="lTT-vM-LtI" secondAttribute="top" constant="16" id="1fU-TP-iLo"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="uYo-eJ-fw9" secondAttribute="trailing" constant="8" id="8hp-Mo-dTB"/>
+                                        <constraint firstItem="uYo-eJ-fw9" firstAttribute="leading" secondItem="lTT-vM-LtI" secondAttribute="leading" constant="8" id="BXI-rA-bgD"/>
+                                        <constraint firstItem="uYo-eJ-fw9" firstAttribute="top" secondItem="K7Y-Su-Ejz" secondAttribute="bottom" constant="8" id="JoD-B7-pfy"/>
+                                        <constraint firstAttribute="trailing" secondItem="K7Y-Su-Ejz" secondAttribute="trailing" constant="8" id="R7N-ma-X0O"/>
+                                        <constraint firstItem="K7Y-Su-Ejz" firstAttribute="leading" secondItem="lTT-vM-LtI" secondAttribute="leading" constant="8" id="TmF-K3-rzy"/>
+                                        <constraint firstItem="Tdf-kO-jAF" firstAttribute="top" secondItem="uYo-eJ-fw9" secondAttribute="bottom" constant="8" id="drh-YD-PMh"/>
+                                        <constraint firstAttribute="trailing" secondItem="Tdf-kO-jAF" secondAttribute="trailing" constant="8" id="uyi-TB-qGK"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="cityNameLabel" destination="uYo-eJ-fw9" id="5HD-vc-yUO"/>
+                                    <outlet property="streetNameLabel" destination="K7Y-Su-Ejz" id="L69-1Q-ktd"/>
+                                    <outlet property="zipCodeLabel" destination="Tdf-kO-jAF" id="ACr-W0-f6b"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="gOf-hk-H4b" id="vYk-uf-A21"/>
+                            <outlet property="delegate" destination="gOf-hk-H4b" id="oLF-fA-V4h"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Choose address" id="ZGK-sb-dTT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Whn-Ip-oL2">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="34Z-m5-euB" kind="show" id="h0C-sJ-a2r"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="searchBar" destination="c5B-m8-mVr" id="5Oi-az-JjW"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="19q-3X-kc6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3655" y="-434"/>
         </scene>
         <!--Add Address View Controller-->
         <scene sceneID="qdb-oc-AEI">
@@ -280,7 +374,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BdL-1p-jfw">
-                                <rect key="frame" x="0.0" y="302" width="375" height="365"/>
+                                <rect key="frame" x="0.0" y="302" width="375" height="321"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityCell" id="noA-4g-FMJ" customClass="CityTableViewCell" customModule="AXDLockers" customModuleProvider="target">
@@ -382,7 +476,7 @@
                             <constraint firstItem="wMg-MX-t6q" firstAttribute="top" secondItem="55D-5e-kuV" secondAttribute="bottom" constant="16" id="vw4-x9-6Xd"/>
                             <constraint firstAttribute="trailing" secondItem="Qsy-pN-j8n" secondAttribute="trailing" id="wpZ-FG-A5K"/>
                             <constraint firstItem="55D-5e-kuV" firstAttribute="top" secondItem="UT4-zT-26m" secondAttribute="bottom" constant="8" id="xBE-e6-fCU"/>
-                            <constraint firstItem="BdL-1p-jfw" firstAttribute="bottom" secondItem="Qsy-pN-j8n" secondAttribute="bottom" id="xQf-PI-Snc"/>
+                            <constraint firstItem="BdL-1p-jfw" firstAttribute="bottom" secondItem="Qsy-pN-j8n" secondAttribute="top" id="xQf-PI-Snc"/>
                             <constraint firstItem="55D-5e-kuV" firstAttribute="top" secondItem="UT4-zT-26m" secondAttribute="bottom" constant="8" id="z6l-s9-ljh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dUG-Vh-L7A"/>
@@ -399,7 +493,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3KX-CU-jFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2940" y="-104.7976011994003"/>
+            <point key="canvasLocation" x="4584.8000000000002" y="-110.19490254872565"/>
         </scene>
         <!--Log In View Controller-->
         <scene sceneID="NaD-DE-8m3">
@@ -520,7 +614,7 @@
         <!--Navigation Controller-->
         <scene sceneID="tsN-LB-m5E">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2kW-wp-wh4" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigationAddLocker" automaticallyAdjustsScrollViewInsets="NO" id="2kW-wp-wh4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="rXZ-g2-dia">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -536,6 +630,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J8K-qO-JCH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1125.5999999999999" y="-74.212893553223395"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="l97-oY-fdn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OAW-Kb-8iJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="tMM-TW-g5t">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gOf-hk-H4b" kind="relationship" relationship="rootViewController" id="m4J-P9-ff5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1pa-Ci-cmi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2860" y="-782"/>
         </scene>
     </scenes>
     <resources>

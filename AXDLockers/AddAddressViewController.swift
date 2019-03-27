@@ -38,7 +38,7 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         if streetTextField.text != "" && zipCodeTextField.text != "" && selectedCityId != 0 {
-            print("\(streetTextField.text) - \(zipCodeTextField.text) - \(selectedCityId)")
+            print("\(streetTextField.text!) - \(zipCodeTextField.text!) - \(selectedCityId)")
         }
     }
     

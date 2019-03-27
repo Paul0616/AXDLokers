@@ -79,6 +79,9 @@ class RestRequests: NSObject {
                             case CITIES_REQUEST:
                                 self.getCities(parameters: parameters)
                                 break
+                            case ADDRESSES_REQUEST:
+                                self.getAddresses(parameters: parameters)
+                                break
                             default:
                                 print(requestID)
                             }
@@ -113,6 +116,9 @@ class RestRequests: NSObject {
                 break
             case CITIES_REQUEST:
                 self.getCities(parameters: parameters)
+                break
+            case ADDRESSES_REQUEST:
+                self.getAddresses(parameters: parameters)
                 break
             default:
                 print(requestID)
@@ -219,6 +225,38 @@ class RestRequests: NSObject {
         if let parameters = parameters, parameters.count > 0 {
             if let likeName = parameters["likeName"] {
                 param[addREST_Filter(parameters: [KEY_name, "like"])] = likeName
+            }
+            if let perPage = parameters["per-page"] {
+                param["per-page"] = perPage
+            }
+            if let page = parameters["page"] {
+                param["page"] = page
+            }
+        }
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: CHECK_USERS_REQUEST)
+            })
+    }
+    
+    func getAddresses(parameters: NSDictionary!) {
+        var url: String = getURL()
+        url.append(contentsOf: addressesREST_Action)
+        var param: Parameters = [
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String,
+            "expand": KEY_city+"."+KEY_state,
+            "sort": KEY_streetName
+        ]
+        if let parameters = parameters, parameters.count > 0 {
+            if let likeStreetName = parameters["likeStreetName"] {
+                param[addREST_Filter(parameters: [KEY_streetName, "like"])] = likeStreetName
             }
             if let perPage = parameters["per-page"] {
                 param["per-page"] = perPage

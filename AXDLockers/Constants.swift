@@ -20,6 +20,7 @@ let tokensREST_Action = "tokens"
 let usersREST_Action = "users"
 let lockersREST_Action = "lockers"
 let citiesREST_Action = "cities"
+let addressesREST_Action = "addresses"
 //REST Keys
 let KEY_userEmail = "email"
 let KEY_password = "password"
@@ -31,11 +32,15 @@ let KEY_items = "items"
 let KEY_meta = "_meta"
 let KEY_links = "_links"
 let KEY_id = "id"
+let KEY_streetName = "streetName"
+let KEY_city = "city"
+let KEY_zipCode = "zipCode"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
 let TOKEN_REQUEST = 3
 let CITIES_REQUEST = 4
+let ADDRESSES_REQUEST = 5
 
 func getURL() -> String {
     var url: String = ""
