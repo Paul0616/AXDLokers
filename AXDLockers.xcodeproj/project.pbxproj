@@ -13,6 +13,7 @@
 		4041FF05224B660800C27574 /* ChooseAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF04224B660800C27574 /* ChooseAddressViewController.swift */; };
 		4041FF07224B672800C27574 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF06224B672800C27574 /* Address.swift */; };
 		4041FF09224B710500C27574 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF08224B710500C27574 /* AddressTableViewCell.swift */; };
+		4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0A224CB11300C27574 /* AddResidentViewController.swift */; };
 		408B4AFD22437DC30044583B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFC22437DC30044583B /* Constants.swift */; };
 		408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFE2243A6C20044583B /* RestRequests.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
@@ -34,6 +35,7 @@
 		4041FF04224B660800C27574 /* ChooseAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAddressViewController.swift; sourceTree = "<group>"; };
 		4041FF06224B672800C27574 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		4041FF08224B710500C27574 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
+		4041FF0A224CB11300C27574 /* AddResidentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddResidentViewController.swift; sourceTree = "<group>"; };
 		408B4AFC22437DC30044583B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		408B4AFE2243A6C20044583B /* RestRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequests.swift; sourceTree = "<group>"; };
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
 				4026FBBD224A558A00924B64 /* AddAddressViewController.swift */,
 				DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */,
+				4041FF0A224CB11300C27574 /* AddResidentViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,

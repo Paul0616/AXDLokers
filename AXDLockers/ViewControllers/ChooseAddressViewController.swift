@@ -128,6 +128,7 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
    
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
+        isLoading = false
         self.showToast(message: "Error code: \(errorCode!)")
     }
     

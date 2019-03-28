@@ -30,6 +30,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     var address: Address!
     var qrCode: String!
     var lockerId: Int!
+    var isLoading: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,38 +163,51 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     }
     
     @IBAction func cancelAction(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "lockerSize")
-        UserDefaults.standard.removeObject(forKey: "lockerNumber")
-        UserDefaults.standard.removeObject(forKey: "address")
-        dismiss(animated: true, completion: nil)
+        if !isLoading {
+            UserDefaults.standard.removeObject(forKey: "lockerSize")
+            UserDefaults.standard.removeObject(forKey: "lockerNumber")
+            UserDefaults.standard.removeObject(forKey: "address")
+            dismiss(animated: true, completion: nil)
+        }
 //        let scannerViewController = (self.storyboard?.instantiateViewController(withIdentifier: "initController"))!
 //        self.present(scannerViewController, animated: true, completion: nil)
     }
     @IBAction func saveAction(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "lockerSize")
-        UserDefaults.standard.removeObject(forKey: "lockerNumber")
-        UserDefaults.standard.removeObject(forKey: "address")
-        let now = (Date().timeIntervalSince1970 as Double).rounded()
-        let param = [
-            KEY_qrCode: qrCode!,
-            KEY_number: lockerNumberTextField.text!,
-            KEY_size: lockerSizeTextField.text!,
-            KEY_addressId: address.id,
-            "createdAt": now,
-            "updatedAt": now
-            ] as [String : Any]
-        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
+        if !isLoading {
+            if lockerId != nil {
+                showAlert()
+            } else {
+                UserDefaults.standard.removeObject(forKey: "lockerSize")
+                UserDefaults.standard.removeObject(forKey: "lockerNumber")
+                UserDefaults.standard.removeObject(forKey: "address")
+                isLoading = true
+                let now = (Date().timeIntervalSince1970 as Double).rounded()
+                let param = [
+                    KEY_qrCode: qrCode!,
+                    KEY_number: lockerNumberTextField.text!,
+                    KEY_size: lockerSizeTextField.text!,
+                    KEY_addressId: address.id,
+                    "createdAt": now,
+                    "updatedAt": now
+                    ] as [String : Any]
+                restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
+            }
+        }
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
+        isLoading = false
         self.showToast(message: "Error code: \(errorCode!)")
     }
     
     func resultedData(data: Data!, requestID: Int) {
         //activityIndicatorView.stopAnimating()
+        isLoading = false
         let json = try? JSON(data: data)
         lockerId = json![KEY_id].int
+        qrCode = json![KEY_qrCode].string
+        showAlert()
     }
     
     private func showAlert(){
@@ -202,7 +216,13 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             print("OK")
-           // self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
+
+            weak var pvc = self.presentingViewController
+            UserDefaults.standard.set(true, forKey: "codeWasdetected")
+            self.dismiss(animated: true, completion: {
+                pvc?.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+            })
+           // self.performSegue(withIdentifier: "newLockerToResidentsSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
             print("Cancel")
@@ -210,14 +230,19 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
         }))
         self.present(alertController, animated: true, completion: nil)
     }
-    /*
+  
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+//        if segue.identifier == "newLockerToResidentsSegue" {
+//            let navigationcontroller = segue.destination as? UINavigationController
+//            let dest = navigationcontroller?.viewControllers.first as! AddResidentViewController
+//            dest.qrCode = qrCode
+//        }
     }
-    */
+   
 
 }

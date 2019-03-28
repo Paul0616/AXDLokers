@@ -87,7 +87,17 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
 
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        if let code = UserDefaults.standard.object(forKey: "codeWasdetected") as? Bool {
+            codeWasdetected = code
+            print("TRUE")
+        } else {
+            codeWasdetected = false
+        }
+    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        codeWasdetected = false
+//    }
     
     @IBAction func logOutAction(_ sender: UIButton) {
         UserDefaults.standard.removeObject(forKey: "token")
@@ -109,8 +119,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             
             let items = json[KEY_items] as! NSArray
             print(items.count)
-            if items.count > 0 {
+            if items.count > 0 && codeWasdetected == true {
                 print("item found")
+                
+                self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
             } else {
                showAlert()
             }
@@ -126,7 +138,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             print("OK")
-            self.codeWasdetected = false
+            //self.codeWasdetected = false
             self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
@@ -177,7 +189,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let dest = navigationcontroller?.viewControllers.first as! AddLockerViewController
             dest.qrCode = qrCode
         }
+        if segue.identifier == "existingLockerToResidentsSegue" {
+            let navigationcontroller = segue.destination as? UINavigationController
+            let dest = navigationcontroller?.viewControllers.first as! AddResidentViewController
+            dest.qrCode = qrCode
+        }
     }
+    
 }
 extension UIViewController {
     

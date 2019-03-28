@@ -67,7 +67,7 @@ class RestRequests: NSObject {
                             UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
                             switch (requestID) {
                             case LOCKERS_REQUEST:
-                                self.getLockers(qrCode: parameters)
+                                self.getLockers(parameters: parameters)
                                 break
                             case CHECK_USERS_REQUEST:
                                 let userId = parameters[KEY_userId] as! Int
@@ -111,7 +111,7 @@ class RestRequests: NSObject {
         else {
             switch (requestID) {
             case LOCKERS_REQUEST:
-                self.getLockers(qrCode: parameters)
+                self.getLockers(parameters: parameters)
                 break
             case CHECK_USERS_REQUEST:
                 let userId = parameters[KEY_userId] as! Int
@@ -156,6 +156,8 @@ class RestRequests: NSObject {
         } catch {
             print("Error \(error)")
         }
+        print(request.url!)
+        print(JSON(request.httpBody!))
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
                 let message = "Connection error: \(String(describing: response.result.error!))"
@@ -198,15 +200,18 @@ class RestRequests: NSObject {
         
     }
     
-    func getLockers(qrCode: NSDictionary!){
+    func getLockers(parameters: NSDictionary!){
         var url: String = getURL()
         url.append(contentsOf: lockersREST_Action)
         var param: Parameters = [
             //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
             addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
         ]
-        if let qrCode = qrCode{
-            param[addREST_Filter(parameters: [KEY_qrCode])] = qrCode[KEY_qrCode]
+        if let p = parameters{
+            param[addREST_Filter(parameters: [KEY_qrCode])] = p[KEY_qrCode]
+            if p["expand"] != nil {
+                param["expand"] = p["expand"]
+            }
         }
         
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)

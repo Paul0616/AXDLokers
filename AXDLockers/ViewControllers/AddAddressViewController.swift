@@ -121,6 +121,7 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     //MARK: - RestRequest protocol
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
+        isLoading = false
         self.showToast(message: "Error code: \(errorCode!)")
     }
     
@@ -155,6 +156,7 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                     print("OK")
                     self.navigationController?.popViewController(animated: true)
+                    
                 }))
                 
                 self.present(alertController, animated: true, completion: nil)

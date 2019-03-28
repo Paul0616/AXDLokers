@@ -39,6 +39,7 @@ let KEY_zipCode = "zipCode"
 let KEY_number = "number"
 let KEY_size = "size"
 let KEY_addressId = "addressId"
+let KEY_address = "address"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
