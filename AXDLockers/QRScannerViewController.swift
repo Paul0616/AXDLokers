@@ -26,7 +26,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     var codeWasdetected: Bool = false
     
     let restRequests = RestRequests()
-    
+    var qrCode: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,8 +77,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         // Initialize QR Code Frame to highlight the QR code
         qrCodeFrameView = UIView()
-        //messageFrameView = UIView()
-       // msgLabel = UILabel()
+     
         
         if let qrCodeFrameView = qrCodeFrameView {
             qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
@@ -88,10 +87,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
 
     }
-//    @IBAction func closePopupAction(_ sender: UIButton) {
-//        codeWasdetected = false
-//        //messageFrame.isHidden = true
-//    }
+
     
     @IBAction func logOutAction(_ sender: UIButton) {
         UserDefaults.standard.removeObject(forKey: "token")
@@ -130,6 +126,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             print("OK")
+            self.codeWasdetected = false
             self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
@@ -165,10 +162,20 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                // generator.impactOccurred()
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
-                
+                qrCode = metadataObj.stringValue
                 let param = [KEY_qrCode: metadataObj.stringValue!] as NSDictionary
                 restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "addLockerSegue" {
+            let navigationcontroller = segue.destination as? UINavigationController
+            let dest = navigationcontroller?.viewControllers.first as! AddLockerViewController
+            dest.qrCode = qrCode
         }
     }
 }

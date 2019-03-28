@@ -36,12 +36,18 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         tableView.backgroundView = activityIndicatorView
         tableView.estimatedRowHeight = 85
         searchBar.delegate = self
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        addresses.removeAll()
         isLoading = true
         activityIndicatorView.startAnimating()
         let param = ["per-page": PAGE_SIZE] as NSDictionary
         restRequests.checkForRequest(parameters: param, requestID: ADDRESSES_REQUEST)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         if self.isBeingDismissed {
             var controller: UINavigationController
@@ -85,10 +91,10 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedAddressId = addresses[indexPath.row].id
-        var controller: UINavigationController
-        controller = self.storyboard?.instantiateViewController(withIdentifier: "navigationAddLocker") as! UINavigationController
-        let dest = controller.viewControllers.first as! AddLockerViewController
-        dest.address = addresses[indexPath.row]
+//        var controller: UINavigationController
+//        controller = self.storyboard?.instantiateViewController(withIdentifier: "navigationAddLocker") as! UINavigationController
+//        let dest = controller.viewControllers.first as! AddLockerViewController
+//        dest.address = addresses[indexPath.row]
         //dismiss(animated: true, completion: nil)
 //        self.present(controller, animated: true, completion: { () -> Void in
 //            dispatch_after(0, dispatch_get_main_queue(), { () -> Void in
@@ -96,6 +102,14 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
 //
 //            })
 //        })
+        let userDefaults = UserDefaults.standard
+        do {
+        let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: addresses[indexPath.row], requiringSecureCoding: false)
+        userDefaults.set(encodedData, forKey: "address")
+        userDefaults.synchronize()
+        } catch {
+            print("can't save current address")
+        }
         self.dismiss(animated: false, completion:  nil)
     }
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -137,7 +151,7 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
                 let state = value[KEY_city][KEY_state][KEY_name].string!
                 let addressId = value[KEY_id].int!
                 let zipCode = value[KEY_zipCode].string!
-                let address = Address.init(street: street, id: addressId, cityName: city, stateName: state, zipCode: zipCode)!
+                let address = Address.init(street: street, id: addressId, cityName: city, stateName: state, zipCode: zipCode)
                 addresses.append(address)
             }
         }

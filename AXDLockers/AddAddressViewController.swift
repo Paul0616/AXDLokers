@@ -25,6 +25,8 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     var isLoading: Bool = false
     var isLastPage: Bool = true
     var loadedPages: Int = 0
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +41,19 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         if streetTextField.text != "" && zipCodeTextField.text != "" && selectedCityId != 0 {
             print("\(streetTextField.text!) - \(zipCodeTextField.text!) - \(selectedCityId)")
+            activityIndicator.startAnimating()
+            isLoading = true
+            let now = (Date().timeIntervalSince1970 as Double).rounded()
+            let param = [
+                KEY_cityId: selectedCityId,
+                KEY_zipCode: zipCodeTextField.text!,
+                KEY_streetName: streetTextField.text!,
+                "createdAt": now,
+                "updatedAt": now
+                ] as [String : Any]
+            restRequests.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_ADDRESS_REQUEST)
         }
+       //  self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: -  UITableView protocol
@@ -114,22 +128,38 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
         activityIndicator.stopAnimating()
         isLoading = false
         let json = try? JSON(data: data)
-        if let meta: JSON = getMeta(json: json) {
-            let currentPage = meta["currentPage"].int
-            if loadedPages != currentPage {
-                loadedPages = currentPage!
+        print(requestID)
+        if requestID == CITIES_REQUEST {
+            if let meta: JSON = getMeta(json: json) {
+                let currentPage = meta["currentPage"].int
+                if loadedPages != currentPage {
+                    loadedPages = currentPage!
+                }
+            }
+            isLastPage = isLastPageLoaded(json: json)
+            if let items: JSON = getItems(json: json), items.count > 0 {
+                for (_, value) in items {
+                    let state = value[KEY_state][KEY_name].string!
+                    let cityId = value[KEY_id].int!
+                    let city = City.init(name: value[KEY_name].string! + ", " + state, id: cityId)!
+                    cities.append(city)
+                }
+            }
+            tableCities.reloadData()
+        }
+        if requestID == INSERT_ADDRESS_REQUEST {
+            if json!.count > 0 {
+                let alertController = UIAlertController(title: "Address added",
+                                                        message: "Address was succsesfully added.",
+                    preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    print("OK")
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                
+                self.present(alertController, animated: true, completion: nil)
             }
         }
-        isLastPage = isLastPageLoaded(json: json)
-        if let items: JSON = getItems(json: json), items.count > 0 {
-            for (_, value) in items {
-                let state = value[KEY_state][KEY_name].string!
-                let cityId = value[KEY_id].int!
-                let city = City.init(name: value[KEY_name].string! + ", " + state, id: cityId)!
-                cities.append(city)
-            }
-        }
-        tableCities.reloadData()
     }
     /*
     // MARK: - Navigation

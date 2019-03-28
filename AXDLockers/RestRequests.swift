@@ -82,6 +82,12 @@ class RestRequests: NSObject {
                             case ADDRESSES_REQUEST:
                                 self.getAddresses(parameters: parameters)
                                 break
+                            case INSERT_LOCKER_REQUEST:
+                                self.postLocker(body: parameters)
+                                break
+                            case INSERT_ADDRESS_REQUEST:
+                                self.postAddress(body: parameters)
+                                break
                             default:
                                 print(requestID)
                             }
@@ -120,55 +126,78 @@ class RestRequests: NSObject {
             case ADDRESSES_REQUEST:
                 self.getAddresses(parameters: parameters)
                 break
+            case INSERT_LOCKER_REQUEST:
+                self.postLocker(body: parameters)
+                break
+            case INSERT_ADDRESS_REQUEST:
+                self.postAddress(body: parameters)
+                break
             default:
                 print(requestID)
             }
         }
 
     }
-//    func queryString(_ value: String, params: Parameters) -> String? {
-//        var components = URLComponents(string: value)
-//        components?.queryItems = params.mapValues{ element in URLQueryItem(name: (element as AnyObject).key!, value: (element as AnyObject).value) }
-//        
-//        return components?.url?.absoluteString
-//    }
-//    func postAddress(body: JSON){
-//        var url: String = getURL()
-//        url.append(contentsOf: citiesREST_Action)
-//        
-//        let param: Parameters = [
-//            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
-//            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
-//        ]
-//        let query = queryString(url, params: param)!
-//        var request = URLRequest(url: URL(string: query)!)
-//        request.httpMethod = HTTPMethod.post.rawValue
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        
-//        let pjson = body.rawString()
-//        let data = (pjson?.data(using: .utf8))! as Data
-//        
-//        request.httpBody = data
-//    
-//        Alamofire.request(request).responseJSON { (response) in
-//            
-//            
-//            print(response)
-//            
-//        }
-//        
-//        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
-//            .validate()
-//            .responseJSON(completionHandler: {response in
-//                guard response.result.isSuccess else {
-//                    let message = "Connection error: \(String(describing: response.result.error!))"
-//                    let statusCode = response.response?.statusCode
-//                    self.delegate?.treatErrors(statusCode, errorMessage: message)
-//                    return
-//                }
-//                self.delegate?.resultedData(data: response.data!, requestID: LOCKERS_REQUEST)
-//            })
-//    }
+    func postLocker(body: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: lockersREST_Action)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!))"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: INSERT_LOCKER_REQUEST)
+        }
+            
+    }
+    
+    func postAddress(body: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: addressesREST_Action)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: INSERT_ADDRESS_REQUEST)
+        }
+        
+    }
+    
     func getLockers(qrCode: NSDictionary!){
         var url: String = getURL()
         url.append(contentsOf: lockersREST_Action)
@@ -242,7 +271,7 @@ class RestRequests: NSObject {
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
                 }
-                self.delegate?.resultedData(data: response.data!, requestID: CHECK_USERS_REQUEST)
+                self.delegate?.resultedData(data: response.data!, requestID: CITIES_REQUEST)
             })
     }
     
@@ -274,7 +303,7 @@ class RestRequests: NSObject {
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
                 }
-                self.delegate?.resultedData(data: response.data!, requestID: CHECK_USERS_REQUEST)
+                self.delegate?.resultedData(data: response.data!, requestID: ADDRESSES_REQUEST)
             })
     }
 }

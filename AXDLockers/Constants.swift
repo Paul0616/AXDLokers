@@ -34,13 +34,19 @@ let KEY_links = "_links"
 let KEY_id = "id"
 let KEY_streetName = "streetName"
 let KEY_city = "city"
+let KEY_cityId = "cityId"
 let KEY_zipCode = "zipCode"
+let KEY_number = "number"
+let KEY_size = "size"
+let KEY_addressId = "addressId"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
 let TOKEN_REQUEST = 3
 let CITIES_REQUEST = 4
 let ADDRESSES_REQUEST = 5
+let INSERT_LOCKER_REQUEST = 6
+let INSERT_ADDRESS_REQUEST = 7
 
 func getURL() -> String {
     var url: String = ""

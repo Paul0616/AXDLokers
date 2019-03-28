@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class AddLockerViewController: UIViewController, UITextFieldDelegate {
+class AddLockerViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate {
+   
+    
 
     @IBOutlet weak var lockerImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -22,9 +25,12 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var lockerSizeTextField: UITextField!
     
-    
+    let restRequest = RestRequests()
     var activeField: UITextField?
     var address: Address!
+    var qrCode: String!
+    var lockerId: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         lockerImage.tintColor = UIColor(red:0.70, green:0.76, blue:1.00, alpha:1.0)
@@ -32,11 +38,23 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
         lockerSizeTextField.delegate = self
         self.scrollView.isScrollEnabled = false
         addaddressButton.layer.cornerRadius = 6
-        
-        if let address = address {
-            streetLabel.text = address.street
-            cityLabel.text = address.cityName + ", " + address.stateName
-            zipCodeLabel.text = address.zipCode
+        restRequest.delegate = self
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        registerForKeyboardNotifications()
+        if let decoded  = UserDefaults.standard.data(forKey: "address") {
+            do {
+                address = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decoded) as? Address//unarchivedObject(ofClass: Address.self, from: decoded)
+            } catch {
+                print("Address could not be unarchived")
+            }
+            if let address = address {
+                streetLabel.text = address.street
+                cityLabel.text = address.cityName + ", " + address.stateName
+                zipCodeLabel.text = address.zipCode
+            }
         }
         if let number = UserDefaults.standard.value(forKeyPath: "lockerNumber") {
             let nr = number as! String
@@ -46,12 +64,9 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
             let sz = size as! String
             lockerSizeTextField.text = sz
         }
+        
+        
         saveBarButton.isEnabled = validation()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        registerForKeyboardNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -149,6 +164,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancelAction(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "lockerSize")
         UserDefaults.standard.removeObject(forKey: "lockerNumber")
+        UserDefaults.standard.removeObject(forKey: "address")
         dismiss(animated: true, completion: nil)
 //        let scannerViewController = (self.storyboard?.instantiateViewController(withIdentifier: "initController"))!
 //        self.present(scannerViewController, animated: true, completion: nil)
@@ -156,6 +172,43 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate {
     @IBAction func saveAction(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "lockerSize")
         UserDefaults.standard.removeObject(forKey: "lockerNumber")
+        UserDefaults.standard.removeObject(forKey: "address")
+        let now = (Date().timeIntervalSince1970 as Double).rounded()
+        let param = [
+            KEY_qrCode: qrCode!,
+            KEY_number: lockerNumberTextField.text!,
+            KEY_size: lockerSizeTextField.text!,
+            KEY_addressId: address.id,
+            "createdAt": now,
+            "updatedAt": now
+            ] as [String : Any]
+        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
+    }
+    
+    func treatErrors(_ errorCode: Int!, errorMessage: String) {
+        print(errorMessage)
+        self.showToast(message: "Error code: \(errorCode!)")
+    }
+    
+    func resultedData(data: Data!, requestID: Int) {
+        //activityIndicatorView.stopAnimating()
+        let json = try? JSON(data: data)
+        lockerId = json![KEY_id].int
+    }
+    
+    private func showAlert(){
+        let alertController = UIAlertController(title: "Locker added",
+                                                message: "Locker #\(lockerNumberTextField.text!) was succsesfully added. You want to continue with resident assignment for this locker?",
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            print("OK")
+           // self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
+            print("Cancel")
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertController, animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation
