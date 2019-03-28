@@ -91,25 +91,49 @@
 		DAC5A69C2240135D005C0425 /* AXDLockers */ = {
 			isa = PBXGroup;
 			children = (
+				DADC98FD224CAE6900ABA881 /* models */,
+				DADC98FC224CAE4B00ABA881 /* utils */,
+				DADC98FB224CAE0300ABA881 /* ViewControllers */,
 				DAC5A69D2240135D005C0425 /* AppDelegate.swift */,
-				DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */,
 				DAC5A6A12240135D005C0425 /* Main.storyboard */,
-				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
 				DAC5A6A42240135E005C0425 /* Assets.xcassets */,
 				DAC5A6A62240135E005C0425 /* LaunchScreen.storyboard */,
 				DAC5A6A92240135E005C0425 /* Info.plist */,
-				4016050522412CD100D57C14 /* Switcher.swift */,
-				408B4AFC22437DC30044583B /* Constants.swift */,
-				408B4AFE2243A6C20044583B /* RestRequests.swift */,
-				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
-				4026FBBD224A558A00924B64 /* AddAddressViewController.swift */,
-				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
-				DADC98F9224ABE6D00ABA881 /* City.swift */,
-				4041FF04224B660800C27574 /* ChooseAddressViewController.swift */,
-				4041FF06224B672800C27574 /* Address.swift */,
-				4041FF08224B710500C27574 /* AddressTableViewCell.swift */,
 			);
 			path = AXDLockers;
+			sourceTree = "<group>";
+		};
+		DADC98FB224CAE0300ABA881 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
+				4041FF08224B710500C27574 /* AddressTableViewCell.swift */,
+				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
+				4041FF04224B660800C27574 /* ChooseAddressViewController.swift */,
+				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
+				4026FBBD224A558A00924B64 /* AddAddressViewController.swift */,
+				DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		DADC98FC224CAE4B00ABA881 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				4016050522412CD100D57C14 /* Switcher.swift */,
+				408B4AFE2243A6C20044583B /* RestRequests.swift */,
+				408B4AFC22437DC30044583B /* Constants.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		DADC98FD224CAE6900ABA881 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				4041FF06224B672800C27574 /* Address.swift */,
+				DADC98F9224ABE6D00ABA881 /* City.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 		E350AAC00F67FA3937BF4085 /* Pods */ = {

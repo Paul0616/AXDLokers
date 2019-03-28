@@ -36,8 +36,6 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         tableView.backgroundView = activityIndicatorView
         tableView.estimatedRowHeight = 85
         searchBar.delegate = self
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
