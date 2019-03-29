@@ -22,7 +22,7 @@ let lockersREST_Action = "lockers"
 let citiesREST_Action = "cities"
 let addressesREST_Action = "addresses"
 let lockerHistoryREST_Action = "locker-history"
-let buildingREST_Action = "building"
+let buildingREST_Action = "buildings"
 let building_ResidentREST_action = "building-resident"
 let residentsRESTAction = "residents"
 let getByBuildingRESTAction = "get-by-building"
@@ -58,6 +58,7 @@ let KEY_lastName = "lastName"
 let KEY_email = "email"
 let KEY_phone = "phoneNumber"
 let KEY_securityCode = "securityCode"
+let KEY_searchText = "searchText"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
@@ -70,6 +71,7 @@ let LOCKER_HISTORY_REQUEST = 8
 let BUILDING_REQUEST = 9
 let BUILDING_RESIDENTS_REQUEST = 10
 let GET_BY_BUILDING_REQUEST = 11
+let BUILDING_ID_REQUEST = 12
 
 func getURL() -> String {
     var url: String = ""

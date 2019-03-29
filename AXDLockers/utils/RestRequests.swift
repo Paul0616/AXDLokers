@@ -100,6 +100,9 @@ class RestRequests: NSObject {
                             case GET_BY_BUILDING_REQUEST:
                                 self.getByBuilding(parameters: parameters)
                                 break
+                            case BUILDING_ID_REQUEST:
+                                self.getBuildingWithId(parameters: parameters)
+                                break
                             default:
                                 print(requestID)
                             }
@@ -155,6 +158,9 @@ class RestRequests: NSObject {
                 break
             case GET_BY_BUILDING_REQUEST:
                 self.getByBuilding(parameters: parameters)
+                break
+            case BUILDING_ID_REQUEST:
+                self.getBuildingWithId(parameters: parameters)
                 break
             default:
                 print(requestID)
@@ -275,15 +281,58 @@ class RestRequests: NSObject {
             })
     }
     
+    func getBuildingWithId(parameters: NSDictionary!){
+        var url: String = getURL()
+        url.append(contentsOf: buildingREST_Action)
+        if let buildingId = parameters["id"] {
+            url.append(contentsOf: "/\(buildingId)")
+        }
+        var param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String,
+            "sort": KEY_name
+        ]
+        if let expand = parameters["expand"] {
+            param["expand"] = expand
+        }
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    print("TREAT")
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: BUILDING_ID_REQUEST)
+            })
+    }
+    
     func getBuilding(parameters: NSDictionary!){
         var url: String = getURL()
         url.append(contentsOf: buildingREST_Action)
+        
         var param: Parameters = [
             //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
-            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String,
+            "sort": KEY_name
         ]
-        if let p = parameters{
-            param[addREST_Filter(parameters: [KEY_buildingUniqueNumber])] = p[KEY_buildingUniqueNumber]
+        if let expand = parameters["expand"] {
+            param["expand"] = expand
+        }
+        if let p = parameters[KEY_buildingUniqueNumber] {
+            param[addREST_Filter(parameters: [KEY_buildingUniqueNumber])] = p
+        }
+        if let p = parameters[KEY_searchText] {
+            param[addREST_Filter(parameters: ["or","",KEY_buildingUniqueNumber,"like"])] = p
+            param[addREST_Filter(parameters: ["or","",KEY_name,"like"])] = p
+        }
+        if let perPage = parameters["per-page"] {
+            param["per-page"] = perPage
+        }
+        if let page = parameters["page"] {
+            param["page"] = page
         }
         
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
@@ -291,6 +340,7 @@ class RestRequests: NSObject {
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
                     let message = "Connection error: \(String(describing: response.result.error!))"
+                    print("TREAT")
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return

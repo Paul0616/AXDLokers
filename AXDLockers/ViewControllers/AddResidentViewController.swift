@@ -24,16 +24,18 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var sendButtonBar: UIBarButtonItem!
     var qrCode: String!
     var currentBuildingId: Int!
     let restRequest = RestRequests()
     var residents: [Resident] = [Resident]()
-    var filteredResidents: [Resident] = [Resident]()
+    
     let PAGE_SIZE: Int = 20
     var isLoading: Bool = false
     var isLastPage: Bool = true
 //    var isFiltered: Bool = false
     var loadedPages: Int = 0
+    var selectedResident: Resident!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,31 +44,50 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         lockerImage.tintColor = UIColor(red:0.70, green:0.76, blue:1.00, alpha:1.0)
         restRequest.delegate = self
         searchBar.delegate = self
+        refreshButton()
+        refreshBuilding()
+       
+    }
+    
+
+    @IBAction func onTapViewBuilding(_ sender: UITapGestureRecognizer) {
+        buildingAddressLabel.text = "-"
+        buldingUniqueNumberLabel.text = "-"
+        performSegue(withIdentifier: "chooseBuildingSegue", sender: nil)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.removeObject(forKey: "codeWasdetected")
+        
+    }
+    
+    @IBAction func onSend(_ sender: Any) {
+    }
+    @IBAction func onCancel(_ sender: Any) {
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func refreshBuilding(){
         if qrCode != nil {
             activityIndicator.startAnimating()
             isLoading = true
+            isLastPage = true
+            loadedPages = 0
+            residents.removeAll()
             let param = [
                 KEY_qrCode: qrCode!,
                 "expand": KEY_address + "." + KEY_city + "." + KEY_state
                 ] as NSDictionary
             restRequest.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
         }
-       
     }
-    
-
-    @IBAction func onTapViewBuilding(_ sender: UITapGestureRecognizer) {
-        print("TAAAAAAP")
+    func refreshButton(){
+        if selectedResident != nil {
+            sendButtonBar.isEnabled = true
+        } else {
+            sendButtonBar.isEnabled = false
+        }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        UserDefaults.standard.removeObject(forKey: "codeWasdetected")
-    }
-    
-    @IBAction func onCancel(_ sender: Any) {
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
         self.showToast(message: "Error code: \(errorCode!)")
@@ -87,8 +108,15 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     lockeraddressLabel.text = street+", "+city+", "+state+", "+zipCode
                     break
                 }
-                let param = [KEY_qrCode: qrCode!] as NSDictionary
-                restRequest.checkForRequest(parameters: param, requestID: LOCKER_HISTORY_REQUEST)
+                if currentBuildingId == nil {
+                    let param = [KEY_qrCode: qrCode!] as NSDictionary
+                    restRequest.checkForRequest(parameters: param, requestID: LOCKER_HISTORY_REQUEST)
+                } else {
+                    let param = [KEY_id: currentBuildingId!, "expand": KEY_address + "." + KEY_city + "." + KEY_state] as NSDictionary
+                    restRequest.checkForRequest(parameters: param, requestID: BUILDING_ID_REQUEST)
+//                    var param = ["per-page": PAGE_SIZE, KEY_buildingId: currentBuildingId!]
+//                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+                }
             }
         }
         if requestID == LOCKER_HISTORY_REQUEST {
@@ -97,7 +125,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             if let items: JSON = getItems(json: json){
                 for (_, value) in items {
                     buldingUniqueNumberLabel.text = value[KEY_buildingUniqueNumber].string!
-                    buildingAddressLabel.text = value[KEY_buildingAddress].string!
+                    buildingAddressLabel.text = value[KEY_name].string! + ", " + value[KEY_buildingAddress].string!
                     break
                 }
                 if  buldingUniqueNumberLabel.text != "-" {
@@ -125,6 +153,22 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             }
             restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
         }
+        
+        if requestID == BUILDING_ID_REQUEST {
+            if json!.count > 0 {
+                buldingUniqueNumberLabel.text = json![KEY_buildingUniqueNumber].string!
+                buildingAddressLabel.text = json![KEY_name].string! + ", " + json![KEY_address][KEY_streetName].string! + ", " + json![KEY_address][KEY_city][KEY_name].string! + ", " + json![KEY_address][KEY_city][KEY_state][KEY_name].string!
+            } else {
+                buldingUniqueNumberLabel.text = "-"
+                buildingAddressLabel.text = "-"
+            }
+            var param = ["per-page": PAGE_SIZE]
+            if currentBuildingId != nil {
+                param[KEY_buildingId] = currentBuildingId!
+            }
+            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+        }
+        
         if requestID == GET_BY_BUILDING_REQUEST {
             isLoading = false
             activityIndicator.stopAnimating()
@@ -187,7 +231,8 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        selectedResident = residents[indexPath.row]
+        self.refreshButton()
        // tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
     
@@ -207,6 +252,14 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             param[KEY_residentName] = searchBar.text!
         }
         restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+    }
+    @IBAction func unwindToResidents(sender: UIStoryboardSegue) {
+      
+        if let sourceViewController = sender.source as? ChooseBuildingViewController {
+            currentBuildingId = sourceViewController.selectedBuildingId
+            refreshButton()
+            refreshBuilding()
+        }
     }
     /*
     // MARK: - Navigation

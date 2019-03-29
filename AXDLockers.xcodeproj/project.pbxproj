@@ -14,6 +14,9 @@
 		4041FF07224B672800C27574 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF06224B672800C27574 /* Address.swift */; };
 		4041FF09224B710500C27574 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF08224B710500C27574 /* AddressTableViewCell.swift */; };
 		4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0A224CB11300C27574 /* AddResidentViewController.swift */; };
+		4041FF0D224E047300C27574 /* ChooseBuildingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */; };
+		4041FF0F224E082900C27574 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0E224E082900C27574 /* Building.swift */; };
+		4041FF11224E0B2E00C27574 /* BuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */; };
 		408B4AFD22437DC30044583B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFC22437DC30044583B /* Constants.swift */; };
 		408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFE2243A6C20044583B /* RestRequests.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
@@ -38,6 +41,9 @@
 		4041FF06224B672800C27574 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		4041FF08224B710500C27574 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
 		4041FF0A224CB11300C27574 /* AddResidentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddResidentViewController.swift; sourceTree = "<group>"; };
+		4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBuildingViewController.swift; sourceTree = "<group>"; };
+		4041FF0E224E082900C27574 /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
+		4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTableViewCell.swift; sourceTree = "<group>"; };
 		408B4AFC22437DC30044583B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		408B4AFE2243A6C20044583B /* RestRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequests.swift; sourceTree = "<group>"; };
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,12 +121,14 @@
 				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
 				DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */,
 				4041FF08224B710500C27574 /* AddressTableViewCell.swift */,
+				4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */,
 				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
 				4041FF04224B660800C27574 /* ChooseAddressViewController.swift */,
 				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
 				4026FBBD224A558A00924B64 /* AddAddressViewController.swift */,
 				DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */,
 				4041FF0A224CB11300C27574 /* AddResidentViewController.swift */,
+				4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -141,6 +149,7 @@
 				4041FF06224B672800C27574 /* Address.swift */,
 				DADC98F9224ABE6D00ABA881 /* City.swift */,
 				DADC98FE224D3F4200ABA881 /* Resident.swift */,
+				4041FF0E224E082900C27574 /* Building.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -277,6 +286,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4041FF0D224E047300C27574 /* ChooseBuildingViewController.swift in Sources */,
+				4041FF11224E0B2E00C27574 /* BuildingTableViewCell.swift in Sources */,
+				4041FF0F224E082900C27574 /* Building.swift in Sources */,
 				4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
 				DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */,
