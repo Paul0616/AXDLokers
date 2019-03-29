@@ -21,6 +21,11 @@ let usersREST_Action = "users"
 let lockersREST_Action = "lockers"
 let citiesREST_Action = "cities"
 let addressesREST_Action = "addresses"
+let lockerHistoryREST_Action = "locker-history"
+let buildingREST_Action = "building"
+let building_ResidentREST_action = "building-resident"
+let residentsRESTAction = "residents"
+let getByBuildingRESTAction = "get-by-building"
 //REST Keys
 let KEY_userEmail = "email"
 let KEY_password = "password"
@@ -40,6 +45,19 @@ let KEY_number = "number"
 let KEY_size = "size"
 let KEY_addressId = "addressId"
 let KEY_address = "address"
+let KEY_buildingUniqueNumber = "buildingUniqueNumber"
+let KEY_buildingAddress = "buildingAddress"
+let KEY_buildingXResidents = "buildingXResidents"
+let KEY_building = "building"
+let KEY_buildingId = "buildingId"
+let KEY_resident = "resident"
+let KEY_suiteNumber = "suiteNumber"
+let KEY_residentName = "residentName"
+let KEY_firstName = "firstName"
+let KEY_lastName = "lastName"
+let KEY_email = "email"
+let KEY_phone = "phoneNumber"
+let KEY_securityCode = "securityCode"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
@@ -48,6 +66,10 @@ let CITIES_REQUEST = 4
 let ADDRESSES_REQUEST = 5
 let INSERT_LOCKER_REQUEST = 6
 let INSERT_ADDRESS_REQUEST = 7
+let LOCKER_HISTORY_REQUEST = 8
+let BUILDING_REQUEST = 9
+let BUILDING_RESIDENTS_REQUEST = 10
+let GET_BY_BUILDING_REQUEST = 11
 
 func getURL() -> String {
     var url: String = ""

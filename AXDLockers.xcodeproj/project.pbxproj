@@ -25,6 +25,8 @@
 		DAC5A6A82240135E005C0425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A62240135E005C0425 /* LaunchScreen.storyboard */; };
 		DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5A6B12240CF08005C0425 /* LogInViewController.swift */; };
 		DADC98FA224ABE6D00ABA881 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC98F9224ABE6D00ABA881 /* City.swift */; };
+		DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC98FE224D3F4200ABA881 /* Resident.swift */; };
+		DADC9901224D49DF00ABA881 /* ResidentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		DAC5A6A92240135E005C0425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAC5A6B12240CF08005C0425 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		DADC98F9224ABE6D00ABA881 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		DADC98FE224D3F4200ABA881 /* Resident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resident.swift; sourceTree = "<group>"; };
+		DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
+				DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */,
 				4041FF08224B710500C27574 /* AddressTableViewCell.swift */,
 				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
 				4041FF04224B660800C27574 /* ChooseAddressViewController.swift */,
@@ -135,6 +140,7 @@
 			children = (
 				4041FF06224B672800C27574 /* Address.swift */,
 				DADC98F9224ABE6D00ABA881 /* City.swift */,
+				DADC98FE224D3F4200ABA881 /* Resident.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -273,10 +279,12 @@
 			files = (
 				4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
+				DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
 				DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */,
+				DADC9901224D49DF00ABA881 /* ResidentTableViewCell.swift in Sources */,
 				4041FF05224B660800C27574 /* ChooseAddressViewController.swift in Sources */,
 				4041FF07224B672800C27574 /* Address.swift in Sources */,
 				4016050622412CD100D57C14 /* Switcher.swift in Sources */,

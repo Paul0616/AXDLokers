@@ -88,6 +88,18 @@ class RestRequests: NSObject {
                             case INSERT_ADDRESS_REQUEST:
                                 self.postAddress(body: parameters)
                                 break
+                            case LOCKER_HISTORY_REQUEST:
+                                self.getLockerHistory(parameters: parameters)
+                                break
+                            case BUILDING_REQUEST:
+                                self.getBuilding(parameters: parameters)
+                                break
+                            case BUILDING_RESIDENTS_REQUEST:
+                                self.getBuildingResidents(parameters: parameters)
+                                break
+                            case GET_BY_BUILDING_REQUEST:
+                                self.getByBuilding(parameters: parameters)
+                                break
                             default:
                                 print(requestID)
                             }
@@ -131,6 +143,18 @@ class RestRequests: NSObject {
                 break
             case INSERT_ADDRESS_REQUEST:
                 self.postAddress(body: parameters)
+                break
+            case LOCKER_HISTORY_REQUEST:
+                self.getLockerHistory(parameters: parameters)
+                break
+            case BUILDING_REQUEST:
+                self.getBuilding(parameters: parameters)
+                break
+            case BUILDING_RESIDENTS_REQUEST:
+                self.getBuildingResidents(parameters: parameters)
+                break
+            case GET_BY_BUILDING_REQUEST:
+                self.getByBuilding(parameters: parameters)
                 break
             default:
                 print(requestID)
@@ -224,6 +248,124 @@ class RestRequests: NSObject {
                     return
                 }
                 self.delegate?.resultedData(data: response.data!, requestID: LOCKERS_REQUEST)
+            })
+    }
+    
+    func getLockerHistory(parameters: NSDictionary!){
+        var url: String = getURL()
+        url.append(contentsOf: lockerHistoryREST_Action)
+        var param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        if let p = parameters{
+            param[addREST_Filter(parameters: [KEY_qrCode])] = p[KEY_qrCode]
+        }
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: LOCKER_HISTORY_REQUEST)
+            })
+    }
+    
+    func getBuilding(parameters: NSDictionary!){
+        var url: String = getURL()
+        url.append(contentsOf: buildingREST_Action)
+        var param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        if let p = parameters{
+            param[addREST_Filter(parameters: [KEY_buildingUniqueNumber])] = p[KEY_buildingUniqueNumber]
+        }
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: BUILDING_REQUEST)
+            })
+    }
+    
+    func getBuildingResidents(parameters: NSDictionary!){
+        var url: String = getURL()
+        url.append(contentsOf: building_ResidentREST_action)
+        var param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        if let p = parameters{
+            param[addREST_Filter(parameters: [KEY_buildingId])] = p[KEY_buildingId]
+        }
+        param["sort"] = KEY_buildingId
+        param["expand"] = KEY_resident
+        
+        if let perPage = parameters["per-page"] {
+            param["per-page"] = perPage
+        }
+        if let page = parameters["page"] {
+            param["page"] = page
+        }
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: BUILDING_RESIDENTS_REQUEST)
+            })
+    }
+    
+    func getByBuilding(parameters: NSDictionary!){
+        var url: String = getURL()
+        url.append(contentsOf: residentsRESTAction)
+        url.append(contentsOf: "/")
+        url.append(contentsOf: getByBuildingRESTAction)
+        var param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        if let p = parameters[KEY_buildingId]{
+            param[addREST_Filter(parameters: [KEY_buildingId])] = p
+        }
+        if let residentName = parameters[KEY_residentName]{
+            param[addREST_Filter(parameters: [KEY_residentName])] = residentName
+        }
+        param["expand"] = KEY_buildingXResidents+"."+KEY_building
+        
+        if let perPage = parameters["per-page"] {
+            param["per-page"] = perPage
+        }
+        if let page = parameters["page"] {
+            param["page"] = page
+        }
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: GET_BY_BUILDING_REQUEST)
             })
     }
     
