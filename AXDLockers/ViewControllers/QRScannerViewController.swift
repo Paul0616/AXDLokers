@@ -100,12 +100,20 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 //    }
     
     @IBAction func logOutAction(_ sender: UIButton) {
-        UserDefaults.standard.removeObject(forKey: "token")
-        UserDefaults.standard.removeObject(forKey: "userId")
-        UserDefaults.standard.removeObject(forKey: "isSuperAdmin")
-        UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
-        UserDefaults.standard.removeObject(forKey: "encryptedPassword")
-        Switcher.updateRootVC(isLogged: false)
+        let alertController = UIAlertController(title: "Logging Out", message: "Do you really want to log out?", preferredStyle: UIAlertController.Style.alert)
+        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+            UserDefaults.standard.removeObject(forKey: "token")
+            UserDefaults.standard.removeObject(forKey: "userId")
+            UserDefaults.standard.removeObject(forKey: "isSuperAdmin")
+            UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
+            UserDefaults.standard.removeObject(forKey: "encryptedPassword")
+            Switcher.updateRootVC(isLogged: false)
+        })
+        let canBut = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+        alertController.addAction(okBut)
+        alertController.addAction(canBut)
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
@@ -134,7 +142,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     private func showAlert(){
         let alertController = UIAlertController(title: "Locker not found",
-                                                message: "This QRCode was not found in database. Would you like to add it and associate it with new locker?",
+                                                message: "This locker was not found in database. Would you like to add it?",
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             print("OK")

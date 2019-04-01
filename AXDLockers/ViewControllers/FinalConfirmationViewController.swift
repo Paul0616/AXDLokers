@@ -26,7 +26,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
         super.viewDidLoad()
         popUpView.layer.cornerRadius = 6
         backToScanButton.isHidden = true
-       // cancelButton.isEnabled = false
+        cancelButton.isEnabled = false
         restRequest.delegate = self
         // Do any additional setup after loading the view.
         activityIndicator.startAnimating()
@@ -37,22 +37,30 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             4. Insert record in locker-histories and save lastInsertedLockerHistoriesId it in UserDefaults.
             5. Once I know lockerBuildibgResidentId = lastInsertedLockerBuildingResidentId I'm inserting notification and if it was successful going to scan screen, else do nothing and user can go back to security code screen and try again
          ##############################*/
-//        infoLabel.text = "Checking locker - bulding - resident association..."
-//        let param = [
-//            KEY_lockerId: self.lockerId!,
-//            KEY_buildingResidentId: self.resident.buildingResidentId
-//            ] as [String : Any]
-//        self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+        infoLabel.text = "Checking locker - bulding - resident association..."
         
-
+        if let lastInsertedLockerBuildingResidentId = UserDefaults.standard.object(forKey: "lastInsertedLockerBuildingResidentId") as? Int {
+            let parameter = [KEY_id: lastInsertedLockerBuildingResidentId]
+            self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_BUILDING_RESIDENT_REQUEST)
+        } else if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
+            let parameter = [KEY_id: lastInsertedLockerHistoriesId]
+            self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+        } else {
+            let param = [
+                KEY_lockerId: self.lockerId!,
+                KEY_buildingResidentId: self.resident.buildingResidentId
+                ] as [String : Any]
+            self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+        }
+        
     }
     
     @IBAction func onClose(_ sender: Any) {
-       // dismiss(animated: true, completion: nil)
-        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+        dismiss(animated: true, completion: nil)
+        
     }
     @IBAction func backToScanAction(_ sender: Any) {
-        
+        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
     }
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
@@ -70,7 +78,21 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
     func resultedData(data: Data!, requestID: Int) {
         let json = try? JSON(data: data)
         print(requestID)
-        
+        if requestID == DELETE_LOCKER_BUILDING_RESIDENT_REQUEST {
+           UserDefaults.standard.removeObject(forKey: "lastInsertedLockerBuildingResidentId")
+            if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
+                let parameter = [KEY_id: lastInsertedLockerHistoriesId]
+                self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+            }
+        }
+        if requestID == DELETE_LOCKER_HISTORIES_REQUEST {
+           UserDefaults.standard.removeObject(forKey: "lastInsertedLockerHistoriesId")
+            let param = [
+                        KEY_lockerId: self.lockerId!,
+                        KEY_buildingResidentId: self.resident.buildingResidentId
+                        ] as [String : Any]
+            self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+        }
         if requestID == LOCKER_BUILDING_RESIDENT_REQUEST {
             if let items: JSON = getItems(json: json), items.count > 0 {
                 for (_, value) in items {

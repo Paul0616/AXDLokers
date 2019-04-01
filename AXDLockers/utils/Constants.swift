@@ -29,6 +29,7 @@ let getFilteredResidentRESTAction = "get-filtered-residents"
 let lockerBuildingResidentRESTAction = "locker-building-residents"
 let notificationsRESTAction = "notifications"
 let sendNotificationToResident = "send-notification-to-resident"
+let resetPasswordRESTAction = "reset-password"
 
 //REST Keys
 let KEY_userEmail = "email"
@@ -84,6 +85,9 @@ let INSERT_LOCKER_BUILDING_RESIDENT_REQUEST = 13
 let INSERT_LOCKER_HISTORIES_REQUEST = 14
 let INSERT_NOTIFICATION_REQUEST = 15
 let LOCKER_BUILDING_RESIDENT_REQUEST = 16
+let DELETE_LOCKER_BUILDING_RESIDENT_REQUEST = 17
+let DELETE_LOCKER_HISTORIES_REQUEST = 18
+let RESET_PASSWORD_REQUEST = 19
 
 func getURL() -> String {
     var url: String = ""

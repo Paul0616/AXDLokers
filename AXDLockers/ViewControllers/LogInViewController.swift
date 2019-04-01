@@ -11,25 +11,40 @@ import UIKit
 class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate{
    
     func resultedData(data: Data!, requestID: Int) {
-        do {
-            let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-            print(json)
-            let items = json[KEY_items] as! NSArray
-            let item = items[0] as! NSDictionary
-            UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
-            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
-            let isAdmin = item["isSuperAdmin"] as! Int
-            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
-            UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
-            Switcher.updateRootVC(isLogged: true)
-        } catch let error as NSError
-        {
-            print(error)
+        if requestID == RESET_PASSWORD_REQUEST {
+            activityIndicator.stopAnimating()
+            let alertController1 = UIAlertController(title: "Check your email", message: "A message with password recovery was send to you.", preferredStyle: UIAlertController.Style.alert)
+            let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+            alertController1.addAction(okBut)
+            self.present(alertController1, animated: true, completion: nil)
+            return
         }
+        
+        //if requestID == TOKEN_REQUEST {
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+//                print(json)
+//                let items = json[KEY_items] as! NSArray
+//                let item = items[0] as! NSDictionary
+//                UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
+//                UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
+//                let isAdmin = item["isSuperAdmin"] as! Int
+//                UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
+//                UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
+//
+//                Switcher.updateRootVC(isLogged: true)
+//                activityIndicator.stopAnimating()
+//            } catch let error as NSError
+//            {
+//                print(error)
+//            }
+       // }
+        
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
+        activityIndicator.stopAnimating()
         if errorCode == 404 {
             print("User does not exist or User email/password is not correct")
             let alertController = UIAlertController(title: "Login error",
@@ -55,6 +70,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
     @IBOutlet weak var tapHereButton: UIButton!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var userEmailText: String?
     let restRequests = RestRequests()
     override func viewDidLoad() {
@@ -89,6 +105,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             let encryptedPassword = encryptPassword(password: passwordTextField.text!)
             UserDefaults.standard.set(userEmailTextField.text!, forKey: "userEmail")
             UserDefaults.standard.set(encryptedPassword, forKey: "encryptedPassword")
+            activityIndicator.startAnimating()
             restRequests.checkForRequest(parameters: nil, requestID: TOKEN_REQUEST)
         }
     }
@@ -102,6 +119,28 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             //attemptLogin()
         }
         return true
+    }
+    @IBAction func onPasswordReset(_ sender: Any) {
+        let alertController = UIAlertController(title: "Reset pasword", message: "Enter your email address to recover your password", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Your email address"
+            textField.text = self.userEmailText
+        }
+        let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            print(firstTextField.text!)
+            let param = [KEY_email: firstTextField.text!] as NSDictionary
+            self.restRequests.resetPassword(parameters: param, requestID: RESET_PASSWORD_REQUEST)
+            
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+            (action : UIAlertAction!) -> Void in })
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     /*
      // MARK: - Navigation

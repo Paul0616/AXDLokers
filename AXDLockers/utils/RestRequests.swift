@@ -65,62 +65,11 @@ class RestRequests: NSObject {
                             let item = items[0] as! NSDictionary
                             UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
                             UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
-                            switch (requestID) {
-                            case LOCKERS_REQUEST:
-                                self.getLockers(parameters: parameters)
-                                break
-                            case CHECK_USERS_REQUEST:
-                                let userId = parameters[KEY_userId] as! Int
-                                self.checkUser(userId: userId)
-                                break
-                            case TOKEN_REQUEST:
-                                self.delegate?.resultedData(data: response.data!, requestID: requestID)
-                                break
-                            case CITIES_REQUEST:
-                                self.getCities(parameters: parameters)
-                                break
-                            case ADDRESSES_REQUEST:
-                                self.getAddresses(parameters: parameters)
-                                break
-                            case INSERT_LOCKER_REQUEST:
-                                self.postLocker(body: parameters)
-                                break
-                            case INSERT_ADDRESS_REQUEST:
-                                self.postAddress(body: parameters)
-                                break
-                            case LOCKER_HISTORY_REQUEST:
-                                self.getLockerHistory(parameters: parameters)
-                                break
-                            case BUILDING_REQUEST:
-                                self.getBuilding(parameters: parameters)
-                                break
-                            case BUILDING_RESIDENTS_REQUEST:
-                                self.getBuildingResidents(parameters: parameters)
-                                break
-                            case GET_FILTERED_RESIDENTS_REQUEST:
-                                self.getFilteredResidents(parameters: parameters)
-                                break
-                            case BUILDING_ID_REQUEST:
-                                self.getBuildingWithId(parameters: parameters)
-                                break
-                            case INSERT_LOCKER_BUILDING_RESIDENT_REQUEST:
-                                self.postLockerBuildingResident(body: parameters)
-                                break
-                            case INSERT_LOCKER_HISTORIES_REQUEST:
-                                self.postLockerHistories(body: parameters)
-                                break
-                            case INSERT_NOTIFICATION_REQUEST:
-                                self.postNotifications(body: parameters)
-                                break
-                            case LOCKER_BUILDING_RESIDENT_REQUEST:
-                                self.getLockerBuildingResident(parameters: parameters)
-                                break
-                            default:
-                                print(requestID)
-                            }
+                            UserDefaults.standard.set(item["id"] as! Double, forKey: "userId")
+                            let isAdmin = item["isSuperAdmin"] as! Int
+                            UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
+                            self.switchRequestFunction(parameters: parameters, requestID: requestID)
                 
-                            //mustRequestToken = false
-                            
                         }  catch let error as NSError
                         {
                             print(error.localizedDescription)
@@ -136,61 +85,153 @@ class RestRequests: NSObject {
             }
         }
         else {
-            switch (requestID) {
-            case LOCKERS_REQUEST:
-                self.getLockers(parameters: parameters)
-                break
-            case CHECK_USERS_REQUEST:
-                let userId = parameters[KEY_userId] as! Int
-                self.checkUser(userId: userId)
-                break
-            case TOKEN_REQUEST:
-                UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
-                break
-            case CITIES_REQUEST:
-                self.getCities(parameters: parameters)
-                break
-            case ADDRESSES_REQUEST:
-                self.getAddresses(parameters: parameters)
-                break
-            case INSERT_LOCKER_REQUEST:
-                self.postLocker(body: parameters)
-                break
-            case INSERT_ADDRESS_REQUEST:
-                self.postAddress(body: parameters)
-                break
-            case LOCKER_HISTORY_REQUEST:
-                self.getLockerHistory(parameters: parameters)
-                break
-            case BUILDING_REQUEST:
-                self.getBuilding(parameters: parameters)
-                break
-            case BUILDING_RESIDENTS_REQUEST:
-                self.getBuildingResidents(parameters: parameters)
-                break
-            case GET_FILTERED_RESIDENTS_REQUEST:
-                self.getFilteredResidents(parameters: parameters)
-                break
-            case BUILDING_ID_REQUEST:
-                self.getBuildingWithId(parameters: parameters)
-                break
-            case INSERT_LOCKER_BUILDING_RESIDENT_REQUEST:
-                self.postLockerBuildingResident(body: parameters)
-                break
-            case INSERT_LOCKER_HISTORIES_REQUEST:
-                self.postLockerHistories(body: parameters)
-                break
-            case INSERT_NOTIFICATION_REQUEST:
-                self.postNotifications(body: parameters)
-                break
-            case LOCKER_BUILDING_RESIDENT_REQUEST:
-                self.getLockerBuildingResident(parameters: parameters)
-                break
-            default:
-                print(requestID)
-            }
+            switchRequestFunction(parameters: parameters, requestID: requestID)
         }
 
+    }
+    func switchRequestFunction(parameters: NSDictionary!, requestID: Int){
+        switch (requestID) {
+//        case TOKEN_REQUEST:
+//            Switcher.updateRootVC(isLogged: true)
+//            break
+        case LOCKERS_REQUEST:
+            self.getLockers(parameters: parameters)
+            break
+        case CHECK_USERS_REQUEST:
+            let userId = parameters[KEY_userId] as! Int
+            self.checkUser(userId: userId)
+            break
+        case TOKEN_REQUEST:
+            Switcher.updateRootVC(isLogged: true)
+            //UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
+            break
+        case CITIES_REQUEST:
+            self.getCities(parameters: parameters)
+            break
+        case ADDRESSES_REQUEST:
+            self.getAddresses(parameters: parameters)
+            break
+        case INSERT_LOCKER_REQUEST:
+            self.postLocker(body: parameters)
+            break
+        case INSERT_ADDRESS_REQUEST:
+            self.postAddress(body: parameters)
+            break
+        case LOCKER_HISTORY_REQUEST:
+            self.getLockerHistory(parameters: parameters)
+            break
+        case BUILDING_REQUEST:
+            self.getBuilding(parameters: parameters)
+            break
+        case BUILDING_RESIDENTS_REQUEST:
+            self.getBuildingResidents(parameters: parameters)
+            break
+        case GET_FILTERED_RESIDENTS_REQUEST:
+            self.getFilteredResidents(parameters: parameters)
+            break
+        case BUILDING_ID_REQUEST:
+            self.getBuildingWithId(parameters: parameters)
+            break
+        case INSERT_LOCKER_BUILDING_RESIDENT_REQUEST:
+            self.postLockerBuildingResident(body: parameters)
+            break
+        case INSERT_LOCKER_HISTORIES_REQUEST:
+            self.postLockerHistories(body: parameters)
+            break
+        case INSERT_NOTIFICATION_REQUEST:
+            self.postNotifications(body: parameters)
+            break
+        case LOCKER_BUILDING_RESIDENT_REQUEST:
+            self.getLockerBuildingResident(parameters: parameters)
+            break
+        case DELETE_LOCKER_BUILDING_RESIDENT_REQUEST:
+            self.deleteLockerBuildingResident(parameters: parameters)
+            break
+        case DELETE_LOCKER_HISTORIES_REQUEST:
+            self.deleteLockerHistories(parameters: parameters)
+            break
+        
+        default:
+            print(requestID)
+        }
+    }
+    
+    func resetPassword(parameters: NSDictionary, requestID: Int) {
+        var urlString: String = getURL()
+        urlString.append(contentsOf: usersREST_Action)
+        urlString.append(contentsOf: "/")
+        urlString.append(contentsOf: resetPasswordRESTAction)
+        
+        let paramComponent = URLComponents(string: urlString)
+       // paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(parameters)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: RESET_PASSWORD_REQUEST)
+        }
+    }
+    
+    func deleteLockerHistories(parameters: NSDictionary) {
+        var url: String = getURL()
+        url.append(contentsOf: lockerHistoryREST_Action)
+        if let id = parameters[KEY_id]{
+            url.append(contentsOf: "/\(id)")
+        }
+        let param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        
+        Alamofire.request(url, method: .delete, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+            })
+    }
+    func deleteLockerBuildingResident(parameters: NSDictionary) {
+        var url: String = getURL()
+        url.append(contentsOf: lockerBuildingResidentRESTAction)
+        if let id = parameters[KEY_id]{
+            url.append(contentsOf: "/\(id)")
+        }
+        let param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+       
+        Alamofire.request(url, method: .delete, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: DELETE_LOCKER_BUILDING_RESIDENT_REQUEST)
+            })
     }
     func postLocker(body: NSDictionary){
         var urlString: String = getURL()
