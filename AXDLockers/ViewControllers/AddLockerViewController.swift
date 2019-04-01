@@ -38,7 +38,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
         lockerNumberTextField.delegate = self
         lockerSizeTextField.delegate = self
         self.scrollView.isScrollEnabled = false
-        addaddressButton.layer.cornerRadius = 6
+        addaddressButton.layer.cornerRadius = 20
         restRequest.delegate = self
         // Do any additional setup after loading the view.
     }
@@ -181,14 +181,12 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
                 UserDefaults.standard.removeObject(forKey: "lockerNumber")
                 UserDefaults.standard.removeObject(forKey: "address")
                 isLoading = true
-                let now = (Date().timeIntervalSince1970 as Double).rounded()
+                //let now = (Date().timeIntervalSince1970 as Double).rounded()
                 let param = [
                     KEY_qrCode: qrCode!,
                     KEY_number: lockerNumberTextField.text!,
                     KEY_size: lockerSizeTextField.text!,
-                    KEY_addressId: address.id,
-                    "createdAt": now,
-                    "updatedAt": now
+                    KEY_addressId: address.id
                     ] as [String : Any]
                 restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
             }

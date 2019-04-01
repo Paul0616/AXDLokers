@@ -43,13 +43,11 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
             print("\(streetTextField.text!) - \(zipCodeTextField.text!) - \(selectedCityId)")
             activityIndicator.startAnimating()
             isLoading = true
-            let now = (Date().timeIntervalSince1970 as Double).rounded()
+            //let now = (Date().timeIntervalSince1970 as Double).rounded()
             let param = [
                 KEY_cityId: selectedCityId,
                 KEY_zipCode: zipCodeTextField.text!,
-                KEY_streetName: streetTextField.text!,
-                "createdAt": now,
-                "updatedAt": now
+                KEY_streetName: streetTextField.text!
                 ] as [String : Any]
             restRequests.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_ADDRESS_REQUEST)
         }

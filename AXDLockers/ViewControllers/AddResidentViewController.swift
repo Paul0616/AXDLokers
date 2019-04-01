@@ -27,6 +27,8 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var sendButtonBar: UIBarButtonItem!
     var qrCode: String!
     var currentBuildingId: Int!
+    var currentLockerId: Int!
+    var currentLockerHistory: LockerHistory!
     let restRequest = RestRequests()
     var residents: [Resident] = [Resident]()
     
@@ -61,6 +63,9 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func onSend(_ sender: Any) {
+        print("\(selectedResident.firstName) have ID=\(selectedResident.id)")
+        print("locker id=\(currentLockerId!)")
+        performSegue(withIdentifier: "getSecurityCodeSegue", sender: nil)
     }
     @IBAction func onCancel(_ sender: Any) {
         
@@ -99,6 +104,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         if requestID == LOCKERS_REQUEST {
             if let items: JSON = getItems(json: json), items.count > 0 {
                 for (_, value) in items {
+                    currentLockerId = value[KEY_id].int
                     lockerNumberLabel.text = "#"+value[KEY_number].string!
                     lockersizeLabel.text = value[KEY_size].string!
                     let street = value[KEY_address][KEY_streetName].string!
@@ -106,6 +112,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     let state = value[KEY_address][KEY_city][KEY_state][KEY_name].string!
                     let zipCode = value[KEY_address][KEY_zipCode].string!
                     lockeraddressLabel.text = street+", "+city+", "+state+", "+zipCode
+                    currentLockerHistory = LockerHistory(qrCode: value[KEY_qrCode].string!, lockerAddress: lockeraddressLabel.text!, number: value[KEY_number].string!, size: value[KEY_size].string!, firstName: "", lastName: "", email: "", phoneNumber: nil, securityCode: "", residentAddress: "", suiteNumber: "", buildingUniqueNumber: "", name: "", buildingAddress: "")
                     break
                 }
                 if currentBuildingId == nil {
@@ -126,6 +133,10 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                 for (_, value) in items {
                     buldingUniqueNumberLabel.text = value[KEY_buildingUniqueNumber].string!
                     buildingAddressLabel.text = value[KEY_name].string! + ", " + value[KEY_buildingAddress].string!
+                    currentLockerHistory.buildingUniqueNumber = value[KEY_buildingUniqueNumber].string!
+                    currentLockerHistory.name = value[KEY_name].string!
+                    currentLockerHistory.buildingAddress = value[KEY_buildingAddress].string!
+                    currentLockerHistory.residentAddress = currentLockerHistory.buildingAddress
                     break
                 }
                 if  buldingUniqueNumberLabel.text != "-" {
@@ -133,7 +144,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     restRequest.checkForRequest(parameters: param, requestID: BUILDING_REQUEST)
                 } else {
                     let param = ["per-page": PAGE_SIZE]
-                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
                 }
             }
         }
@@ -141,6 +152,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             if let items: JSON = getItems(json: json), items.count > 0 {
                 for (_, value) in items {
                     currentBuildingId = value[KEY_id].int!
+                    
                     break
                 }
             } else {
@@ -151,25 +163,32 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             if currentBuildingId != nil {
                 param[KEY_buildingId] = currentBuildingId!
             }
-            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
         }
         
         if requestID == BUILDING_ID_REQUEST {
             if json!.count > 0 {
                 buldingUniqueNumberLabel.text = json![KEY_buildingUniqueNumber].string!
                 buildingAddressLabel.text = json![KEY_name].string! + ", " + json![KEY_address][KEY_streetName].string! + ", " + json![KEY_address][KEY_city][KEY_name].string! + ", " + json![KEY_address][KEY_city][KEY_state][KEY_name].string!
+                currentLockerHistory.buildingUniqueNumber = json![KEY_buildingUniqueNumber].string!
+                currentLockerHistory.name = json![KEY_name].string!
+                currentLockerHistory.buildingAddress = json![KEY_address][KEY_streetName].string! + ", " + json![KEY_address][KEY_city][KEY_name].string! + ", " + json![KEY_address][KEY_city][KEY_state][KEY_name].string!
+                currentLockerHistory.residentAddress = currentLockerHistory.buildingAddress
             } else {
                 buldingUniqueNumberLabel.text = "-"
                 buildingAddressLabel.text = "-"
+                currentLockerHistory.name = ""
+                currentLockerHistory.buildingAddress = ""
+                currentLockerHistory.residentAddress = ""
             }
             var param = ["per-page": PAGE_SIZE]
             if currentBuildingId != nil {
                 param[KEY_buildingId] = currentBuildingId!
             }
-            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
         }
         
-        if requestID == GET_BY_BUILDING_REQUEST {
+        if requestID == GET_FILTERED_RESIDENTS_REQUEST {
             isLoading = false
             activityIndicator.stopAnimating()
             let json = try? JSON(data: data)
@@ -182,18 +201,19 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             isLastPage = isLastPageLoaded(json: json)
             if let items: JSON = getItems(json: json), items.count > 0 {
                 for (_, value) in items {
-                    guard let id = value[KEY_id].int else { return  }
-                    let suiteNumber = value[KEY_buildingXResidents][0][KEY_suiteNumber].string!
-                    let firstName = value[KEY_firstName].string!
-                    let lastName = value[KEY_lastName].string!
+                    guard let id = value[KEY_resident][KEY_id].int else { return  }
+                    guard let buildingResidentId = value[KEY_id].int else { return  }
+                    let suiteNumber = value[KEY_suiteNumber].string!
+                    let firstName = value[KEY_resident][KEY_firstName].string!
+                    let lastName = value[KEY_resident][KEY_lastName].string!
                     var phone = "-"
-                    if value[KEY_phone].type != SwiftyJSON.Type.null {
-                        phone = value[KEY_phone].string!
+                    if value[KEY_resident][KEY_phone].type != SwiftyJSON.Type.null {
+                        phone = value[KEY_resident][KEY_phone].string!
                     }
-                    let email = value[KEY_email].string!
-                    let securityCode = value[KEY_securityCode].string!
+                    let email = value[KEY_resident][KEY_email].string!
+                    let securityCode = value[KEY_resident][KEY_securityCode].string!
                     
-                    let resident = Resident(id: id, name: firstName + " " + lastName, phone: phone, email: email, securityCode: securityCode, suiteNumber: suiteNumber)
+                    let resident = Resident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, securityCode: securityCode, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
                     residents.append(resident)
                 }
             }
@@ -207,7 +227,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellResident") as! ResidentTableViewCell
-        cell.residentNameLabel.text = residents[indexPath.row].name
+        cell.residentNameLabel.text = residents[indexPath.row].firstName + " " + residents[indexPath.row].lastName
         cell.suiteNumberLabel.text = residents[indexPath.row].suiteNumber
         cell.phoneLabel.text = residents[indexPath.row].phone
         cell.emailLabel.text = residents[indexPath.row].email
@@ -227,11 +247,17 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             if searchBar.text != "" {
                 param[KEY_residentName] = searchBar.text!
             }
-            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedResident = residents[indexPath.row]
+        currentLockerHistory.firstName = selectedResident.firstName
+        currentLockerHistory.lastName = selectedResident.lastName
+        currentLockerHistory.email = selectedResident.email
+        currentLockerHistory.phoneNumber = selectedResident.phone
+        currentLockerHistory.securityCode = selectedResident.securityCode
+        currentLockerHistory.suiteNumber = selectedResident.suiteNumber
         self.refreshButton()
        // tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
@@ -251,7 +277,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         if searchBar.text != "" {
             param[KEY_residentName] = searchBar.text!
         }
-        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
+        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
     }
     @IBAction func unwindToResidents(sender: UIStoryboardSegue) {
       
@@ -261,14 +287,19 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             refreshBuilding()
         }
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // Pass the selected object to the new view controller.let
+        if let dest = segue.destination  as? SecurityCodeViewController {
+            dest.lockerHistory = currentLockerHistory!
+            dest.resident = selectedResident!
+            dest.lockerId = currentLockerId!
+        }
     }
-    */
+    
 
 }

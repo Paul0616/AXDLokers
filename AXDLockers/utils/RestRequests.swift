@@ -97,11 +97,23 @@ class RestRequests: NSObject {
                             case BUILDING_RESIDENTS_REQUEST:
                                 self.getBuildingResidents(parameters: parameters)
                                 break
-                            case GET_BY_BUILDING_REQUEST:
-                                self.getByBuilding(parameters: parameters)
+                            case GET_FILTERED_RESIDENTS_REQUEST:
+                                self.getFilteredResidents(parameters: parameters)
                                 break
                             case BUILDING_ID_REQUEST:
                                 self.getBuildingWithId(parameters: parameters)
+                                break
+                            case INSERT_LOCKER_BUILDING_RESIDENT_REQUEST:
+                                self.postLockerBuildingResident(body: parameters)
+                                break
+                            case INSERT_LOCKER_HISTORIES_REQUEST:
+                                self.postLockerHistories(body: parameters)
+                                break
+                            case INSERT_NOTIFICATION_REQUEST:
+                                self.postNotifications(body: parameters)
+                                break
+                            case LOCKER_BUILDING_RESIDENT_REQUEST:
+                                self.getLockerBuildingResident(parameters: parameters)
                                 break
                             default:
                                 print(requestID)
@@ -156,11 +168,23 @@ class RestRequests: NSObject {
             case BUILDING_RESIDENTS_REQUEST:
                 self.getBuildingResidents(parameters: parameters)
                 break
-            case GET_BY_BUILDING_REQUEST:
-                self.getByBuilding(parameters: parameters)
+            case GET_FILTERED_RESIDENTS_REQUEST:
+                self.getFilteredResidents(parameters: parameters)
                 break
             case BUILDING_ID_REQUEST:
                 self.getBuildingWithId(parameters: parameters)
+                break
+            case INSERT_LOCKER_BUILDING_RESIDENT_REQUEST:
+                self.postLockerBuildingResident(body: parameters)
+                break
+            case INSERT_LOCKER_HISTORIES_REQUEST:
+                self.postLockerHistories(body: parameters)
+                break
+            case INSERT_NOTIFICATION_REQUEST:
+                self.postNotifications(body: parameters)
+                break
+            case LOCKER_BUILDING_RESIDENT_REQUEST:
+                self.getLockerBuildingResident(parameters: parameters)
                 break
             default:
                 print(requestID)
@@ -230,15 +254,112 @@ class RestRequests: NSObject {
         
     }
     
+    func postLockerBuildingResident(body: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: lockerBuildingResidentRESTAction)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: INSERT_LOCKER_BUILDING_RESIDENT_REQUEST)
+        }
+        
+    }
+    
+    func postLockerHistories(body: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: lockerHistoryREST_Action)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
+        }
+        
+    }
+    func postNotifications(body: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: notificationsRESTAction)
+        urlString.append(contentsOf: "/")
+        urlString.append(contentsOf: sendNotificationToResident)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        print(request.url!)
+        print(JSON(request.httpBody!))
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!))"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: INSERT_NOTIFICATION_REQUEST)
+        }
+        
+    }
     func getLockers(parameters: NSDictionary!){
         var url: String = getURL()
         url.append(contentsOf: lockersREST_Action)
+        if let id = parameters[KEY_id]{
+           url.append(contentsOf: "/\(id)")
+        }
         var param: Parameters = [
             //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
             addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
         ]
         if let p = parameters{
-            param[addREST_Filter(parameters: [KEY_qrCode])] = p[KEY_qrCode]
+            if  let qr = p[KEY_qrCode] {
+                param[addREST_Filter(parameters: [KEY_qrCode])] = qr
+            }
             if p["expand"] != nil {
                 param["expand"] = p["expand"]
             }
@@ -382,14 +503,43 @@ class RestRequests: NSObject {
             })
     }
     
-    func getByBuilding(parameters: NSDictionary!){
+    func getLockerBuildingResident(parameters: NSDictionary!){
         var url: String = getURL()
-        url.append(contentsOf: residentsRESTAction)
-        url.append(contentsOf: "/")
-        url.append(contentsOf: getByBuildingRESTAction)
+        url.append(contentsOf: lockerBuildingResidentRESTAction)
         var param: Parameters = [
             //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
             addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        
+        if let lockerId = parameters[KEY_lockerId] {
+            param[addREST_Filter(parameters: [KEY_lockerId])] = lockerId
+        }
+        if let buildingResidentId = parameters[KEY_buildingResidentId] {
+            param[addREST_Filter(parameters: [KEY_buildingResidentId])] = buildingResidentId
+        }
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+            })
+    }
+    
+    func getFilteredResidents(parameters: NSDictionary!){
+        var url: String = getURL()
+        url.append(contentsOf: building_ResidentREST_action)
+        url.append(contentsOf: "/")
+        url.append(contentsOf: getFilteredResidentRESTAction)
+        var param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String,
+            "sort": KEY_suiteNumber
         ]
         if let p = parameters[KEY_buildingId]{
             param[addREST_Filter(parameters: [KEY_buildingId])] = p
@@ -397,7 +547,7 @@ class RestRequests: NSObject {
         if let residentName = parameters[KEY_residentName]{
             param[addREST_Filter(parameters: [KEY_residentName])] = residentName
         }
-        param["expand"] = KEY_buildingXResidents+"."+KEY_building
+        param["expand"] = KEY_resident
         
         if let perPage = parameters["per-page"] {
             param["per-page"] = perPage
@@ -415,7 +565,7 @@ class RestRequests: NSObject {
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
                 }
-                self.delegate?.resultedData(data: response.data!, requestID: GET_BY_BUILDING_REQUEST)
+                self.delegate?.resultedData(data: response.data!, requestID: GET_FILTERED_RESIDENTS_REQUEST)
             })
     }
     

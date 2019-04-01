@@ -20,7 +20,10 @@
 		408B4AFD22437DC30044583B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFC22437DC30044583B /* Constants.swift */; };
 		408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFE2243A6C20044583B /* RestRequests.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
+		DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277D78224E6C700039235D /* SecurityCodeViewController.swift */; };
 		DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA834B29224973C400996DEB /* AddLockerViewController.swift */; };
+		DA99BB412250C1B5005FD346 /* LockerHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB402250C1B5005FD346 /* LockerHistory.swift */; };
+		DA99BB432250E507005FD346 /* FinalConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */; };
 		DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5A69D2240135D005C0425 /* AppDelegate.swift */; };
 		DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */; };
 		DAC5A6A32240135D005C0425 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A12240135D005C0425 /* Main.storyboard */; };
@@ -48,7 +51,10 @@
 		408B4AFE2243A6C20044583B /* RestRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequests.swift; sourceTree = "<group>"; };
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
 		D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AXDLockers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA277D78224E6C700039235D /* SecurityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeViewController.swift; sourceTree = "<group>"; };
 		DA834B29224973C400996DEB /* AddLockerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLockerViewController.swift; sourceTree = "<group>"; };
+		DA99BB402250C1B5005FD346 /* LockerHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerHistory.swift; sourceTree = "<group>"; };
+		DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmationViewController.swift; sourceTree = "<group>"; };
 		DAC5A69A2240135D005C0425 /* AXDLockers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXDLockers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC5A69D2240135D005C0425 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +135,8 @@
 				DAC5A69F2240135D005C0425 /* QRScannerViewController.swift */,
 				4041FF0A224CB11300C27574 /* AddResidentViewController.swift */,
 				4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */,
+				DA277D78224E6C700039235D /* SecurityCodeViewController.swift */,
+				DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -150,6 +158,7 @@
 				DADC98F9224ABE6D00ABA881 /* City.swift */,
 				DADC98FE224D3F4200ABA881 /* Resident.swift */,
 				4041FF0E224E082900C27574 /* Building.swift */,
+				DA99BB402250C1B5005FD346 /* LockerHistory.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -286,8 +295,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA99BB432250E507005FD346 /* FinalConfirmationViewController.swift in Sources */,
 				4041FF0D224E047300C27574 /* ChooseBuildingViewController.swift in Sources */,
 				4041FF11224E0B2E00C27574 /* BuildingTableViewCell.swift in Sources */,
+				DA99BB412250C1B5005FD346 /* LockerHistory.swift in Sources */,
 				4041FF0F224E082900C27574 /* Building.swift in Sources */,
 				4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
@@ -304,6 +315,7 @@
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
 				4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */,
+				DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */,
 				4041FF09224B710500C27574 /* AddressTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
