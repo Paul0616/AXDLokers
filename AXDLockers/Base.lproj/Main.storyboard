@@ -1160,7 +1160,7 @@
             </objects>
             <point key="canvasLocation" x="3660" y="-74"/>
         </scene>
-        <!--Title-->
+        <!--Add Address View Controller-->
         <scene sceneID="qdb-oc-AEI">
             <objects>
                 <viewController id="34Z-m5-euB" customClass="AddAddressViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
@@ -1261,10 +1261,17 @@
                         <viewLayoutGuide key="safeArea" id="dUG-Vh-L7A"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="uWj-Zf-LPn"/>
+                    <navigationItem key="navigationItem" id="uWj-Zf-LPn">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="kU0-8D-tvc">
+                            <connections>
+                                <action selector="onSave:" destination="34Z-m5-euB" id="SST-9s-GTb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="AXN-8R-uab" id="Z3i-4v-7km"/>
+                        <outlet property="saveBarButton" destination="kU0-8D-tvc" id="fVW-s4-Izc"/>
                         <outlet property="streetTextField" destination="hXW-xf-Xsn" id="2qA-ug-WKU"/>
                         <outlet property="tableCities" destination="BdL-1p-jfw" id="T9w-TF-CTw"/>
                         <outlet property="zipCodeTextField" destination="55D-5e-kuV" id="H7x-Le-Zgh"/>

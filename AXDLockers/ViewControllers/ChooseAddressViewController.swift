@@ -89,6 +89,9 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedAddressId = addresses[indexPath.row].id
+        if selectedAddressId == 0 {
+            return
+        }
 //        var controller: UINavigationController
 //        controller = self.storyboard?.instantiateViewController(withIdentifier: "navigationAddLocker") as! UINavigationController
 //        let dest = controller.viewControllers.first as! AddLockerViewController
@@ -153,6 +156,10 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
                 let address = Address.init(street: street, id: addressId, cityName: city, stateName: state, zipCode: zipCode)
                 addresses.append(address)
             }
+        }
+        if addresses.count == 0 {
+            let address = Address.init(street: "No available address", id: 0, cityName: "", stateName: "", zipCode: "")
+            addresses.append(address)
         }
         tableView.reloadData()
     }

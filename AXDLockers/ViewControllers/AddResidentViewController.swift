@@ -87,7 +87,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     func refreshButton(){
-        if selectedResident != nil {
+        if selectedResident != nil && selectedResident.id != 0 {
             sendButtonBar.isEnabled = true
         } else {
             sendButtonBar.isEnabled = false
@@ -217,6 +217,10 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     residents.append(resident)
                 }
             }
+//            if residents.count == 0 {
+//                let resident = Resident(id: 0, firstName: "", lastName: " ", phone: "", email: "", securityCode: "", suiteNumber: "No available residents", buildingResidentId: 0)
+//                residents.append(resident)
+//            }
             tableResidents.reloadData()
         }
     }

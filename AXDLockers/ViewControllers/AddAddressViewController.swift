@@ -144,6 +144,10 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
                     cities.append(city)
                 }
             }
+            if cities.count == 0 {
+                let city = City.init(name: "No available cities", id: 0)!
+                cities.append(city)
+            }
             tableCities.reloadData()
         }
         if requestID == INSERT_ADDRESS_REQUEST {
