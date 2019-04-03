@@ -1293,7 +1293,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6eb-0S-pY5">
-                                <rect key="frame" x="32" y="402" width="311" height="19"/>
+                                <rect key="frame" x="32" y="354" width="311" height="19"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1306,7 +1306,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7tZ-b2-9cX">
-                                <rect key="frame" x="199" y="479" width="62" height="31"/>
+                                <rect key="frame" x="199" y="431" width="62" height="31"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                 <state key="normal" title="Tap here">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1316,7 +1316,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OxC-y0-GcH">
-                                <rect key="frame" x="32" y="343" width="311" height="52"/>
+                                <rect key="frame" x="32" y="295" width="311" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="VeL-Hf-7wg"/>
                                 </constraints>
@@ -1325,13 +1325,13 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="continue" enablesReturnKeyAutomatically="YES" textContentType="username"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot your password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJZ-Gk-QhI">
-                                <rect key="frame" x="32" y="485" width="166" height="19"/>
+                                <rect key="frame" x="32" y="437" width="166" height="19"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mrk-x9-OoE">
-                                <rect key="frame" x="32" y="427" width="311" height="52"/>
+                                <rect key="frame" x="32" y="379" width="311" height="52"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="J3i-Fg-Quy"/>
                                 </constraints>
@@ -1340,13 +1340,13 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User/Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33W-g0-Qjy">
-                                <rect key="frame" x="32" y="318" width="311" height="19"/>
+                                <rect key="frame" x="32" y="270" width="311" height="19"/>
                                 <fontDescription key="fontDescription" name="MyriadPro-Regular" family="Myriad Pro" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aag-fw-Zfh">
-                                <rect key="frame" x="67" y="551.5" width="241" height="57"/>
+                                <rect key="frame" x="67" y="503.5" width="241" height="57"/>
                                 <color key="backgroundColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="37"/>
                                 <state key="normal" title="LOGIN">
@@ -1374,7 +1374,7 @@
                             <constraint firstItem="aBF-QZ-WaT" firstAttribute="centerY" secondItem="Wp6-zJ-0hf" secondAttribute="centerY" id="RTK-WT-pzp"/>
                             <constraint firstItem="ftQ-3s-IAB" firstAttribute="bottom" secondItem="n5b-7v-buD" secondAttribute="bottom" id="Tu3-rD-qJ9"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="trailing" secondItem="6eb-0S-pY5" secondAttribute="trailing" id="VOb-j7-3XW"/>
-                            <constraint firstItem="33W-g0-Qjy" firstAttribute="centerY" secondItem="Wp6-zJ-0hf" secondAttribute="centerY" constant="-16" id="X5Q-y7-H1P"/>
+                            <constraint firstItem="33W-g0-Qjy" firstAttribute="centerY" secondItem="Wp6-zJ-0hf" secondAttribute="centerY" constant="-64" id="X5Q-y7-H1P"/>
                             <constraint firstItem="Oip-XB-R2H" firstAttribute="centerY" secondItem="n5b-7v-buD" secondAttribute="centerY" multiplier="0.3" id="Z4A-0u-ich"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="top" secondItem="6eb-0S-pY5" secondAttribute="bottom" constant="6" id="Zdf-cH-Ril"/>
                             <constraint firstItem="OxC-y0-GcH" firstAttribute="top" secondItem="33W-g0-Qjy" secondAttribute="bottom" constant="6" id="a1m-DK-0LB"/>

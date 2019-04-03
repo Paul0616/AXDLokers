@@ -680,13 +680,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.203794"
+            timestampString = "575881748.016616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
             endingLineNumber = "82"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "checkForRequest(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -696,7 +696,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "575809701.203861"
+            timestampString = "575967453.530477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "179"
@@ -712,12 +712,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "575809701.203899"
+            timestampString = "575967453.531899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "133"
             endingLineNumber = "133"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "treatErrors(_:errorMessage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -733,8 +733,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"
             endingLineNumber = "245"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
+            landmarkName = "AddLockerViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -760,12 +760,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "575809701.203954"
+            timestampString = "575967453.531971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
             endingLineNumber = "92"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -776,12 +776,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "575809701.203989"
+            timestampString = "575967453.5320081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -792,23 +792,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/ChooseAddressViewController.swift"
-            timestampString = "575797352.206738"
+            timestampString = "575881748.016831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "130"
             endingLineNumber = "130"
-            landmarkName = "treatErrors(_:errorMessage:)"
+            landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/ChooseAddressViewController.swift"
-            timestampString = "575797352.206776"
+            timestampString = "575881748.016861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
@@ -824,7 +824,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.8924069"
+            timestampString = "575881748.016893"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
@@ -840,7 +840,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.892442"
+            timestampString = "575881748.017181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
@@ -856,11 +856,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.892471"
+            timestampString = "575881748.01738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -872,7 +872,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.8925"
+            timestampString = "575881748.017574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "60"
@@ -888,7 +888,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/ChooseBuildingViewController.swift"
-            timestampString = "575551144.39292"
+            timestampString = "575881748.017777"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
@@ -904,13 +904,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.2040811"
+            timestampString = "575881748.017812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "379"
             endingLineNumber = "379"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "postNotifications(body:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -920,7 +920,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/ChooseBuildingViewController.swift"
-            timestampString = "575551144.393"
+            timestampString = "575881748.0178469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
@@ -936,13 +936,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.204139"
+            timestampString = "575881748.017877"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "389"
             endingLineNumber = "389"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "postNotifications(body:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -952,11 +952,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.892644"
+            timestampString = "575881748.017909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -968,11 +968,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.892686"
+            timestampString = "575881748.018103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -984,11 +984,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/ChooseBuildingViewController.swift"
-            timestampString = "575551144.393479"
+            timestampString = "575881748.018298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1000,7 +1000,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.892731"
+            timestampString = "575881748.018333"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
@@ -1016,7 +1016,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/AddResidentViewController.swift"
-            timestampString = "575802830.892763"
+            timestampString = "575881748.0185291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
@@ -1032,13 +1032,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.204229"
+            timestampString = "575881748.018733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "339"
             endingLineNumber = "339"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "postLockerHistories(body:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1064,13 +1064,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.204316"
+            timestampString = "575881748.018783"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "224"
             endingLineNumber = "224"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "deleteLockerBuildingResident(parameters:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1080,13 +1080,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.2043639"
+            timestampString = "575881748.018816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
             endingLineNumber = "233"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "deleteLockerBuildingResident(parameters:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1112,13 +1112,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.204443"
+            timestampString = "575881748.018858"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "179"
             endingLineNumber = "179"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "resetPassword(parameters:requestID:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1160,13 +1160,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.204486"
+            timestampString = "575881748.018889"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "163"
             endingLineNumber = "163"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "resetPassword(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1176,7 +1176,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/LogInViewController.swift"
-            timestampString = "575809701.204531"
+            timestampString = "575879166.512593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "124"
@@ -1192,7 +1192,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/LogInViewController.swift"
-            timestampString = "575809701.2048351"
+            timestampString = "575879166.512657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "133"
@@ -1208,13 +1208,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.2050411"
+            timestampString = "575881748.018939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "179"
             endingLineNumber = "179"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "resetPassword(parameters:requestID:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -1252,11 +1252,11 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/LogInViewController.swift"
-            timestampString = "575809701.20509"
+            timestampString = "575879166.5126981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "109"
@@ -1272,13 +1272,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.2052881"
+            timestampString = "575881748.018981"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "checkForRequest(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1288,13 +1288,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205333"
+            timestampString = "575881748.019011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
             endingLineNumber = "88"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "checkForRequest(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1304,13 +1304,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205376"
+            timestampString = "575881748.01904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
             endingLineNumber = "71"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "checkForRequest(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1320,19 +1320,19 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205416"
+            timestampString = "575881748.019069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "checkForRequest(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/AppDelegate.swift"
@@ -1348,7 +1348,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/AppDelegate.swift"
@@ -1368,13 +1368,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205559"
+            timestampString = "575881748.019117"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "switchRequestFunction(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1384,7 +1384,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/LogInViewController.swift"
-            timestampString = "575809701.205626"
+            timestampString = "575879166.51279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
@@ -1400,13 +1400,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205812"
+            timestampString = "575881748.0191571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "103"
             endingLineNumber = "103"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "switchRequestFunction(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1416,13 +1416,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205852"
+            timestampString = "575881748.019188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "checkForRequest(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1432,13 +1432,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.2058901"
+            timestampString = "575881748.019217"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "switchRequestFunction(parameters:requestID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1448,13 +1448,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/utils/RestRequests.swift"
-            timestampString = "575809701.205927"
+            timestampString = "575881748.019246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
             endingLineNumber = "101"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "switchRequestFunction(parameters:requestID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
+            timestampString = "575967453.53232"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
+            timestampString = "575967453.5323581"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
+            timestampString = "575967453.532413"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

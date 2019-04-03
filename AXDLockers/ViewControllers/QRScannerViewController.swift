@@ -42,7 +42,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             captureDevice = device
         } else {
             return
-//        }
+        }
         
     
 //        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
