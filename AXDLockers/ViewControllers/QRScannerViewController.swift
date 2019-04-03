@@ -35,12 +35,23 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 //        if AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined {
 //            AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in })
 //        }
-        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
-       
-        guard let captureDevice = deviceDiscoverySession.devices.first else {
-            print("Failed to get the camera device")
+        var captureDevice: AVCaptureDevice!
+        if let device = AVCaptureDevice.default(.builtInDualCamera, for: AVMediaType.video, position: .back) {
+            captureDevice = device
+        } else if let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back) {
+            captureDevice = device
+        } else {
             return
-        }
+//        }
+        
+    
+//        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
+//        print(deviceDiscoverySession.devices.count)
+//
+//        guard let captureDevice = deviceDiscoverySession.devices.first else {
+//            print("Failed to get the camera device")
+//            return
+//        }
         //messageFrame.layer.cornerRadius = 6
 
         do {
