@@ -83,6 +83,12 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
                 let parameter = [KEY_id: lastInsertedLockerHistoriesId]
                 self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+            } else {
+                let param = [
+                    KEY_lockerId: self.lockerId!,
+                    KEY_buildingResidentId: self.resident.buildingResidentId
+                    ] as [String : Any]
+                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
             }
         }
         if requestID == DELETE_LOCKER_HISTORIES_REQUEST {
@@ -101,7 +107,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                     }
                     break
                 }
-                infoLabel.text = "Inserting locker history..."
+                infoLabel.text = "Creating locker history..."
                 var param = [
                     KEY_qrCode: lockerHistory.qrCode,
                     KEY_number: lockerHistory.number,
@@ -126,7 +132,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                 }
                 restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
             } else {
-                infoLabel.text = "Inserting locker - bulding - resident association..."
+                infoLabel.text = "Creating locker - bulding - resident association..."
                 let param = [
                     KEY_lockerId: self.lockerId!,
                     KEY_buildingResidentId: self.resident.buildingResidentId
@@ -149,7 +155,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
         if requestID == INSERT_LOCKER_BUILDING_RESIDENT_REQUEST {
             if let lastInsertedLockerBuildingResidentId = json?[KEY_id].int! {
                 UserDefaults.standard.set(lastInsertedLockerBuildingResidentId, forKey: "lastInsertedLockerBuildingResidentId")
-                infoLabel.text = "Inserting locker history..."
+                infoLabel.text = "Creating locker history..."
                 var param = [
                     KEY_qrCode: lockerHistory.qrCode,
                     KEY_number: lockerHistory.number,
@@ -179,7 +185,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             if let lastInsertedLockerHistoriesId = json?[KEY_id].int! {
                 
                 UserDefaults.standard.set(lastInsertedLockerHistoriesId, forKey: "lastInsertedLockerHistoriesId")
-                 infoLabel.text = "Sending lnotification to resident..."
+                 infoLabel.text = "Sending notification to resident..."
                 let param = [
                     KEY_lockerBuildingResidentId: UserDefaults.standard.object(forKey: "lastInsertedLockerBuildingResidentId") as! Int
                     ] as [String : Any]

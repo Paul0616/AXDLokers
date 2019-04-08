@@ -588,6 +588,9 @@ class RestRequests: NSObject {
         if let residentName = parameters[KEY_residentName]{
             param[addREST_Filter(parameters: [KEY_residentName])] = residentName
         }
+        if let suiteNumber = parameters[KEY_suiteNumber]{
+            param[addREST_Filter(parameters: [KEY_suiteNumber])] = suiteNumber
+        }
         param["expand"] = KEY_resident
         
         if let perPage = parameters["per-page"] {
