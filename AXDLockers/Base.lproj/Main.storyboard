@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="height" constant="40" id="Wfb-b5-nn8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="0.83137254901960778" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlw-gW-Q80">
@@ -235,7 +235,7 @@
                                     <outletCollection property="gestureRecognizers" destination="Zdw-FI-dBA" appends="YES" id="0IU-d4-Kgq"/>
                                 </connections>
                             </view>
-                            <searchBar contentMode="redraw" placeholder="Search resident" translatesAutoresizingMaskIntoConstraints="NO" id="EAe-wu-wxo">
+                            <searchBar contentMode="redraw" placeholder="Search by name or suite#" translatesAutoresizingMaskIntoConstraints="NO" id="EAe-wu-wxo">
                                 <rect key="frame" x="0.0" y="359" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
