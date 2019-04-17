@@ -250,6 +250,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             }
             if searchBar.text != "" {
                 param[KEY_residentName] = searchBar.text!
+                param[KEY_suiteNumber] = searchBar.text!
             }
             restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
         }
