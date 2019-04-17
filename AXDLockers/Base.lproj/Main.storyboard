@@ -899,7 +899,7 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ru3-qO-LJE">
                                                 <rect key="frame" x="16" y="335" width="343" height="50"/>
-                                                <color key="backgroundColor" red="0.70044489379999997" green="0.76045788660000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" red="0.70196078431372544" green="0.76078431372549016" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Tuo-tF-PKo"/>
                                                 </constraints>
@@ -1085,7 +1085,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" misplaced="YES" placeholder="Search by street name" id="c5B-m8-mVr">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search by street name" id="c5B-m8-mVr">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -1359,6 +1359,13 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Oip-XB-R2H">
                                 <rect key="frame" x="177.5" y="90" width="20" height="20"/>
                             </activityIndicatorView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoArtexDom" translatesAutoresizingMaskIntoConstraints="NO" id="7be-oT-N1g">
+                                <rect key="frame" x="142.5" y="36" width="90" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="aUP-yd-s9T"/>
+                                    <constraint firstAttribute="width" constant="90" id="xsb-wP-xzf"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1375,6 +1382,8 @@
                             <constraint firstItem="ftQ-3s-IAB" firstAttribute="bottom" secondItem="n5b-7v-buD" secondAttribute="bottom" id="Tu3-rD-qJ9"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="trailing" secondItem="6eb-0S-pY5" secondAttribute="trailing" id="VOb-j7-3XW"/>
                             <constraint firstItem="33W-g0-Qjy" firstAttribute="centerY" secondItem="Wp6-zJ-0hf" secondAttribute="centerY" constant="-64" id="X5Q-y7-H1P"/>
+                            <constraint firstItem="7be-oT-N1g" firstAttribute="top" secondItem="Wp6-zJ-0hf" secondAttribute="top" constant="16" id="Xg0-Io-cyt"/>
+                            <constraint firstItem="7be-oT-N1g" firstAttribute="centerX" secondItem="n5b-7v-buD" secondAttribute="centerX" id="Y8v-jh-rbc"/>
                             <constraint firstItem="Oip-XB-R2H" firstAttribute="centerY" secondItem="n5b-7v-buD" secondAttribute="centerY" multiplier="0.3" id="Z4A-0u-ich"/>
                             <constraint firstItem="Mrk-x9-OoE" firstAttribute="top" secondItem="6eb-0S-pY5" secondAttribute="bottom" constant="6" id="Zdf-cH-Ril"/>
                             <constraint firstItem="OxC-y0-GcH" firstAttribute="top" secondItem="33W-g0-Qjy" secondAttribute="bottom" constant="6" id="a1m-DK-0LB"/>
@@ -1473,6 +1482,7 @@
         <image name="building" width="48" height="48"/>
         <image name="exit_48pt" width="48" height="48"/>
         <image name="locker" width="41" height="48.5"/>
+        <image name="logoArtexDom" width="579.66668701171875" height="258.66665649414062"/>
         <image name="logoWhite" width="225" height="66"/>
         <image name="person" width="36" height="36"/>
     </resources>
