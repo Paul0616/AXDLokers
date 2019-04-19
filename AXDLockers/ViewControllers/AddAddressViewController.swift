@@ -55,6 +55,27 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     //MARK: -  UITableView protocol
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        var numOfSections: Int = 0
+        if cities.count > 0
+        {
+            tableView.separatorStyle = .singleLine
+            numOfSections            = 1
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No available cities"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
+        return numOfSections
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cities.count
     }
@@ -144,10 +165,10 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
                     cities.append(city)
                 }
             }
-            if cities.count == 0 {
-                let city = City.init(name: "No available cities", id: 0)!
-                cities.append(city)
-            }
+//            if cities.count == 0 {
+//                let city = City.init(name: "No available cities", id: 0)!
+//                cities.append(city)
+//            }
             tableCities.reloadData()
         }
         if requestID == INSERT_ADDRESS_REQUEST {

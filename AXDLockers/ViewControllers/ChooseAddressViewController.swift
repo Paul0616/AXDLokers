@@ -60,7 +60,26 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
     }
     // MARK: - Table view data source
 
-    
+    override func numberOfSections(in tableView: UITableView) -> Int
+    {
+        var numOfSections: Int = 0
+        if addresses.count > 0
+        {
+            tableView.separatorStyle = .singleLine
+            numOfSections            = 1
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No available addresses"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
+        return numOfSections
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -92,17 +111,6 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         if selectedAddressId == 0 {
             return
         }
-//        var controller: UINavigationController
-//        controller = self.storyboard?.instantiateViewController(withIdentifier: "navigationAddLocker") as! UINavigationController
-//        let dest = controller.viewControllers.first as! AddLockerViewController
-//        dest.address = addresses[indexPath.row]
-        //dismiss(animated: true, completion: nil)
-//        self.present(controller, animated: true, completion: { () -> Void in
-//            dispatch_after(0, dispatch_get_main_queue(), { () -> Void in
-//            self.navigationController?.dismissViewControllerAnimated(false, completion: nil)
-//
-//            })
-//        })
         let userDefaults = UserDefaults.standard
         do {
         let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: addresses[indexPath.row], requiringSecureCoding: false)
@@ -157,10 +165,11 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
                 addresses.append(address)
             }
         }
-        if addresses.count == 0 {
-            let address = Address.init(street: "No available address", id: 0, cityName: "", stateName: "", zipCode: "")
-            addresses.append(address)
-        }
+//        if addresses.count == 0 {
+//            let address = Address.init(street: "No available address", id: 0, cityName: "", stateName: "", zipCode: "")
+//            addresses.append(address)
+            
+//        }
         tableView.reloadData()
     }
     /*
