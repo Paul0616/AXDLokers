@@ -11,7 +11,7 @@ import SwiftyJSON
 import CommonCrypto
 
 let scheme: String = "http"
-let baseURL: String = "lockers.ondesign.ro"
+let baseURL: String = "admin.smartlockers.ca"
 let port: String = ""
 let urlFolders: [String] = ["v1"]
 
