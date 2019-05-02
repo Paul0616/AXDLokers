@@ -135,7 +135,8 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                 infoLabel.text = "Creating locker - bulding - resident association..."
                 let param = [
                     KEY_lockerId: self.lockerId!,
-                    KEY_buildingResidentId: self.resident.buildingResidentId
+                    KEY_buildingResidentId: self.resident.buildingResidentId,
+                    KEY_status: STATUS_NOT_CONFIRMED
                     ] as [String : Any]
                 self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_BUILDING_RESIDENT_REQUEST)
             }

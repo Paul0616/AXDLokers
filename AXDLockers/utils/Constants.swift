@@ -68,6 +68,7 @@ let KEY_lockerId = "lockerId"
 let KEY_lockerAddress = "lockerAddress"
 let KEY_buildingResidentId = "buildingResidentId"
 let KEY_lockerBuildingResidentId = "lockerBuildingResidentId"
+let KEY_status = "status"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
@@ -88,6 +89,8 @@ let LOCKER_BUILDING_RESIDENT_REQUEST = 16
 let DELETE_LOCKER_BUILDING_RESIDENT_REQUEST = 17
 let DELETE_LOCKER_HISTORIES_REQUEST = 18
 let RESET_PASSWORD_REQUEST = 19
+
+let STATUS_NOT_CONFIRMED = 1
 
 func getURL() -> String {
     var url: String = ""

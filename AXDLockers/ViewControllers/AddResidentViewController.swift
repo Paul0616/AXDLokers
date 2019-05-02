@@ -25,6 +25,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var sendButtonBar: UIBarButtonItem!
+    var noDataMessage: String = "No available residents"
     var qrCode: String!
     var currentBuildingId: Int!
     var currentLockerId: Int!
@@ -115,14 +116,13 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     currentLockerHistory = LockerHistory(qrCode: value[KEY_qrCode].string!, lockerAddress: lockeraddressLabel.text!, number: value[KEY_number].string!, size: value[KEY_size].string!, firstName: "", lastName: "", email: "", phoneNumber: nil, securityCode: "", residentAddress: "", suiteNumber: "", buildingUniqueNumber: "", name: "", buildingAddress: "")
                     break
                 }
+                noDataMessage = "No available residents"
                 if currentBuildingId == nil {
                     let param = [KEY_qrCode: qrCode!] as NSDictionary
                     restRequest.checkForRequest(parameters: param, requestID: LOCKER_HISTORY_REQUEST)
                 } else {
                     let param = [KEY_id: currentBuildingId!, "expand": KEY_address + "." + KEY_city + "." + KEY_state] as NSDictionary
                     restRequest.checkForRequest(parameters: param, requestID: BUILDING_ID_REQUEST)
-//                    var param = ["per-page": PAGE_SIZE, KEY_buildingId: currentBuildingId!]
-//                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_BUILDING_REQUEST)
                 }
             }
         }
@@ -140,11 +140,18 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     break
                 }
                 if  buldingUniqueNumberLabel.text != "-" {
+                    
                     let param = [KEY_buildingUniqueNumber: buldingUniqueNumberLabel.text!] as NSDictionary
                     restRequest.checkForRequest(parameters: param, requestID: BUILDING_REQUEST)
                 } else {
-                    let param = ["per-page": PAGE_SIZE]
-                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
+                    noDataMessage = """
+                    You have to choose a building
+                    to see its residents
+                    """
+                    activityIndicator.stopAnimating()
+                    tableResidents.reloadData()
+//                    let param = ["per-page": PAGE_SIZE]
+//                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_FILTERED_RESIDENTS_REQUEST)
                 }
             }
         }
@@ -223,6 +230,28 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
 //            }
             tableResidents.reloadData()
         }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        var numOfSections: Int = 0
+        if residents.count > 0
+        {
+            tableView.separatorStyle = .singleLine
+            numOfSections            = 1
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = noDataMessage
+            noDataLabel.numberOfLines = 2
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
+        return numOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
