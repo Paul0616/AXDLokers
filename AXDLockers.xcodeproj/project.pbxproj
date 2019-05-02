@@ -184,6 +184,7 @@
 				DAC5A6972240135D005C0425 /* Frameworks */,
 				DAC5A6982240135D005C0425 /* Resources */,
 				83D2A4AE68DDA584835D11B9 /* [CP] Embed Pods Frameworks */,
+				40B0467C227AC98000AB645D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -242,6 +243,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		40B0467C227AC98000AB645D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#   Output version & build numbers into a label on LaunchScreen.storyboard\nversionNumber=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nsed -i bak -e \"/userLabel=\\\"APP_VERSION\\\"/s/text=\\\"[^\\\"]*\\\"/text=\\\"Version: $versionNumber\\\"/\" $PROJECT_DIR/$PROJECT_NAME/Base.lproj/LaunchScreen.storyboard\n";
+		};
 		83D2A4AE68DDA584835D11B9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

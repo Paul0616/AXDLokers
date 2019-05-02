@@ -35,16 +35,25 @@
                                     <constraint firstAttribute="height" constant="40" id="ygN-Ue-tIR"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 1.3.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCH-B3-DDB" userLabel="APP_VERSION">
+                                <rect key="frame" x="0.0" y="374.5" width="375" height="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tla-3X-Dlt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0ZM-83-LtD"/>
+                            <constraint firstItem="UCH-B3-DDB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="25u-UY-ziM"/>
                             <constraint firstAttribute="bottom" secondItem="vWp-7A-lv0" secondAttribute="bottom" id="9Id-o2-HNk"/>
                             <constraint firstItem="8c8-og-vv1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="B0c-Zg-1v2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vWp-7A-lv0" secondAttribute="trailing" id="BFO-m1-fzA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="UCH-B3-DDB" secondAttribute="trailing" id="THr-gh-JFB"/>
                             <constraint firstItem="vWp-7A-lv0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ylr-8y-duO"/>
                             <constraint firstItem="tla-3X-Dlt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="cAq-Ah-eGm"/>
                             <constraint firstItem="8c8-og-vv1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="hXp-qe-54D"/>
+                            <constraint firstItem="UCH-B3-DDB" firstAttribute="top" secondItem="tla-3X-Dlt" secondAttribute="bottom" constant="8" id="jIe-UQ-ZIY"/>
                             <constraint firstItem="vWp-7A-lv0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="neJ-Mr-vmK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
