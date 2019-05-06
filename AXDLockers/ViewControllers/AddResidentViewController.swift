@@ -39,6 +39,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
 //    var isFiltered: Bool = false
     var loadedPages: Int = 0
     var selectedResident: Resident!
+    var ownedBuildingsUniqueNumbers: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         restRequest.delegate = self
         searchBar.delegate = self
         refreshButton()
-        refreshBuilding()
+        checkUser()
        
     }
     
@@ -72,7 +73,12 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         
         dismiss(animated: true, completion: nil)
     }
-    
+    func checkUser(){
+        if let userId: Int = UserDefaults.standard.object(forKey: "userId") as? Int {
+            let param = [KEY_userId: userId] as NSDictionary
+            restRequest.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+        }
+    }
     func refreshBuilding(){
         if qrCode != nil {
             activityIndicator.startAnimating()
@@ -102,6 +108,34 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
     func resultedData(data: Data!, requestID: Int) {
         let json = try? JSON(data: data)
         print(requestID)
+        if requestID == CHECK_USERS_REQUEST {
+            let json = try? JSON(data: data)
+            if let role: JSON = getJSON(json: json, desiredKey: KEY_role) {
+                let hasRelatedBuilding: Bool = role[KEY_hasRelatedBuildings].int == 1 ? true : false
+                if hasRelatedBuilding {
+                    let buildingXUsers: JSON = getJSON(json: json, desiredKey: KEY_buildingXUsers)
+                    if buildingXUsers.count == 0 {
+                        let alertController = UIAlertController(title: "No building", message: "You've not been assigned any building. Please contact your administrator.\nYou'll be redirected to the login screen.", preferredStyle: UIAlertController.Style.alert)
+                        let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                            Switcher.updateRootVC(isLogged: true)
+                        })
+                        alertController.addAction(saveAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        ownedBuildingsUniqueNumbers = [String]()
+                        for (_, value) in buildingXUsers {
+                            let buildingUniqueNumber = value[KEY_building][KEY_buildingUniqueNumber].string!
+                            ownedBuildingsUniqueNumbers.append(buildingUniqueNumber)
+                        }
+                        refreshBuilding()
+                    }
+                } else {
+                    refreshBuilding()
+                }
+                
+            }
+        }
+        
         if requestID == LOCKERS_REQUEST {
             if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
@@ -119,7 +153,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                 noDataMessage = "No available residents"
                 if currentBuildingId == nil {
                     let param = [KEY_qrCode: qrCode!] as NSDictionary
-                    restRequest.checkForRequest(parameters: param, requestID: LOCKER_HISTORY_REQUEST)
+                    restRequest.checkForRequest(parameters: param, requestID: LOCKER_HISTORY_REQUEST, list: ownedBuildingsUniqueNumbers)
                 } else {
                     let param = [KEY_id: currentBuildingId!, "expand": KEY_address + "." + KEY_city + "." + KEY_state] as NSDictionary
                     restRequest.checkForRequest(parameters: param, requestID: BUILDING_ID_REQUEST)

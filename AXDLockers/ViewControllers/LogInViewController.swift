@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate{
    
@@ -19,7 +20,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             self.present(alertController1, animated: true, completion: nil)
             return
         }
-        
+        if requestID == CHECK_USERS_REQUEST {
+            activityIndicator.stopAnimating()
+            let json = try? JSON(data: data)
+            
+            if let role: JSON = getJSON(json: json, desiredKey: KEY_role) {
+                let hasRelatedBuilding: Bool = role[KEY_hasRelatedBuildings].int == 1 ? true : false
+                if hasRelatedBuilding {
+                    let buildingXUsers: JSON = getJSON(json: json, desiredKey: KEY_buildingXUsers)
+                    if buildingXUsers.count == 0 {
+                        let alertController = UIAlertController(title: "No building", message: "You've not been assigned any building. Please contact your administrator.", preferredStyle: UIAlertController.Style.alert)
+                        let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                           print("No building. Stay in login screen")
+                        })
+                        alertController.addAction(saveAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        Switcher.updateRootVC(isLogged: true)
+                    }
+                } else {
+                    Switcher.updateRootVC(isLogged: true)
+                }
+                
+            }
+        }
         
     }
     
