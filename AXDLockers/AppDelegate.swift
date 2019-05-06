@@ -23,10 +23,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
         if json?["createdBy"].type == SwiftyJSON.Type.null {
             print("null")
         }
-       
-        if json!.count > 0 {
-            Switcher.updateRootVC(isLogged: true)
+        if let role: JSON = getJSON(json: json, desiredKey: KEY_role) {
+            let hasRelatedBuilding: Bool = role[KEY_hasRelatedBuildings].int == 1 ? true : false
+            if hasRelatedBuilding {
+                let buildingXUsers: JSON = getJSON(json: json, desiredKey: KEY_buildingXUsers)
+                if buildingXUsers.count == 0 {
+                    let alertController = UIAlertController(title: "No building", message: "You've not been assigned any building. Please contact your administrator.\nYou'll be redirected to the login screen.", preferredStyle: UIAlertController.Style.alert)
+                    let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                        Switcher.updateRootVC(isLogged: false)
+                    })
+                    alertController.addAction(saveAction)
+                    let topWindow: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
+                    topWindow?.rootViewController = UIViewController()
+                    topWindow?.windowLevel = UIWindow.Level.alert + 1
+                    topWindow?.makeKeyAndVisible()
+                    topWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                } else {
+                   Switcher.updateRootVC(isLogged: true)
+                }
+            } else {
+                Switcher.updateRootVC(isLogged: true)
+            }
+
         }
+       
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {

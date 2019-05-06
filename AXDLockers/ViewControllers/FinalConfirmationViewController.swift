@@ -100,7 +100,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
         }
         if requestID == LOCKER_BUILDING_RESIDENT_REQUEST {
-            if let items: JSON = getItems(json: json), items.count > 0 {
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
                     if let lastInsertedLockerBuildingResidentId = value[KEY_id].int {
                         UserDefaults.standard.set(lastInsertedLockerBuildingResidentId, forKey: "lastInsertedLockerBuildingResidentId")

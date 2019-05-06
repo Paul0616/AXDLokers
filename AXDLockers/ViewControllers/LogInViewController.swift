@@ -20,25 +20,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             return
         }
         
-        //if requestID == TOKEN_REQUEST {
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-//                print(json)
-//                let items = json[KEY_items] as! NSArray
-//                let item = items[0] as! NSDictionary
-//                UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
-//                UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
-//                let isAdmin = item["isSuperAdmin"] as! Int
-//                UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
-//                UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
-//
-//                Switcher.updateRootVC(isLogged: true)
-//                activityIndicator.stopAnimating()
-//            } catch let error as NSError
-//            {
-//                print(error)
-//            }
-       // }
         
     }
     

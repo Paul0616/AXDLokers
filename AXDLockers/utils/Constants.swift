@@ -11,7 +11,7 @@ import SwiftyJSON
 import CommonCrypto
 
 let scheme: String = "http"
-let baseURL: String = "admin.smartlockers.ca"
+let baseURL: String = "lockers.ondesign.ro" //"admin.smartlockers.ca"
 let port: String = ""
 let urlFolders: [String] = ["v1"]
 
@@ -36,6 +36,9 @@ let KEY_userEmail = "email"
 let KEY_password = "password"
 let KEY_qrCode = "qrCode"
 let KEY_userId = "userId"
+let KEY_role = "role"
+let KEY_hasRelatedBuildings = "hasRelatedBuildings"
+let KEY_buildingXUsers = "buildingXUsers"
 let KEY_state = "state"
 let KEY_name = "name"
 let KEY_items = "items"
@@ -137,23 +140,11 @@ func encryptPassword(password: String) -> String {
     return digestHex
 }
 
-func getItems(json: JSON!) -> JSON! {
-    //var items: NSDictionary
-    var items:JSON!
-    for (key, value) in json! {
-        if key == KEY_items {
-            items = value
-            break
-        }
-    }
-    return items
-}
 
-func getMeta(json: JSON!) -> JSON! {
-    //var items: NSDictionary
+func getJSON(json: JSON!, desiredKey: String) -> JSON! {
     var items:JSON!
     for (key, value) in json! {
-        if key == KEY_meta {
+        if key == desiredKey {
             items = value
             break
         }

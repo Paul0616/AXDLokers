@@ -103,7 +103,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         let json = try? JSON(data: data)
         print(requestID)
         if requestID == LOCKERS_REQUEST {
-            if let items: JSON = getItems(json: json), items.count > 0 {
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
                     currentLockerId = value[KEY_id].int
                     lockerNumberLabel.text = "#"+value[KEY_number].string!
@@ -129,7 +129,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         if requestID == LOCKER_HISTORY_REQUEST {
             buldingUniqueNumberLabel.text = "-"
             buildingAddressLabel.text = "-"
-            if let items: JSON = getItems(json: json){
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items){
                 for (_, value) in items {
                     buldingUniqueNumberLabel.text = value[KEY_buildingUniqueNumber].string!
                     buildingAddressLabel.text = value[KEY_name].string! + ", " + value[KEY_buildingAddress].string!
@@ -156,7 +156,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         if requestID == BUILDING_REQUEST {
-            if let items: JSON = getItems(json: json), items.count > 0 {
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
                     currentBuildingId = value[KEY_id].int!
                     
@@ -199,14 +199,14 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
             isLoading = false
             activityIndicator.stopAnimating()
             let json = try? JSON(data: data)
-            if let meta: JSON = getMeta(json: json) {
+            if let meta: JSON = getJSON(json: json, desiredKey: KEY_meta) {
                 let currentPage = meta["currentPage"].int
                 if loadedPages != currentPage {
                     loadedPages = currentPage!
                 }
             }
             isLastPage = isLastPageLoaded(json: json)
-            if let items: JSON = getItems(json: json), items.count > 0 {
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
                     guard let id = value[KEY_resident][KEY_id].int else { return  }
                     guard let buildingResidentId = value[KEY_id].int else { return  }

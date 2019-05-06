@@ -150,14 +150,14 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
         let json = try? JSON(data: data)
         print(requestID)
         if requestID == CITIES_REQUEST {
-            if let meta: JSON = getMeta(json: json) {
+            if let meta: JSON = getJSON(json: json, desiredKey: KEY_meta) {
                 let currentPage = meta["currentPage"].int
                 if loadedPages != currentPage {
                     loadedPages = currentPage!
                 }
             }
             isLastPage = isLastPageLoaded(json: json)
-            if let items: JSON = getItems(json: json), items.count > 0 {
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
                     let state = value[KEY_state][KEY_name].string!
                     let cityId = value[KEY_id].int!
