@@ -637,6 +637,10 @@ class RestRequests: NSObject {
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
                 }
+                let json = try? JSON(data: response.data!)
+                
+                UserDefaults.standard.set(json![KEY_firstName].string, forKey: "userFirstName")
+                UserDefaults.standard.set(json![KEY_lastName].string, forKey: "userLastName")
                 self.delegate?.resultedData(data: response.data!, requestID: CHECK_USERS_REQUEST)
             })
     }
