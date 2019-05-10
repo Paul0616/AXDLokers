@@ -122,8 +122,8 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                     KEY_name: lockerHistory.name,
                     KEY_buildingAddress: lockerHistory.buildingAddress,
                     "residentAddress": lockerHistory.residentAddress,
-                    "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String
-                    ] as [String : Any]
+                    "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String,
+                    "packageStatus": "STATUS_NOT_CONFIRMED"] as [String : Any]
                 if lockerHistory.phoneNumber != "-" {
                     param[KEY_phone] = lockerHistory.phoneNumber
                 }
@@ -171,8 +171,8 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                     KEY_name: lockerHistory.name,
                     KEY_buildingAddress: lockerHistory.buildingAddress,
                     "residentAddress": lockerHistory.residentAddress,
-                    "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String
-                    ] as [String : Any]
+                    "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String,
+                    "packageStatus": "STATUS_NOT_CONFIRMED"] as [String : Any]
                 if lockerHistory.phoneNumber != "-" {
                     param[KEY_phone] = lockerHistory.phoneNumber
                 }

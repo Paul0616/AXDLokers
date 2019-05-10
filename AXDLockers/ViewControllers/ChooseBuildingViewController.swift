@@ -20,6 +20,7 @@ class ChooseBuildingViewController: UIViewController, UITableViewDelegate, UITab
     var loadedPages: Int = 0
     var buildings: [Building] = [Building]()
     var selectedBuildingId: Int!
+    var ownedBuildingsUniqueNumbers: [String] = [String]()
     
     @IBOutlet weak var tableBuildings: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -33,8 +34,15 @@ class ChooseBuildingViewController: UIViewController, UITableViewDelegate, UITab
         restRequest.delegate = self
         activityIndicator.startAnimating()
         isLoading = true
-        let param = ["expand": KEY_address + "." + KEY_city + "." + KEY_state, "per-page": PAGE_SIZE] as NSDictionary
-        restRequest.checkForRequest(parameters: param, requestID: BUILDING_REQUEST)
+        
+        checkUser()
+    }
+    //
+    func checkUser(){
+        if let userId: Int = UserDefaults.standard.object(forKey: "userId") as? Int {
+            let param = [KEY_userId: userId] as NSDictionary
+            restRequest.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int
@@ -79,7 +87,7 @@ class ChooseBuildingViewController: UIViewController, UITableViewDelegate, UITab
             if searchBar.text != "" {
                 param[KEY_searchText] = searchBar.text!
             }
-            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: BUILDING_REQUEST)
+            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: BUILDING_REQUEST, list: ownedBuildingsUniqueNumbers)
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -99,7 +107,7 @@ class ChooseBuildingViewController: UIViewController, UITableViewDelegate, UITab
         if searchBar.text != "" {
             param[KEY_searchText] = searchBar.text!
         }
-        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: BUILDING_REQUEST)
+        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: BUILDING_REQUEST, list: ownedBuildingsUniqueNumbers)
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
@@ -108,28 +116,59 @@ class ChooseBuildingViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func resultedData(data: Data!, requestID: Int) {
-        isLoading = false
-        activityIndicator.stopAnimating()
-        let json = try? JSON(data: data)
-        if let meta: JSON = getJSON(json: json, desiredKey: KEY_meta) {
-            let currentPage = meta["currentPage"].int
-            if loadedPages != currentPage {
-                loadedPages = currentPage!
-            }
-        }
-        isLastPage = isLastPageLoaded(json: json)
-        if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
-            for (_, value) in items {
-                guard let id = value[KEY_id].int else { return  }
-                let buildingUniqueNumber = value[KEY_buildingUniqueNumber].string!
-                let name = value[KEY_name].string!
-                let address = value[KEY_address][KEY_streetName].string! + ", " + value[KEY_address][KEY_city][KEY_name].string! + ", " + value[KEY_address][KEY_city][KEY_state][KEY_name].string! + ", " + value[KEY_address][KEY_zipCode].string!
+        if requestID == CHECK_USERS_REQUEST {
+            let json = try? JSON(data: data)
+            if let role: JSON = getJSON(json: json, desiredKey: KEY_role) {
+                let hasRelatedBuilding: Bool = role[KEY_hasRelatedBuildings].int == 1 ? true : false
+                if hasRelatedBuilding {
+                    let buildingXUsers: JSON = getJSON(json: json, desiredKey: KEY_buildingXUsers)
+                    if buildingXUsers.count == 0 {
+                        let alertController = UIAlertController(title: "No building", message: "You've not been assigned any building. Please contact your administrator.\nYou'll be redirected to the login screen.", preferredStyle: UIAlertController.Style.alert)
+                        let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                            Switcher.updateRootVC(isLogged: true)
+                        })
+                        alertController.addAction(saveAction)
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        ownedBuildingsUniqueNumbers = [String]()
+                        for (_, value) in buildingXUsers {
+                            let buildingUniqueNumber = value[KEY_building][KEY_buildingUniqueNumber].string!
+                            ownedBuildingsUniqueNumbers.append(buildingUniqueNumber)
+                        }
+                        let param = ["expand": KEY_address + "." + KEY_city + "." + KEY_state, "per-page": PAGE_SIZE] as NSDictionary
+                        restRequest.checkForRequest(parameters: param, requestID: BUILDING_REQUEST, list: ownedBuildingsUniqueNumbers)
+                    }
+                } else {
+                    let param = ["expand": KEY_address + "." + KEY_city + "." + KEY_state, "per-page": PAGE_SIZE] as NSDictionary
+                    restRequest.checkForRequest(parameters: param, requestID: BUILDING_REQUEST)
+                }
                 
-                let building = Building(id: id, name: name, address: address, buidingUniqueNumber: buildingUniqueNumber)
-                buildings.append(building)
             }
         }
-        tableBuildings.reloadData()
+        if requestID == BUILDING_REQUEST {
+            isLoading = false
+            activityIndicator.stopAnimating()
+            let json = try? JSON(data: data)
+            if let meta: JSON = getJSON(json: json, desiredKey: KEY_meta) {
+                let currentPage = meta["currentPage"].int
+                if loadedPages != currentPage {
+                    loadedPages = currentPage!
+                }
+            }
+            isLastPage = isLastPageLoaded(json: json)
+            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
+                for (_, value) in items {
+                    guard let id = value[KEY_id].int else { return  }
+                    let buildingUniqueNumber = value[KEY_buildingUniqueNumber].string!
+                    let name = value[KEY_name].string!
+                    let address = value[KEY_address][KEY_streetName].string! + ", " + value[KEY_address][KEY_city][KEY_name].string! + ", " + value[KEY_address][KEY_city][KEY_state][KEY_name].string! + ", " + value[KEY_address][KEY_zipCode].string!
+                    
+                    let building = Building(id: id, name: name, address: address, buidingUniqueNumber: buildingUniqueNumber)
+                    buildings.append(building)
+                }
+            }
+            tableBuildings.reloadData()
+        }
     }
    
     

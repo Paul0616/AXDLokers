@@ -23,7 +23,7 @@ class RestRequests: NSObject {
         //init
     }
     
-    func checkForRequest(parameters: NSDictionary!, requestID: Int){
+    func checkForRequest(parameters: NSDictionary!, requestID: Int, list: [String] = [String]()){
         if UserDefaults.standard.object(forKey: "token") as? String == nil && requestID != TOKEN_REQUEST {
             Switcher.updateRootVC(isLogged: false)
             return
@@ -65,10 +65,10 @@ class RestRequests: NSObject {
                             let item = items[0] as! NSDictionary
                             UserDefaults.standard.set(item["accessToken"] as! String, forKey: "token")
                             UserDefaults.standard.set(item["tokenExpiresAt"] as! Double, forKey: "tokenExpiresAt")
-                            UserDefaults.standard.set(item["id"] as! Double, forKey: "userId")
+                            UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
                             let isAdmin = item["isSuperAdmin"] as! Int
                             UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
-                            self.switchRequestFunction(parameters: parameters, requestID: requestID)
+                            self.switchRequestFunction(parameters: parameters, requestID: requestID, list: list)
                 
                         }  catch let error as NSError
                         {
@@ -85,15 +85,13 @@ class RestRequests: NSObject {
             }
         }
         else {
-            switchRequestFunction(parameters: parameters, requestID: requestID)
+            switchRequestFunction(parameters: parameters, requestID: requestID, list: list)
         }
 
     }
-    func switchRequestFunction(parameters: NSDictionary!, requestID: Int){
+    func switchRequestFunction(parameters: NSDictionary!, requestID: Int, list: [String]){
         switch (requestID) {
-//        case TOKEN_REQUEST:
-//            Switcher.updateRootVC(isLogged: true)
-//            break
+
         case LOCKERS_REQUEST:
             self.getLockers(parameters: parameters)
             break
@@ -102,8 +100,9 @@ class RestRequests: NSObject {
             self.checkUser(userId: userId)
             break
         case TOKEN_REQUEST:
-            Switcher.updateRootVC(isLogged: true)
-            //UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
+            //Switcher.updateRootVC(isLogged: true)
+            let userId = UserDefaults.standard.object(forKey: "userId") as! Int
+            self.checkUser(userId: userId)
             break
         case CITIES_REQUEST:
             self.getCities(parameters: parameters)
@@ -118,10 +117,10 @@ class RestRequests: NSObject {
             self.postAddress(body: parameters)
             break
         case LOCKER_HISTORY_REQUEST:
-            self.getLockerHistory(parameters: parameters)
+            self.getLockerHistory(parameters: parameters, list: list)
             break
         case BUILDING_REQUEST:
-            self.getBuilding(parameters: parameters)
+            self.getBuilding(parameters: parameters, list: list)
             break
         case BUILDING_RESIDENTS_REQUEST:
             self.getBuildingResidents(parameters: parameters)
@@ -419,7 +418,7 @@ class RestRequests: NSObject {
             })
     }
     
-    func getLockerHistory(parameters: NSDictionary!){
+    func getLockerHistory(parameters: NSDictionary!, list: [String]){
         var url: String = getURL()
         url.append(contentsOf: lockerHistoryREST_Action)
         var param: Parameters = [
@@ -429,10 +428,14 @@ class RestRequests: NSObject {
         if let p = parameters{
             param[addREST_Filter(parameters: [KEY_qrCode])] = p[KEY_qrCode]
         }
-        
+        if list.count > 0 {
+            param[addREST_Filter(parameters: [KEY_buildingUniqueNumber, "in"])] = list
+            
+        }
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
             .validate()
             .responseJSON(completionHandler: {response in
+                //let url = response.request?.url?.absoluteString
                 guard response.result.isSuccess else {
                     let message = "Connection error: \(String(describing: response.result.error!))"
                     let statusCode = response.response?.statusCode
@@ -471,7 +474,7 @@ class RestRequests: NSObject {
             })
     }
     
-    func getBuilding(parameters: NSDictionary!){
+    func getBuilding(parameters: NSDictionary!, list: [String]){
         var url: String = getURL()
         url.append(contentsOf: buildingREST_Action)
         
@@ -495,6 +498,9 @@ class RestRequests: NSObject {
         }
         if let page = parameters["page"] {
             param["page"] = page
+        }
+        if list.count > 0 {
+            param[addREST_Filter(parameters: [KEY_buildingUniqueNumber, "in"])] = list
         }
         
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
