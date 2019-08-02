@@ -51,6 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorCode!)
+        if errorCode == 401 {
+            UserDefaults.standard.removeObject(forKey: "token")
+            UserDefaults.standard.removeObject(forKey: "userId")
+            UserDefaults.standard.removeObject(forKey: "isSuperAdmin")
+            UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
+            UserDefaults.standard.removeObject(forKey: "encryptedPassword")
+        }
         Switcher.updateRootVC(isLogged: false)
     }
 
