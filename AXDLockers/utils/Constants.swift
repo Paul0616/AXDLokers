@@ -10,10 +10,12 @@ import Foundation
 import SwiftyJSON
 import CommonCrypto
 
-let scheme: String = "http"
-let baseURL: String = "admin.smartlockers.ca"//"lockers.ondesign.ro" //"admin.smartlockers.ca"
+let scheme: String = "https"
+let baseURL: String = "lockers.ondesign.ro" //"admin.smartlockers.ca"
 let port: String = ""
 let urlFolders: [String] = ["v1"]
+
+
 
 //REST Control Actions
 let tokensREST_Action = "tokens"
@@ -72,6 +74,9 @@ let KEY_lockerAddress = "lockerAddress"
 let KEY_buildingResidentId = "buildingResidentId"
 let KEY_lockerBuildingResidentId = "lockerBuildingResidentId"
 let KEY_status = "status"
+let KEY_userRights = "userXRights"
+let KEY_right = "right"
+let KEY_code = "code"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
@@ -164,6 +169,25 @@ func isLastPageLoaded(json: JSON!) -> Bool {
         }
     }
     return lastPage
+}
+
+func setupCloseButton(viewController: UIViewController) -> UIButton {
+    let closeButton = UIButton()
+    viewController.view.addSubview(closeButton)
+    
+    // Stylistic features.
+    closeButton.setTitle("✕", for: .normal)
+    closeButton.setTitleColor(UIColor.white, for: .normal)
+    closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 32)
+    
+//    // Add a target function when the button is tapped.
+//    closeButton.addTarget(viewController, action: #selector(closeAction), for: .touchDown)
+    
+    // Constrain the button to be positioned in the top left corner (with some offset).
+    closeButton.translatesAutoresizingMaskIntoConstraints = false
+    closeButton.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 20).isActive = true
+    closeButton.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 20).isActive = true
+    return closeButton
 }
 
 

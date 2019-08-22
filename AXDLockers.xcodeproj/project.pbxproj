@@ -17,8 +17,14 @@
 		4041FF0D224E047300C27574 /* ChooseBuildingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */; };
 		4041FF0F224E082900C27574 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0E224E082900C27574 /* Building.swift */; };
 		4041FF11224E0B2E00C27574 /* BuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */; };
+		407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC209230EAEF800404FF5 /* OCRResultViewController.swift */; };
+		407AC20C230EB54800404FF5 /* ScanLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */; };
+		407AC20E230EB75600404FF5 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20D230EB75600404FF5 /* ImageViewController.swift */; };
+		407AC210230EB97E00404FF5 /* GoogleCloudOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20F230EB97E00404FF5 /* GoogleCloudOCR.swift */; };
+		407AC212230EB98700404FF5 /* GoogleCloudOCRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC211230EB98700404FF5 /* GoogleCloudOCRModel.swift */; };
 		408B4AFD22437DC30044583B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFC22437DC30044583B /* Constants.swift */; };
 		408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFE2243A6C20044583B /* RestRequests.swift */; };
+		40F01221230E866A009B2527 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F01220230E866A009B2527 /* MainMenuViewController.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
 		DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277D78224E6C700039235D /* SecurityCodeViewController.swift */; };
 		DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA834B29224973C400996DEB /* AddLockerViewController.swift */; };
@@ -47,8 +53,14 @@
 		4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBuildingViewController.swift; sourceTree = "<group>"; };
 		4041FF0E224E082900C27574 /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
 		4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTableViewCell.swift; sourceTree = "<group>"; };
+		407AC209230EAEF800404FF5 /* OCRResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRResultViewController.swift; sourceTree = "<group>"; };
+		407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLabelViewController.swift; sourceTree = "<group>"; };
+		407AC20D230EB75600404FF5 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		407AC20F230EB97E00404FF5 /* GoogleCloudOCR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleCloudOCR.swift; sourceTree = "<group>"; };
+		407AC211230EB98700404FF5 /* GoogleCloudOCRModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleCloudOCRModel.swift; sourceTree = "<group>"; };
 		408B4AFC22437DC30044583B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		408B4AFE2243A6C20044583B /* RestRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequests.swift; sourceTree = "<group>"; };
+		40F01220230E866A009B2527 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
 		D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AXDLockers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA277D78224E6C700039235D /* SecurityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +149,10 @@
 				4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */,
 				DA277D78224E6C700039235D /* SecurityCodeViewController.swift */,
 				DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */,
+				40F01220230E866A009B2527 /* MainMenuViewController.swift */,
+				407AC209230EAEF800404FF5 /* OCRResultViewController.swift */,
+				407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */,
+				407AC20D230EB75600404FF5 /* ImageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -144,6 +160,8 @@
 		DADC98FC224CAE4B00ABA881 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				407AC211230EB98700404FF5 /* GoogleCloudOCRModel.swift */,
+				407AC20F230EB97E00404FF5 /* GoogleCloudOCR.swift */,
 				4016050522412CD100D57C14 /* Switcher.swift */,
 				408B4AFE2243A6C20044583B /* RestRequests.swift */,
 				408B4AFC22437DC30044583B /* Constants.swift */,
@@ -319,20 +337,26 @@
 				DA99BB412250C1B5005FD346 /* LockerHistory.swift in Sources */,
 				4041FF0F224E082900C27574 /* Building.swift in Sources */,
 				4041FF0B224CB11300C27574 /* AddResidentViewController.swift in Sources */,
+				407AC20E230EB75600404FF5 /* ImageViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
 				DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
+				407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */,
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
+				407AC210230EB97E00404FF5 /* GoogleCloudOCR.swift in Sources */,
+				407AC20C230EB54800404FF5 /* ScanLabelViewController.swift in Sources */,
 				DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */,
 				DADC9901224D49DF00ABA881 /* ResidentTableViewCell.swift in Sources */,
 				4041FF05224B660800C27574 /* ChooseAddressViewController.swift in Sources */,
 				4041FF07224B672800C27574 /* Address.swift in Sources */,
+				40F01221230E866A009B2527 /* MainMenuViewController.swift in Sources */,
 				4016050622412CD100D57C14 /* Switcher.swift in Sources */,
 				DADC98FA224ABE6D00ABA881 /* City.swift in Sources */,
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
 				4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */,
+				407AC212230EB98700404FF5 /* GoogleCloudOCRModel.swift in Sources */,
 				DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */,
 				4041FF09224B710500C27574 /* AddressTableViewCell.swift in Sources */,
 			);

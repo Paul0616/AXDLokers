@@ -625,7 +625,7 @@ class RestRequests: NSObject {
         url.append(contentsOf: "/\(userId)")
         let param: Parameters = [
             addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String,
-            "expand": KEY_role+","+KEY_buildingXUsers+"."+KEY_building
+            "expand": KEY_userRights+"."+KEY_right+"."+KEY_code+","+KEY_role+","+KEY_buildingXUsers+"."+KEY_building
         ]
         
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)

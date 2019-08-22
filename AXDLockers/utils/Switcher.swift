@@ -28,7 +28,7 @@ class Switcher {
         if(!isLogged){ //user is not logged
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginScreen") as! LogInViewController
         } else { //check if still logged and get new token if is neccesary
-            rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "initController") as! QRScannerViewController
+            rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "initController") as! MainMenuViewController
         }
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
