@@ -129,7 +129,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
         let alertController = UIAlertController(title: "Reset pasword", message: "Enter your email address to recover your password", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Your email address"
-            textField.text = self.userEmailText
+            textField.text = self.userEmailTextField.text
         }
         let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
