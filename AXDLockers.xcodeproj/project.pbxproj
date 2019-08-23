@@ -22,6 +22,7 @@
 		407AC20E230EB75600404FF5 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20D230EB75600404FF5 /* ImageViewController.swift */; };
 		407AC210230EB97E00404FF5 /* GoogleCloudOCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20F230EB97E00404FF5 /* GoogleCloudOCR.swift */; };
 		407AC212230EB98700404FF5 /* GoogleCloudOCRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC211230EB98700404FF5 /* GoogleCloudOCRModel.swift */; };
+		407AC214230FF22900404FF5 /* ConfirmResidentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC213230FF22900404FF5 /* ConfirmResidentViewController.swift */; };
 		408B4AFD22437DC30044583B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFC22437DC30044583B /* Constants.swift */; };
 		408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408B4AFE2243A6C20044583B /* RestRequests.swift */; };
 		40F01221230E866A009B2527 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F01220230E866A009B2527 /* MainMenuViewController.swift */; };
@@ -60,6 +61,7 @@
 		407AC20D230EB75600404FF5 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		407AC20F230EB97E00404FF5 /* GoogleCloudOCR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleCloudOCR.swift; sourceTree = "<group>"; };
 		407AC211230EB98700404FF5 /* GoogleCloudOCRModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleCloudOCRModel.swift; sourceTree = "<group>"; };
+		407AC213230FF22900404FF5 /* ConfirmResidentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmResidentViewController.swift; sourceTree = "<group>"; };
 		408B4AFC22437DC30044583B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		408B4AFE2243A6C20044583B /* RestRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestRequests.swift; sourceTree = "<group>"; };
 		40F01220230E866A009B2527 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */,
 				407AC20D230EB75600404FF5 /* ImageViewController.swift */,
 				DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */,
+				407AC213230FF22900404FF5 /* ConfirmResidentViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				407AC20C230EB54800404FF5 /* ScanLabelViewController.swift in Sources */,
 				DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */,
 				DADC9901224D49DF00ABA881 /* ResidentTableViewCell.swift in Sources */,
+				407AC214230FF22900404FF5 /* ConfirmResidentViewController.swift in Sources */,
 				4041FF05224B660800C27574 /* ChooseAddressViewController.swift in Sources */,
 				4041FF07224B672800C27574 /* Address.swift in Sources */,
 				40F01221230E866A009B2527 /* MainMenuViewController.swift in Sources */,

@@ -346,13 +346,13 @@ class RestRequests: NSObject {
             let bodyJSON: JSON = JSON(body)
             request.httpBody = try bodyJSON.rawData()
             //Do something you want
-            
+            print(bodyJSON.description)
         } catch {
             print("Error \(error)")
         }
         Alamofire.request(request).validate().responseJSON { (response) in
             let url = response.request?.url
-            print(url)
+            print(url!)
             guard response.result.isSuccess else {
                 let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
                 let statusCode = response.response?.statusCode

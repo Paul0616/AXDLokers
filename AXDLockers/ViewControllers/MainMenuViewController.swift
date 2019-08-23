@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class MainMenuViewController: UIViewController {
+class MainMenuViewController: UIViewController, RestRequestsDelegate {
+   
+    
 
     @IBOutlet weak var addParcelButton: UIButton!
     @IBOutlet weak var addLockerButton: UIButton!
+    let restRequests = RestRequests()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +24,16 @@ class MainMenuViewController: UIViewController {
         alignTextBelow(button: addParcelButton)
         alignTextBelow(button: addLockerButton)
         addLockerButton.isEnabled = false
+        addParcelButton.isEnabled = false
+        restRequests.delegate = self
+        
+        if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
+            let param = [KEY_userId: userId] as NSDictionary
+            restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+        } else {
+           Switcher.updateRootVC(isLogged: false)
+        }
+        
     }
     
 
@@ -58,4 +73,25 @@ class MainMenuViewController: UIViewController {
         }
     }
 
+    func userHaveRight(rights: JSON, code: String) -> Bool {
+        for (_, right) in rights {
+            if right[KEY_right][KEY_code].string == code {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func treatErrors(_ errorCode: Int!, errorMessage: String) {
+        
+    }
+    
+    func resultedData(data: Data!, requestID: Int) {
+        let json = try? JSON(data: data)
+        if requestID == CHECK_USERS_REQUEST {
+            let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
+            addParcelButton.isEnabled = (userHaveRight(rights: userXRights, code: "READ_RESIDENT") && userHaveRight(rights: userXRights, code: "READ_BUILDING"))
+            addLockerButton.isEnabled = userHaveRight(rights: userXRights, code: "CREATE_LOCKER")
+        }
+    }
 }

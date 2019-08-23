@@ -30,13 +30,17 @@ class ScanLabelViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         view.bringSubviewToFront(instructionsLabel)
         captureSession.startRunning()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         captureSession.stopRunning()
     }
+    
     
     private func setupCamera() {
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
@@ -111,6 +115,13 @@ extension ScanLabelViewController : AVCapturePhotoCaptureDelegate {
     }
     
     @objc private func closeAction() {
+//        let vc = OCRResultViewController()
+//        var navigationController = UINavigationController(rootViewController: vc)
+//        self.presentViewController(navigationController, animated: true, completion: nil)
+//
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "OCRResult") as! OCRResultViewController
+//
+//        navigationController?.present(vc, animated: true, completion: nil)
         dismiss(animated: false, completion: nil)
     }
 }

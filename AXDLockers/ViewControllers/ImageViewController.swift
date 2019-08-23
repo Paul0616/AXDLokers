@@ -255,7 +255,10 @@ class ImageViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //         Get the new view controller using segue.destination.
 //         Pass the selected object to the new view controller.
-        if segue.identifier == "backToResult", let destination = segue.destination as? OCRResultViewController {
+        
+        if segue.identifier == "backToResult",
+            let navVC = segue.destination as? UINavigationController,
+            let destination = navVC.viewControllers.first as? OCRResultViewController {
             let substrings = mainAnnotation.text.split(separator: "\n")
             if substrings.count > 2 {
                 destination.line1 = String(substrings[0])

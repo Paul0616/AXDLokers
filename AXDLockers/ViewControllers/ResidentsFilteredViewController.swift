@@ -13,6 +13,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
     
     
     
+    @IBOutlet weak var nextButtonBar: UIBarButtonItem!
     var fullName: String!
     var unitNumber: String!
     let restRequest = RestRequests()
@@ -23,6 +24,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
     //    var isFiltered: Bool = false
     var loadedPages: Int = 0
     var residents: [Resident] = [Resident]()
+    var currentResidentIndex: Int!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
@@ -32,14 +34,18 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
         activityIndicator.startAnimating()
         isLoading = true
         title = "Select Resident"
+        nextButtonBar.isEnabled = false
         getFilteredResidents()
         // Do any additional setup after loading the view.
     }
     
 
-    @IBAction func onBack(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func tapOnNextButton(_ sender: Any) {
+        performSegue(withIdentifier: "confirmResident", sender: nil)
+
     }
+    
+    
     func getFilteredResidents(){
         
         var param:[String: Any]!
@@ -82,6 +88,10 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
             let param1 = ["per-page": PAGE_SIZE, "page": loadedPages, "expand": KEY_resident+","+KEY_building+"."+KEY_address] as NSDictionary
             restRequest.checkForRequest(parameters: param1 as NSDictionary, requestID: GET_BY_FULL_NAME_AND_UNIT_NUMBER, param1: param1)
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentResidentIndex = indexPath.row
+        nextButtonBar.isEnabled = true
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
@@ -133,14 +143,33 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
             tableView.reloadData()
         }
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "confirmResident", let destination = segue.destination as? ConfirmResidentViewController {
+            guard let _ = currentResidentIndex else { return }
+            destination.fullName = residents[currentResidentIndex].firstName + " " + residents[currentResidentIndex].lastName
+            destination.phone = residents[currentResidentIndex].phone
+            destination.email = residents[currentResidentIndex].email
+            destination.uniqueNumber = residents[currentResidentIndex].building!.buidingUniqueNumber
+            destination.buildingName = residents[currentResidentIndex].building!.name
+            destination.address = "\(residents[currentResidentIndex].suiteNumber) - \(residents[currentResidentIndex].building!.street!)\n\(residents[currentResidentIndex].building!.address)"
+        }
     }
-    */
-
+    
+    //        guard let _ = currentResidentIndex else { return }
+    //        let msg = "You choosed resident:\n \(residents[currentResidentIndex].firstName + " " + residents[currentResidentIndex].lastName)\n phone: \(residents[currentResidentIndex].phone)" +
+    //        "\n email: \(residents[currentResidentIndex].email)\n building: \(residents[currentResidentIndex].building!.name)\n address: \(residents[currentResidentIndex].suiteNumber) - \(residents[currentResidentIndex].building!.street!)\n \(residents[currentResidentIndex].building!.address).\n You must confirm that you want to put the parcel in a locker for this resident."
+    //        let alertController = UIAlertController(title: "Confirmation", message: msg, preferredStyle: UIAlertController.Style.alert)
+    //        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+    //            print("PARCEL IN LOCKER")
+    //        })
+    //        let okCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
+    //        alertController.addAction(okBut)
+    //        alertController.addAction(okCancel)
+    //        self.present(alertController, animated: true, completion: nil)
 }

@@ -20,7 +20,7 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Finding Resident"
         fullNameTextField.delegate = self
         unitTextField.delegate = self
         if let line1 = line1 {
@@ -30,11 +30,23 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
             unitTextField.text = line2
         }
         view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        setSearchButtonStatus()
     }
     
 
-    @IBAction func tapScan(_ sender: Any) {
+    @IBAction func onBack(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
+    @IBAction func tapScan(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SCANLabel") as! ScanLabelViewController
+        
+        navigationController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func setSearchButtonStatus(){
+        searchResidentsButton.isEnabled = (fullNameTextField.text?.trimmingCharacters(in: .whitespaces) != "" || unitTextField.text?.trimmingCharacters(in: .whitespaces) != "")
+    }
+    
     @IBAction func topSearchResidents(_ sender: Any) {
     }
     
@@ -44,14 +56,12 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "selectResident" {
-            let navVC = segue.destination as? UINavigationController
-            let tableVC = navVC?.viewControllers.first as! ResidentsFilteredViewController
+        if segue.identifier == "selectResident", let tableVC = segue.destination as? ResidentsFilteredViewController  {
             if fullNameTextField.text != "" {
-                tableVC.fullName = fullNameTextField.text
+                tableVC.fullName = fullNameTextField.text?.trimmingCharacters(in: .whitespaces)
             }
             if unitTextField.text != "" {
-                tableVC.unitNumber = unitTextField.text
+                tableVC.unitNumber = unitTextField.text?.trimmingCharacters(in: .whitespaces)
             }
         }
     }
@@ -66,6 +76,10 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        setSearchButtonStatus()
     }
     
 //    @IBAction func unwindResult(sender: UIStoryboardSegue) {
