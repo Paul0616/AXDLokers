@@ -17,6 +17,7 @@ class Resident: NSObject, NSCoding {
     var suiteNumber: String
     var id: Int
     var buildingResidentId: Int
+    var building: Building!
     //MARK: - Initializare
     
     init(id: Int, firstName: String, lastName: String, phone: String, email: String, securityCode: String, suiteNumber: String, buildingResidentId: Int

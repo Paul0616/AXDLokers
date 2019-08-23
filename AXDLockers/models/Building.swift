@@ -11,6 +11,7 @@ import UIKit
 class Building: NSObject, NSCoding {
     var name: String
     var address: String
+    var street: String!
     var buidingUniqueNumber: String
     var id: Int
     //MARK: - Initializare

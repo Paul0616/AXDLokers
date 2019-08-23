@@ -29,6 +29,7 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
         if let line2 = line2 {
             unitTextField.text = line2
         }
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
 
@@ -36,15 +37,25 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func topSearchResidents(_ sender: Any) {
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "selectResident" {
+            let navVC = segue.destination as? UINavigationController
+            let tableVC = navVC?.viewControllers.first as! ResidentsFilteredViewController
+            if fullNameTextField.text != "" {
+                tableVC.fullName = fullNameTextField.text
+            }
+            if unitTextField.text != "" {
+                tableVC.unitNumber = unitTextField.text
+            }
+        }
     }
-    */
+    
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == fullNameTextField {
@@ -56,4 +67,13 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+//    @IBAction func unwindResult(sender: UIStoryboardSegue) {
+//        
+//        if let sourceViewController = sender.source as? ChooseBuildingViewController {
+//            currentBuildingId = sourceViewController.selectedBuildingId
+//            refreshButton()
+//            refreshBuilding()
+//        }
+//    }
 }

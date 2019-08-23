@@ -27,6 +27,8 @@
 		40F01221230E866A009B2527 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F01220230E866A009B2527 /* MainMenuViewController.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
 		DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277D78224E6C700039235D /* SecurityCodeViewController.swift */; };
+		DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */; };
+		DA5A733F230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */; };
 		DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA834B29224973C400996DEB /* AddLockerViewController.swift */; };
 		DA99BB412250C1B5005FD346 /* LockerHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB402250C1B5005FD346 /* LockerHistory.swift */; };
 		DA99BB432250E507005FD346 /* FinalConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */; };
@@ -64,6 +66,8 @@
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
 		D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AXDLockers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA277D78224E6C700039235D /* SecurityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeViewController.swift; sourceTree = "<group>"; };
+		DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentsFilteredViewController.swift; sourceTree = "<group>"; };
+		DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentAndBuildingTableViewCell.swift; sourceTree = "<group>"; };
 		DA834B29224973C400996DEB /* AddLockerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLockerViewController.swift; sourceTree = "<group>"; };
 		DA99BB402250C1B5005FD346 /* LockerHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerHistory.swift; sourceTree = "<group>"; };
 		DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			children = (
 				4026FBBF224A584300924B64 /* CityTableViewCell.swift */,
 				DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */,
+				DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */,
 				4041FF08224B710500C27574 /* AddressTableViewCell.swift */,
 				4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */,
 				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
@@ -153,6 +158,7 @@
 				407AC209230EAEF800404FF5 /* OCRResultViewController.swift */,
 				407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */,
 				407AC20D230EB75600404FF5 /* ImageViewController.swift */,
+				DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 				407AC20E230EB75600404FF5 /* ImageViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
 				DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */,
+				DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
 				407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */,
@@ -355,6 +362,7 @@
 				DADC98FA224ABE6D00ABA881 /* City.swift in Sources */,
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
+				DA5A733F230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift in Sources */,
 				4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */,
 				407AC212230EB98700404FF5 /* GoogleCloudOCRModel.swift in Sources */,
 				DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */,

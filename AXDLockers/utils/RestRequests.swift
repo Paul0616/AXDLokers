@@ -23,7 +23,7 @@ class RestRequests: NSObject {
         //init
     }
     
-    func checkForRequest(parameters: NSDictionary!, requestID: Int, list: [String] = [String]()){
+    func checkForRequest(parameters: NSDictionary!, requestID: Int, list: [String] = [String](), param1: NSDictionary! = nil){
         if UserDefaults.standard.object(forKey: "token") as? String == nil && requestID != TOKEN_REQUEST {
             Switcher.updateRootVC(isLogged: false)
             return
@@ -68,7 +68,7 @@ class RestRequests: NSObject {
                             UserDefaults.standard.set(item["id"] as! Int, forKey: "userId")
                             let isAdmin = item["isSuperAdmin"] as! Int
                             UserDefaults.standard.set(isAdmin == 1 ? true : false, forKey: "isSuperAdmin")
-                            self.switchRequestFunction(parameters: parameters, requestID: requestID, list: list)
+                            self.switchRequestFunction(parameters: parameters, requestID: requestID, list: list, param1: param1)
                 
                         }  catch let error as NSError
                         {
@@ -85,11 +85,11 @@ class RestRequests: NSObject {
             }
         }
         else {
-            switchRequestFunction(parameters: parameters, requestID: requestID, list: list)
+            switchRequestFunction(parameters: parameters, requestID: requestID, list: list, param1: param1)
         }
 
     }
-    func switchRequestFunction(parameters: NSDictionary!, requestID: Int, list: [String]){
+    func switchRequestFunction(parameters: NSDictionary!, requestID: Int, list: [String], param1: NSDictionary!){
         switch (requestID) {
 
         case LOCKERS_REQUEST:
@@ -148,6 +148,9 @@ class RestRequests: NSObject {
             break
         case DELETE_LOCKER_HISTORIES_REQUEST:
             self.deleteLockerHistories(parameters: parameters)
+            break
+        case GET_BY_FULL_NAME_AND_UNIT_NUMBER:
+            self.postGetByFullNameAndUnit(body: parameters, param: param1)
             break
         
         default:
@@ -301,6 +304,7 @@ class RestRequests: NSObject {
         var paramComponent = URLComponents(string: urlString)
         paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
         
+        
         var request = URLRequest(url: paramComponent!.url!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -322,6 +326,41 @@ class RestRequests: NSObject {
             self.delegate?.resultedData(data: response.data!, requestID: INSERT_LOCKER_BUILDING_RESIDENT_REQUEST)
         }
         
+    }
+    
+    func postGetByFullNameAndUnit(body: NSDictionary, param: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: residentsRESTAction)
+        urlString.append(contentsOf: "/")
+        urlString.append(contentsOf: getByFullNameAndUnitNumberAction)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        for (key,value) in param {
+            paramComponent?.queryItems?.append(URLQueryItem(name: key as! String, value: "\(value)"))
+        }
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        Alamofire.request(request).validate().responseJSON { (response) in
+            let url = response.request?.url
+            print(url)
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: GET_BY_FULL_NAME_AND_UNIT_NUMBER)
+        }
     }
     
     func postLockerHistories(body: NSDictionary){

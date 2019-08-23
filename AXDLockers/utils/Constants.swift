@@ -15,7 +15,7 @@ let baseURL: String = "lockers.ondesign.ro" //"admin.smartlockers.ca"
 let port: String = ""
 let urlFolders: [String] = ["v1"]
 
-
+let API_KEY = "AIzaSyA137QmmGAd-Wi-hbt_SPIm4F1iPFNauGY"
 
 //REST Control Actions
 let tokensREST_Action = "tokens"
@@ -27,6 +27,7 @@ let lockerHistoryREST_Action = "locker-histories"
 let buildingREST_Action = "buildings"
 let building_ResidentREST_action = "building-residents"
 let residentsRESTAction = "residents"
+let getByFullNameAndUnitNumberAction = "get-by-full-name-and-unit-number"
 let getFilteredResidentRESTAction = "get-filtered-residents"
 let lockerBuildingResidentRESTAction = "locker-building-residents"
 let notificationsRESTAction = "notifications"
@@ -42,6 +43,7 @@ let KEY_role = "role"
 let KEY_hasRelatedBuildings = "hasRelatedBuildings"
 let KEY_buildingXUsers = "buildingXUsers"
 let KEY_state = "state"
+let KEY_country = "country"
 let KEY_name = "name"
 let KEY_items = "items"
 let KEY_meta = "_meta"
@@ -97,6 +99,7 @@ let LOCKER_BUILDING_RESIDENT_REQUEST = 16
 let DELETE_LOCKER_BUILDING_RESIDENT_REQUEST = 17
 let DELETE_LOCKER_HISTORIES_REQUEST = 18
 let RESET_PASSWORD_REQUEST = 19
+let GET_BY_FULL_NAME_AND_UNIT_NUMBER = 20
 
 let STATUS_NOT_CONFIRMED = 1
 
