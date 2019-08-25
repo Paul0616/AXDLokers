@@ -23,6 +23,7 @@ class ConfirmResidentViewController: UIViewController {
     var uniqueNumber: String!
     var buildingName: String!
     var address: String!
+    var residentId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,10 @@ class ConfirmResidentViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func tapOnConfirmButton(_ sender: Any) {
+        //performSegue(withIdentifier: "confirmResident", sender: nil)
+        print("CONFIRM resident id = \(residentId!)")
+    }
     /*
     // MARK: - Navigation
 

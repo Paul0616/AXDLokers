@@ -25,6 +25,8 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
         alignTextBelow(button: addLockerButton)
         addLockerButton.isEnabled = false
         addParcelButton.isEnabled = false
+        addLockerButton.layer.cornerRadius = 10
+        addParcelButton.layer.cornerRadius = 10
         restRequests.delegate = self
         
         if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {

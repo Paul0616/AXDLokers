@@ -30,6 +30,9 @@
 		DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277D78224E6C700039235D /* SecurityCodeViewController.swift */; };
 		DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */; };
 		DA5A733F230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */; };
+		DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */; };
+		DA5A734323118ABB00305553 /* SummaryOrphanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */; };
+		DA5A73452311913D00305553 /* OrphanParcelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A73442311913D00305553 /* OrphanParcelModel.swift */; };
 		DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA834B29224973C400996DEB /* AddLockerViewController.swift */; };
 		DA99BB412250C1B5005FD346 /* LockerHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB402250C1B5005FD346 /* LockerHistory.swift */; };
 		DA99BB432250E507005FD346 /* FinalConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */; };
@@ -70,6 +73,9 @@
 		DA277D78224E6C700039235D /* SecurityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeViewController.swift; sourceTree = "<group>"; };
 		DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentsFilteredViewController.swift; sourceTree = "<group>"; };
 		DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentAndBuildingTableViewCell.swift; sourceTree = "<group>"; };
+		DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrphanParcelViewController.swift; sourceTree = "<group>"; };
+		DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryOrphanViewController.swift; sourceTree = "<group>"; };
+		DA5A73442311913D00305553 /* OrphanParcelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrphanParcelModel.swift; sourceTree = "<group>"; };
 		DA834B29224973C400996DEB /* AddLockerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLockerViewController.swift; sourceTree = "<group>"; };
 		DA99BB402250C1B5005FD346 /* LockerHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerHistory.swift; sourceTree = "<group>"; };
 		DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +168,8 @@
 				407AC20D230EB75600404FF5 /* ImageViewController.swift */,
 				DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */,
 				407AC213230FF22900404FF5 /* ConfirmResidentViewController.swift */,
+				DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */,
+				DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -186,6 +194,7 @@
 				DADC98FE224D3F4200ABA881 /* Resident.swift */,
 				4041FF0E224E082900C27574 /* Building.swift */,
 				DA99BB402250C1B5005FD346 /* LockerHistory.swift */,
+				DA5A73442311913D00305553 /* OrphanParcelModel.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -353,10 +362,12 @@
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
 				407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */,
+				DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */,
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
 				407AC210230EB97E00404FF5 /* GoogleCloudOCR.swift in Sources */,
 				407AC20C230EB54800404FF5 /* ScanLabelViewController.swift in Sources */,
 				DAC5A69E2240135D005C0425 /* AppDelegate.swift in Sources */,
+				DA5A73452311913D00305553 /* OrphanParcelModel.swift in Sources */,
 				DADC9901224D49DF00ABA881 /* ResidentTableViewCell.swift in Sources */,
 				407AC214230FF22900404FF5 /* ConfirmResidentViewController.swift in Sources */,
 				4041FF05224B660800C27574 /* ChooseAddressViewController.swift in Sources */,
@@ -366,6 +377,7 @@
 				DADC98FA224ABE6D00ABA881 /* City.swift in Sources */,
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
+				DA5A734323118ABB00305553 /* SummaryOrphanViewController.swift in Sources */,
 				DA5A733F230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift in Sources */,
 				4026FBBE224A558A00924B64 /* AddAddressViewController.swift in Sources */,
 				407AC212230EB98700404FF5 /* GoogleCloudOCRModel.swift in Sources */,

@@ -182,7 +182,7 @@ class ImageViewController: UIViewController {
     
     private func setupActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
-        activityIndicator.tintColor = UIColor.darkGray
+        activityIndicator.color = UIColor.darkGray
         view.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -260,10 +260,30 @@ class ImageViewController: UIViewController {
             let navVC = segue.destination as? UINavigationController,
             let destination = navVC.viewControllers.first as? OCRResultViewController {
             let substrings = mainAnnotation.text.split(separator: "\n")
-            if substrings.count > 2 {
+            
+            if substrings.count > 0 {
                 destination.line1 = String(substrings[0])
-                destination.line2 = String(substrings[1])
-                destination.line3 = String(substrings[2])
+            }
+            if substrings.count > 1 {
+                let line2SetMinus = substrings[1].components(separatedBy: "-")
+                let line2SetUnit = substrings[1].uppercased().components(separatedBy: "UNIT")
+                if line2SetMinus.count > 1 {
+                    destination.line2 = String(line2SetMinus[0].trimmingCharacters(in: .whitespaces))
+                    if line2SetMinus.count > 2 {
+                        destination.line4Street = String(substrings[1].split(separator: "-", maxSplits: 1, omittingEmptySubsequences: false)[1].trimmingCharacters(in: .whitespaces))
+                    } else {
+                        destination.line4Street = String(line2SetMinus[1].trimmingCharacters(in: .whitespaces))
+                    }
+                }
+                if line2SetUnit.count > 1 {
+                    destination.line4Street = String(line2SetUnit[0].trimmingCharacters(in: .whitespaces).trimmingCharacters(in: CharacterSet(",".unicodeScalars)))
+                    let unit = String(line2SetUnit[1].trimmingCharacters(in: .whitespaces))
+                    destination.line2 = String(unit.filter {$0.isNumber})
+                }
+                
+            }
+            if substrings.count > 2 {
+                destination.line3Address = String(substrings[2])
             }
         }
     }

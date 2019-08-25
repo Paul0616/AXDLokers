@@ -16,8 +16,12 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet weak var nextButtonBar: UIBarButtonItem!
     var fullName: String!
     var unitNumber: String!
+    var line3Address: String!
+    var line4Street: String!
     let restRequest = RestRequests()
     
+    
+    @IBOutlet weak var orphansButton: UIButton!
     let PAGE_SIZE: Int = 20
     var isLoading: Bool = false
     var isLastPage: Bool = true
@@ -31,10 +35,21 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         restRequest.delegate = self
-        activityIndicator.startAnimating()
+        
         isLoading = true
         title = "Select Resident"
         nextButtonBar.isEnabled = false
+        orphansButton.titleLabel?.textAlignment = .center
+       //orphansButton.visiblity(gone: true)
+        orphansButton.isEnabled = false
+        if let _ = fullName {
+            orphansButton.isEnabled = true
+        }
+        if let _ = unitNumber {
+            orphansButton.isEnabled = true
+        }
+        
+        
         getFilteredResidents()
         // Do any additional setup after loading the view.
     }
@@ -60,6 +75,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
             param["unitNumber"] = unitNumber
         }
         if let _ = param {
+            activityIndicator.startAnimating()
             let param1 = ["per-page": PAGE_SIZE,
                           "expand": KEY_resident+","+KEY_building+"."+KEY_address+"."+KEY_city+"."+KEY_state+"."+KEY_country] as NSDictionary
         
@@ -90,10 +106,19 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentResidentIndex = indexPath.row
-        nextButtonBar.isEnabled = true
+        if indexPath.row == currentResidentIndex  {
+            tableView.deselectRow(at: indexPath, animated: true)
+            currentResidentIndex = nil
+            nextButtonBar.isEnabled = false
+            orphansButton.isEnabled = true
+        } else {
+            currentResidentIndex = indexPath.row
+            nextButtonBar.isEnabled = true
+            orphansButton.isEnabled = false
+        }
+        
     }
-    
+   
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         activityIndicator.stopAnimating()
     }
@@ -139,7 +164,9 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
                     residents.append(resident)
                 }
             }
-            
+           // print(residents.count > 0)
+            //orphansButton.visiblity(gone: residents.count > 0, dimension: 70)
+            //orphansButton.isEnabled = (residents.count == 0)
             tableView.reloadData()
         }
     }
@@ -158,18 +185,36 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
             destination.uniqueNumber = residents[currentResidentIndex].building!.buidingUniqueNumber
             destination.buildingName = residents[currentResidentIndex].building!.name
             destination.address = "\(residents[currentResidentIndex].suiteNumber) - \(residents[currentResidentIndex].building!.street!)\n\(residents[currentResidentIndex].building!.address)"
+            destination.residentId = residents[currentResidentIndex].id
         }
+        if segue.identifier == "addOrphans", let destination = segue.destination as? AddOrphanParcelViewController {
+            if let _ = fullName {
+                if fullName != "" {
+                    destination.line1 = fullName
+                }
+                if unitNumber != "" {
+                    destination.line2 = unitNumber
+                }
+                if let _ = line3Address {
+                    destination.line3Address = line3Address
+                }
+                if let _ = line4Street {
+                    destination.line4Street = line4Street
+                }
+                
+            }
+        }
+        
     }
     
-    //        guard let _ = currentResidentIndex else { return }
-    //        let msg = "You choosed resident:\n \(residents[currentResidentIndex].firstName + " " + residents[currentResidentIndex].lastName)\n phone: \(residents[currentResidentIndex].phone)" +
-    //        "\n email: \(residents[currentResidentIndex].email)\n building: \(residents[currentResidentIndex].building!.name)\n address: \(residents[currentResidentIndex].suiteNumber) - \(residents[currentResidentIndex].building!.street!)\n \(residents[currentResidentIndex].building!.address).\n You must confirm that you want to put the parcel in a locker for this resident."
-    //        let alertController = UIAlertController(title: "Confirmation", message: msg, preferredStyle: UIAlertController.Style.alert)
-    //        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
-    //            print("PARCEL IN LOCKER")
-    //        })
-    //        let okCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
-    //        alertController.addAction(okBut)
-    //        alertController.addAction(okCancel)
-    //        self.present(alertController, animated: true, completion: nil)
 }
+//extension UIView {
+//
+//    func visiblity(gone: Bool, dimension: CGFloat = 0.0, attribute: NSLayoutConstraint.Attribute = .height) -> Void {
+//        if let constraint = (self.constraints.filter{$0.firstAttribute == attribute}.first) {
+//            constraint.constant = gone ? 0.0 : dimension
+//            self.layoutIfNeeded()
+//            self.isHidden = gone
+//        }
+//    }
+//}

@@ -16,7 +16,8 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchResidentsButton: UIButton!
     var line1: String!
     var line2: String!
-    var line3: String!
+    var line3Address: String!
+    var line4Street: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +26,16 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
         unitTextField.delegate = self
         if let line1 = line1 {
             fullNameTextField.text = line1
+            
+            
+            
         }
         if let line2 = line2 {
             unitTextField.text = line2
+            print(line4Street!)
+        }
+        if let line3 = line3Address {
+            print(line3)
         }
         view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         setSearchButtonStatus()
@@ -48,6 +56,7 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func topSearchResidents(_ sender: Any) {
+        
     }
     
     // MARK: - Navigation
@@ -60,6 +69,12 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
             if fullNameTextField.text != "" {
                 tableVC.fullName = fullNameTextField.text?.trimmingCharacters(in: .whitespaces)
             }
+            if let _ = line3Address {
+                tableVC.line3Address = line3Address
+            }
+            if let _ = line4Street {
+                tableVC.line4Street = line4Street
+            }
             if unitTextField.text != "" {
                 tableVC.unitNumber = unitTextField.text?.trimmingCharacters(in: .whitespaces)
             }
@@ -70,7 +85,7 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == fullNameTextField {
             textField.resignFirstResponder()
-            unitTextField.becomeFirstResponder()
+            //unitTextField.becomeFirstResponder()
         }
         if textField == unitTextField {
             textField.resignFirstResponder()

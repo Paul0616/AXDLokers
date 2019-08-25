@@ -152,6 +152,9 @@ class RestRequests: NSObject {
         case GET_BY_FULL_NAME_AND_UNIT_NUMBER:
             self.postGetByFullNameAndUnit(body: parameters, param: param1)
             break
+        case INSERT_ORPHAN_PARCEL:
+            self.postOrphan(body: parameters)
+            break
         
         default:
             print(requestID)
@@ -265,6 +268,38 @@ class RestRequests: NSObject {
             self.delegate?.resultedData(data: response.data!, requestID: INSERT_LOCKER_REQUEST)
         }
             
+    }
+    
+    func postOrphan(body: NSDictionary){
+        var urlString: String = getURL()
+        urlString.append(contentsOf: orphanParcelRESTAction)
+        
+        var paramComponent = URLComponents(string: urlString)
+        paramComponent?.queryItems = [URLQueryItem(name: addRest_Token(), value: UserDefaults.standard.object(forKey: "token") as? String)]
+        
+        var request = URLRequest(url: paramComponent!.url!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let bodyJSON: JSON = JSON(body)
+            request.httpBody = try bodyJSON.rawData()
+            //Do something you want
+            
+        } catch {
+            print("Error \(error)")
+        }
+        print(request.url!)
+        print(JSON(request.httpBody!))
+        Alamofire.request(request).validate().responseJSON { (response) in
+            guard response.result.isSuccess else {
+                let message = "Connection error: \(String(describing: response.result.error!))"
+                let statusCode = response.response?.statusCode
+                self.delegate?.treatErrors(statusCode, errorMessage: message)
+                return
+            }
+            self.delegate?.resultedData(data: response.data!, requestID: INSERT_ORPHAN_PARCEL)
+        }
+        
     }
     
     func postAddress(body: NSDictionary){
