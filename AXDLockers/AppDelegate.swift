@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
             if hasRelatedBuilding {
                 let buildingXUsers: JSON = getJSON(json: json, desiredKey: KEY_buildingXUsers)
                 
-                if buildingXUsers.count == 0 {
+                if buildingXUsers.count == 0 { 
                     let alertController = UIAlertController(title: "No building", message: "You've not been assigned any building. Please contact your administrator.\nYou'll be redirected to the login screen.", preferredStyle: UIAlertController.Style.alert)
                     let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
                         Switcher.updateRootVC(isLogged: false)

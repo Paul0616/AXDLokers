@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlw-gW-Q80">
-                                <rect key="frame" x="327" y="20" width="48" height="48"/>
+                                <rect key="frame" x="327" y="64" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="eYy-8N-KXI"/>
                                     <constraint firstAttribute="width" constant="48" id="gXJ-KK-hFX"/>
@@ -60,7 +60,7 @@
                         <outlet property="logOutButton" destination="Hlw-gW-Q80" id="Nj8-PK-xYr"/>
                         <outlet property="messageLabel" destination="T2v-Ix-O08" id="EOR-5e-NIQ"/>
                         <segue destination="2kW-wp-wh4" kind="show" identifier="addLockerSegue" id="nQx-sV-QiA"/>
-                        <segue destination="U8J-je-qaJ" kind="show" identifier="existingLockerToResidentsSegue" id="eT4-oS-xEp"/>
+                        <segue destination="j0C-YT-gWp" kind="show" identifier="getLocker" id="dHX-yy-t0F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -173,7 +173,7 @@
                                 <rect key="frame" x="16" y="251" width="343" height="100"/>
                                 <subviews>
                                     <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="arrow_18pt" translatesAutoresizingMaskIntoConstraints="NO" id="8qb-TM-dpO">
-                                        <rect key="frame" x="319" y="42" width="16" height="16"/>
+                                        <rect key="frame" x="317" y="41" width="18" height="18"/>
                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="building" translatesAutoresizingMaskIntoConstraints="NO" id="Ztq-SA-Wma">
@@ -197,7 +197,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEV-eW-oVk">
-                                        <rect key="frame" x="71" y="18.5" width="248" height="17"/>
+                                        <rect key="frame" x="71" y="18.5" width="246" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -390,7 +390,6 @@
                         <outlet property="tableResidents" destination="6ue-ds-uDk" id="vhd-e4-qm6"/>
                         <outlet property="viewBuilding" destination="CKL-sR-Wjh" id="bO7-JR-zKf"/>
                         <segue destination="oxJ-Tx-Xay" kind="show" identifier="chooseBuildingSegue" id="CUI-dz-Pe4"/>
-                        <segue destination="XXG-qm-YWs" kind="show" identifier="getSecurityCodeSegue" id="mo5-2v-jhl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gqd-ce-Gum" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -456,7 +455,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locker" translatesAutoresizingMaskIntoConstraints="NO" id="Zy7-kl-wUL">
-                                        <rect key="frame" x="4" y="75.5" width="40" height="16"/>
+                                        <rect key="frame" x="4" y="33" width="40" height="100.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="gRf-ki-mp0"/>
                                         </constraints>
@@ -638,6 +637,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Oq7-HQ-nKY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Tu2-hp-OFU">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YtP-8m-JYy"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="confirmButton" destination="yyW-kc-AhK" id="J4P-nH-mvO"/>
                         <outlet property="imageLocker" destination="Zy7-kl-wUL" id="yML-IM-zzS"/>
@@ -656,7 +658,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9s-aK-rV7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4210.3999999999996" y="1650.224887556222"/>
+            <point key="canvasLocation" x="2383" y="1648"/>
+        </scene>
+        <!--Search ForQR Code View Controller-->
+        <scene sceneID="X8q-eX-d9w">
+            <objects>
+                <viewController id="mgD-Wt-b4I" customClass="SearchForQRCodeViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gut-n2-JuE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="9Iy-rI-Acm"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="D89-nd-RFc"/>
+                    <connections>
+                        <segue destination="XXG-qm-YWs" kind="show" identifier="getResidentLocker" id="m7G-n2-qO5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GK4-a7-Ymv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1444" y="1649"/>
         </scene>
         <!--Final Confirmation View Controller-->
         <scene sceneID="vCn-bs-PNQ">
@@ -739,7 +760,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xw-dj-r8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5004" y="1649.3253373313344"/>
+            <point key="canvasLocation" x="3271" y="1648"/>
         </scene>
         <!--Choose Building-->
         <scene sceneID="6FX-dv-4YQ">
@@ -1829,6 +1850,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="wEH-xG-dVj"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="street-address"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parcel Descriptions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HmO-D1-IMx">
@@ -1855,6 +1877,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="Zde-8Q-nlY"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="street-address"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="qPv-X6-dee">
@@ -2080,6 +2103,7 @@
                                 </state>
                                 <connections>
                                     <action selector="tapOnConfirmButton:" destination="qfq-NY-Yix" eventType="touchUpInside" id="7Mh-TS-Tm9"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="zsA-7y-VRI"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="parcel-1" translatesAutoresizingMaskIntoConstraints="NO" id="t1O-S4-5lm">
@@ -2425,6 +2449,24 @@
             </objects>
             <point key="canvasLocation" x="-2753" y="1406"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yy6-1h-S6M">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="j0C-YT-gWp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LgH-JI-1gI">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mgD-Wt-b4I" kind="relationship" relationship="rootViewController" id="Tyz-dd-ASS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Wb-3d-QtI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="620" y="1649"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Image" width="540" height="960"/>
@@ -2438,6 +2480,6 @@
         <image name="person" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WTI-Uh-FNk"/>
+        <segue reference="diC-33-lKn"/>
     </inferredMetricsTieBreakers>
 </document>
