@@ -17,6 +17,7 @@
 		4041FF0D224E047300C27574 /* ChooseBuildingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */; };
 		4041FF0F224E082900C27574 /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF0E224E082900C27574 /* Building.swift */; };
 		4041FF11224E0B2E00C27574 /* BuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */; };
+		4075B55A23155C53002446F5 /* SearchForQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4075B55923155C53002446F5 /* SearchForQRCodeViewController.swift */; };
 		407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC209230EAEF800404FF5 /* OCRResultViewController.swift */; };
 		407AC20C230EB54800404FF5 /* ScanLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */; };
 		407AC20E230EB75600404FF5 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407AC20D230EB75600404FF5 /* ImageViewController.swift */; };
@@ -59,6 +60,7 @@
 		4041FF0C224E047300C27574 /* ChooseBuildingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBuildingViewController.swift; sourceTree = "<group>"; };
 		4041FF0E224E082900C27574 /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
 		4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingTableViewCell.swift; sourceTree = "<group>"; };
+		4075B55923155C53002446F5 /* SearchForQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForQRCodeViewController.swift; sourceTree = "<group>"; };
 		407AC209230EAEF800404FF5 /* OCRResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRResultViewController.swift; sourceTree = "<group>"; };
 		407AC20B230EB54800404FF5 /* ScanLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLabelViewController.swift; sourceTree = "<group>"; };
 		407AC20D230EB75600404FF5 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				407AC213230FF22900404FF5 /* ConfirmResidentViewController.swift */,
 				DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */,
 				DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */,
+				4075B55923155C53002446F5 /* SearchForQRCodeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
 				407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */,
+				4075B55A23155C53002446F5 /* SearchForQRCodeViewController.swift in Sources */,
 				DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */,
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
 				407AC210230EB97E00404FF5 /* GoogleCloudOCR.swift in Sources */,

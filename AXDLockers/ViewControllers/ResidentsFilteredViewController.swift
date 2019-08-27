@@ -179,13 +179,14 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
         // Pass the selected object to the new view controller.
         if segue.identifier == "confirmResident", let destination = segue.destination as? ConfirmResidentViewController {
             guard let _ = currentResidentIndex else { return }
-            destination.fullName = residents[currentResidentIndex].firstName + " " + residents[currentResidentIndex].lastName
-            destination.phone = residents[currentResidentIndex].phone
-            destination.email = residents[currentResidentIndex].email
-            destination.uniqueNumber = residents[currentResidentIndex].building!.buidingUniqueNumber
-            destination.buildingName = residents[currentResidentIndex].building!.name
-            destination.address = "\(residents[currentResidentIndex].suiteNumber) - \(residents[currentResidentIndex].building!.street!)\n\(residents[currentResidentIndex].building!.address)"
-            destination.residentId = residents[currentResidentIndex].id
+//            destination.fullName = residents[currentResidentIndex].firstName + " " + residents[currentResidentIndex].lastName
+//            destination.phone = residents[currentResidentIndex].phone
+//            destination.email = residents[currentResidentIndex].email
+//            destination.uniqueNumber = residents[currentResidentIndex].building!.buidingUniqueNumber
+//            destination.buildingName = residents[currentResidentIndex].building!.name
+//            destination.address = "\(residents[currentResidentIndex].suiteNumber) - \(residents[currentResidentIndex].building!.street!)\n\(residents[currentResidentIndex].building!.address)"
+//            destination.residentId = residents[currentResidentIndex].id
+            destination.resident = residents[currentResidentIndex]
         }
         if segue.identifier == "addOrphans", let destination = segue.destination as? AddOrphanParcelViewController {
             if let _ = fullName {

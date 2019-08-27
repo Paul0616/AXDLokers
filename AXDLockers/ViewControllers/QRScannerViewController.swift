@@ -27,6 +27,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     let restRequests = RestRequests()
     var qrCode: String!
+    var resident: Resident!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +146,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             if items.count > 0 && codeWasdetected == true {
                 print("item found")
                 
-                self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+                //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+                self.performSegue(withIdentifier: "gertResidentLocker", sender: nil)
             } else {
                showAlert()
             }
@@ -211,11 +214,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let dest = navigationcontroller?.viewControllers.first as! AddLockerViewController
             dest.qrCode = qrCode
         }
-        if segue.identifier == "existingLockerToResidentsSegue" {
-            let navigationcontroller = segue.destination as? UINavigationController
-            let dest = navigationcontroller?.viewControllers.first as! AddResidentViewController
-            dest.qrCode = qrCode
-        }
+//        if segue.identifier == "existingLockerToResidentsSegue" {
+//            let navigationcontroller = segue.destination as? UINavigationController
+//            let dest = navigationcontroller?.viewControllers.first as! AddResidentViewController
+//            dest.qrCode = qrCode
+//        }
     }
     
 }
