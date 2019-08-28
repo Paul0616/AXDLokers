@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import SwiftyJSON
 
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, RestRequestsDelegate {
@@ -15,10 +16,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     
     @IBOutlet weak var messageLabel: UILabel!
-   // @IBOutlet weak var messageFrame: UIView!
-   // @IBOutlet weak var msglabel: UILabel!
-    @IBOutlet weak var logOutButton: UIButton!
-  //  @IBOutlet weak var closePopup: UIButton!
+   
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -28,6 +26,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     let restRequests = RestRequests()
     var qrCode: String!
     var resident: Resident!
+    var lockerId: Int!
+    var lockerHistory: LockerHistory!
     
     
     override func viewDidLoad() {
@@ -87,7 +87,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         // Start video capture.
         captureSession.startRunning()
-        view.bringSubviewToFront(logOutButton)
+       
         // Move the message label and top bar to the front
         view.bringSubviewToFront(messageLabel)
         
@@ -115,22 +115,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 //        codeWasdetected = false
 //    }
     
-    @IBAction func logOutAction(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Logging Out", message: "Do you really want to log out?", preferredStyle: UIAlertController.Style.alert)
-        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
-            UserDefaults.standard.removeObject(forKey: "token")
-            UserDefaults.standard.removeObject(forKey: "userId")
-            UserDefaults.standard.removeObject(forKey: "isSuperAdmin")
-            UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
-            UserDefaults.standard.removeObject(forKey: "encryptedPassword")
-            Switcher.updateRootVC(isLogged: false)
-        })
-        let canBut = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
-        alertController.addAction(okBut)
-        alertController.addAction(canBut)
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
+    
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
@@ -138,22 +123,22 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     }
     
     func resultedData(data: Data!, requestID: Int) {
-        do {
-            let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-            
-            let items = json[KEY_items] as! NSArray
-            print(items.count)
-            if items.count > 0 && codeWasdetected == true {
-                print("item found")
-                
-                //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
-                self.performSegue(withIdentifier: "gertResidentLocker", sender: nil)
-            } else {
-               showAlert()
-            }
-        } catch let error as NSError
-        {
-            print(error)
+        let json = try? JSON(data: data)
+
+        let items: JSON = getJSON(json: json, desiredKey: KEY_items)
+        print(items.count)
+        if items.count > 0 && codeWasdetected {
+            let locker = items[0]
+            lockerId = locker[KEY_id].int!
+        
+            print("item found - \(lockerId!)")
+            let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
+            let lockerAddressArray = [lockerAddress.street, lockerAddress.cityName, lockerAddress.stateName, lockerAddress.zipCode]
+            lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: "", lastName: "", email: "", phoneNumber: nil, securityCode: "", residentAddress: "", suiteNumber: "", buildingUniqueNumber: "", name: "", buildingAddress: "")
+            //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+            self.performSegue(withIdentifier: "getLocker", sender: nil)
+        } else {
+           showAlert()
         }
     }
     
@@ -200,7 +185,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
                 qrCode = metadataObj.stringValue
-                let param = [KEY_qrCode: metadataObj.stringValue!] as NSDictionary
+                let keys = [KEY_address, KEY_city, KEY_state]
+                let val = keys.joined(separator: ".")
+                let param = [KEY_qrCode: metadataObj.stringValue!, "expand": val] as NSDictionary
+                
                 restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
             }
         }
@@ -213,6 +201,14 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let navigationcontroller = segue.destination as? UINavigationController
             let dest = navigationcontroller?.viewControllers.first as! AddLockerViewController
             dest.qrCode = qrCode
+        }
+        if segue.identifier == "getLocker" {
+            let navigationcontroller = segue.destination as? UINavigationController
+            let dest = navigationcontroller?.viewControllers.first as! SecurityCodeViewController
+            dest.resident = resident
+            dest.lockerId = lockerId
+            dest.lockerHistory = lockerHistory
+           
         }
 //        if segue.identifier == "existingLockerToResidentsSegue" {
 //            let navigationcontroller = segue.destination as? UINavigationController

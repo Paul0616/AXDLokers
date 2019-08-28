@@ -52,15 +52,18 @@ class ConfirmResidentViewController: UIViewController {
         //performSegue(withIdentifier: "confirmResident", sender: nil)
         print("CONFIRM resident id = \(resident!.id) building id = \(resident!.buildingResidentId)")
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "scanQRCode", let destination = segue.destination as? QRScannerViewController {
+            destination.resident = resident
+        }
     }
-    */
+    
 
 }
 extension UIImageView {

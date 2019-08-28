@@ -85,7 +85,8 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
     }
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
-        
+        print(errorMessage)
+        self.showToast(message: "Error code: \(errorCode!)")
     }
     
     func resultedData(data: Data!, requestID: Int) {

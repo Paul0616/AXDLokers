@@ -17,6 +17,7 @@ class SecurityCodeViewController: UIViewController{
     var resident: Resident!
     
     
+    
     @IBOutlet weak var lockerView: UIView!
     @IBOutlet weak var residentView: UIView!
     @IBOutlet weak var lockerNumberLabel: UILabel!
@@ -67,6 +68,9 @@ class SecurityCodeViewController: UIViewController{
 //        }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        UserDefaults.standard.removeObject(forKey: "codeWasdetected")
+    }
    
     @IBAction func onConfirmAction(_ sender: Any) {
         

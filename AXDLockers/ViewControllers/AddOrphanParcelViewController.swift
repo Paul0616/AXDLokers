@@ -120,6 +120,8 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         activityIndicator.stopAnimating()
+        print(errorMessage)
+        self.showToast(message: "Error code: \(errorCode!)")
     }
     
     func resultedData(data: Data!, requestID: Int) {
