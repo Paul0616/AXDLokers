@@ -24,6 +24,7 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var bottomRightDot: UIView!
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var instructionsLabel: UILabel!
+    @IBOutlet weak var croppingView: UIView!
     
     
     override func viewDidLoad() {
@@ -48,14 +49,22 @@ class ImageViewController: UIViewController {
         
         croppingRect = CGRect(x: view.bounds.width/4, y: view.bounds.height/2-view.bounds.width/4, width: view.bounds.width/2, height: view.bounds.width/2)
         
-        let cropPath = CGPath(rect: croppingRect, transform: nil)
-        let shape = CAShapeLayer()
-        shape.lineWidth = 1
-        shape.strokeColor = UIColor.darkGray.cgColor
-        shape.fillColor = UIColor.clear.cgColor
-        shape.path = cropPath
-        shape.name = "cropPath"
-        view.layer.addSublayer(shape)
+//        let cropPath = CGPath(rect: croppingRect, transform: nil)
+//        let shape = CAShapeLayer()
+//        shape.lineWidth = 1
+//        shape.strokeColor = UIColor.darkGray.cgColor
+//        shape.fillColor = UIColor.clear.cgColor
+//        shape.path = cropPath
+//        shape.name = "cropPath"
+//        view.layer.addSublayer(shape)
+        
+        croppingView.layer.borderColor = UIColor.darkGray.cgColor
+        croppingView.layer.borderWidth = 1.0
+        croppingView.frame = croppingRect
+        view.bringSubviewToFront(croppingView)
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanCroppingView(sender:)))
+        croppingView.addGestureRecognizer(pan)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,6 +101,8 @@ class ImageViewController: UIViewController {
         bottomRightCircle.topAnchor.constraint(equalTo: view.topAnchor, constant: croppingRect.maxY-bottomRightCircle.frame.height/2).isActive = true
         addPanGesture(view: bottomRightCircle)
         view.bringSubviewToFront(bottomRightCircle)
+        
+        
     }
     
     private func resize(image: UIImage, to targetSize: CGSize) -> UIImage? {
@@ -214,6 +225,40 @@ class ImageViewController: UIViewController {
         }
     }
     
+    @objc func handlePanCroppingView(sender: UIPanGestureRecognizer){
+        
+        switch sender.state {
+        case .began, .changed:
+            moveCroppingViewWithPan(sender: sender)
+        default:
+            break
+        }
+    }
+    
+    func moveCroppingViewWithPan(sender: UIPanGestureRecognizer){
+        let translation = sender.translation(in: croppingView)
+        
+        croppingView.center = CGPoint(x: croppingView.center.x + translation.x, y: croppingView.center.y + translation.y)
+        if croppingView.frame.minX <= view.frame.minX {
+            croppingView.center = CGPoint(x: view.frame.minX + croppingView.frame.size.width/2, y: croppingView.center.y)
+        }
+        if croppingView.frame.maxX >= view.frame.maxX {
+            croppingView.center = CGPoint(x: view.frame.maxX - croppingView.frame.size.width/2, y: croppingView.center.y)
+        }
+        if croppingView.frame.minY <= view.frame.minY {
+            croppingView.center = CGPoint(x: croppingView.center.x, y: view.frame.minY + croppingView.frame.size.height/2)
+        }
+        if croppingView.frame.maxY >= view.frame.maxY {
+            croppingView.center = CGPoint(x: croppingView.center.x, y: view.frame.maxY - croppingView.frame.size.height/2)
+        }
+        
+        sender.setTranslation(CGPoint.zero, in: croppingView)
+        topLeftCircle.center = CGPoint(x: croppingView.frame.minX, y: croppingView.frame.minY)
+        topRightCircle.center = CGPoint(x: croppingView.frame.maxX, y: croppingView.frame.minY)
+        bottomLeftCircle.center = CGPoint(x: croppingView.frame.minX, y: croppingView.frame.maxY)
+        bottomRightCircle.center = CGPoint(x: croppingView.frame.maxX, y: croppingView.frame.maxY)
+    }
+    
     func moveViewWithPan(view: UIView, sender: UIPanGestureRecognizer){
         let translation = sender.translation(in: view)
         view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y + translation.y)
@@ -237,15 +282,16 @@ class ImageViewController: UIViewController {
             break
         }
         croppingRect = CGRect(x: topLeftCircle.center.x, y: topLeftCircle.center.y, width: topRightCircle.center.x - bottomLeftCircle.center.x, height: bottomLeftCircle.center.y - topLeftCircle.center.y)
-        let cropPath = CGPath(rect: croppingRect, transform: nil)
-        if let sublayers = self.view.layer.sublayers {
-            for layer in sublayers {
-                if layer.name == "cropPath" {
-                    let shape = layer as! CAShapeLayer
-                    shape.path = cropPath
-                }
-            }
-        }
+//        let cropPath = CGPath(rect: croppingRect, transform: nil)
+//        if let sublayers = self.view.layer.sublayers {
+//            for layer in sublayers {
+//                if layer.name == "cropPath" {
+//                    let shape = layer as! CAShapeLayer
+//                    shape.path = cropPath
+//                }
+//            }
+//        }
+        croppingView.frame = croppingRect
         
     }
     

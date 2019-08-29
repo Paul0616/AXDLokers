@@ -64,7 +64,9 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
     }
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
-        self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
         cancelButton.isEnabled = true
         infoLabel.text = ""
       //  if errorCode == 422 {

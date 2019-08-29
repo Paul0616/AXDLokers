@@ -2303,6 +2303,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yez-am-5ea">
+                                <rect key="frame" x="67" y="95" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2320,6 +2325,7 @@
                         <outlet property="bottomLeftDot" destination="iDN-Xc-hdN" id="oqs-0f-GMA"/>
                         <outlet property="bottomRightCircle" destination="kpd-mN-pd2" id="IAx-EG-HEz"/>
                         <outlet property="bottomRightDot" destination="9mm-HH-PiS" id="WdI-ob-mFV"/>
+                        <outlet property="croppingView" destination="yez-am-5ea" id="T5A-kg-6qu"/>
                         <outlet property="detectButton" destination="nzL-Or-wr1" id="RGa-RI-n83"/>
                         <outlet property="instructionsLabel" destination="md6-hK-G5F" id="oet-u7-DDs"/>
                         <outlet property="topLeftCircle" destination="4JU-c4-HPn" id="OiM-Qc-dpW"/>
