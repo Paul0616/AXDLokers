@@ -134,7 +134,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             print("item found - \(lockerId!)")
             let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
             let lockerAddressArray = [lockerAddress.street, lockerAddress.cityName, lockerAddress.stateName, lockerAddress.zipCode]
-            lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: "", lastName: "", email: "", phoneNumber: nil, securityCode: "", residentAddress: "", suiteNumber: "", buildingUniqueNumber: "", name: "", buildingAddress: "")
+            lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: resident.firstName, lastName: resident.lastName, email: resident.email, phoneNumber: resident.phone, securityCode: resident.securityCode, residentAddress: resident.building.address, suiteNumber: resident.suiteNumber, buildingUniqueNumber: resident.building.buidingUniqueNumber, name: resident.building.name, buildingAddress: resident.building.address)
             //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
             self.performSegue(withIdentifier: "getLocker", sender: nil)
         } else {
@@ -222,7 +222,7 @@ extension UIViewController {
     
     func showToast(message : String) {
         
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 75))
+        let toastLabel = UILabel(frame: CGRect(x: 10, y: self.view.frame.size.height-100, width: self.view.frame.size.width-10, height: 75))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;
@@ -230,8 +230,9 @@ extension UIViewController {
         toastLabel.text = message
         toastLabel.lineBreakMode = .byWordWrapping
         toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
+        toastLabel.layer.cornerRadius = 10
         toastLabel.clipsToBounds  =  true
+        toastLabel.numberOfLines = 0
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0

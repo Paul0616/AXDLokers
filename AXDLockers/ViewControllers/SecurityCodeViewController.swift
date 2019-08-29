@@ -7,9 +7,11 @@
 //
 
 import UIKit
-//import SwiftyJSON
+import SwiftyJSON
 
-class SecurityCodeViewController: UIViewController{
+class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
+    
+    
     
     
     var lockerId: Int!
@@ -33,10 +35,11 @@ class SecurityCodeViewController: UIViewController{
     @IBOutlet weak var imageResident: UIImageView!
     @IBOutlet weak var confirmButton: UIButton!
     var alertController: UIAlertController!
+    let restRequest = RestRequests()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        restRequest.delegate = self
         lockerView.layer.borderWidth = 1
         lockerView.layer.cornerRadius = 10
         lockerView.layer.borderColor = UIColor.darkGray.cgColor
@@ -73,7 +76,12 @@ class SecurityCodeViewController: UIViewController{
     }
    
     @IBAction func onConfirmAction(_ sender: Any) {
-        
+        if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
+            let param = [KEY_userId: userId] as NSDictionary
+            restRequest.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+        } else {
+            Switcher.updateRootVC(isLogged: false)
+        }
     }
     
 //    private func showAlert()->UIAlertController{
@@ -97,5 +105,33 @@ class SecurityCodeViewController: UIViewController{
         }
     }
   
-
+    func treatErrors(_ errorCode: Int!, errorMessage: String) {
+        
+    }
+    
+    func resultedData(data: Data!, requestID: Int) {
+        let json = try? JSON(data: data)
+        if requestID == CHECK_USERS_REQUEST {
+            let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
+            
+            if !userHaveRight(rights: userXRights, code: "READ_PACKAGES") || !userHaveRight(rights: userXRights, code: "DELETE_PACKAGES"){
+                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to see parcels. Contact adimistrator.", preferredStyle: UIAlertController.Style.alert)
+                let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+                alertController.addAction(okBut)
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+               performSegue(withIdentifier: "finalConfirmationSegue", sender: nil)
+            }
+        }
+    }
+    
+    
+    func userHaveRight(rights: JSON, code: String) -> Bool {
+        for (_, right) in rights {
+            if right[KEY_right][KEY_code].string == code {
+                return true
+            }
+        }
+        return false
+    }
 }

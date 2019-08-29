@@ -54,7 +54,14 @@ class RestRequests: NSObject {
                     .validate()
                     .responseJSON(completionHandler: {response in
                         guard response.result.isSuccess else {
-                            let message = "Connection error: \(String(describing: response.result.error!))"
+                            var message = ""
+                            if let errorData = response.data {
+                                if let json = try? JSON(data: errorData) {
+                                    message = json["message"].string!
+                                }
+                            } else {
+                                message = "Connection error: \(String(describing: response.result.error!))"
+                            }
                             let statusCode = response.response?.statusCode
                             self.delegate?.treatErrors(statusCode, errorMessage: message)
                             return
@@ -207,7 +214,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -230,7 +244,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -260,7 +281,14 @@ class RestRequests: NSObject {
         print(JSON(request.httpBody!))
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!))"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return
@@ -292,7 +320,14 @@ class RestRequests: NSObject {
         print(JSON(request.httpBody!))
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!))"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return
@@ -451,7 +486,14 @@ class RestRequests: NSObject {
         print(JSON(request.httpBody!))
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!))"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return
@@ -483,7 +525,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -511,7 +560,14 @@ class RestRequests: NSObject {
             .responseJSON(completionHandler: {response in
                 //let url = response.request?.url?.absoluteString
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -538,7 +594,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     print("TREAT")
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
@@ -581,7 +644,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     print("TREAT")
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
@@ -615,7 +685,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -643,7 +720,15 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
+                    
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -684,7 +769,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -706,7 +798,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Error while fetching user(\(userId)): \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -742,7 +841,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return
@@ -774,7 +880,14 @@ class RestRequests: NSObject {
             .validate()
             .responseJSON(completionHandler: {response in
                 guard response.result.isSuccess else {
-                    let message = "Connection error: \(String(describing: response.result.error!))"
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
                     let statusCode = response.response?.statusCode
                     self.delegate?.treatErrors(statusCode, errorMessage: message)
                     return

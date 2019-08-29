@@ -593,7 +593,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onConfirmAction:" destination="XXG-qm-YWs" eventType="touchUpInside" id="77U-JB-6wJ"/>
-                                    <segue destination="Yxr-hn-Fm3" kind="presentation" identifier="finalConfirmationSegue" id="sH1-ok-HP9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -637,6 +636,7 @@
                         <outlet property="residentSuiteNumberLabel" destination="oiH-Dj-tRt" id="aCK-ch-Cj4"/>
                         <outlet property="residentView" destination="YYz-aW-Uuf" id="cyJ-BP-Xry"/>
                         <outlet property="securityCodeLabel" destination="dcg-3Q-iO0" id="ADm-Ik-shz"/>
+                        <segue destination="Yxr-hn-Fm3" kind="presentation" identifier="finalConfirmationSegue" id="9Cx-qP-RQB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O9s-aK-rV7" userLabel="First Responder" sceneMemberID="firstResponder"/>
