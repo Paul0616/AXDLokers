@@ -109,14 +109,7 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
         UIView.commitAnimations()
     }
     
-    func userHaveRight(rights: JSON, code: String) -> Bool {
-        for (_, right) in rights {
-            if right[KEY_right][KEY_code].string == code {
-                return true
-            }
-        }
-        return false
-    }
+   
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         activityIndicator.stopAnimating()
@@ -132,7 +125,7 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
             
             addButton.isEnabled = userHaveRight(rights: userXRights, code: "CREATE_PACKAGES")
             if !addButton.isEnabled {
-                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to add unknown parcels. Contact adimistrator.", preferredStyle: UIAlertController.Style.alert)
+                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to add unknown parcels. Contact admistrator.", preferredStyle: UIAlertController.Style.alert)
                 let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
                 alertController.addAction(okBut)
                 self.present(alertController, animated: true, completion: nil)

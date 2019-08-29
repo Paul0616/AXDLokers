@@ -115,7 +115,7 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
             let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
             
             if !userHaveRight(rights: userXRights, code: "READ_PACKAGES") || !userHaveRight(rights: userXRights, code: "DELETE_PACKAGES"){
-                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to see parcels. Contact adimistrator.", preferredStyle: UIAlertController.Style.alert)
+                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to see parcels. Contact admistrator.", preferredStyle: UIAlertController.Style.alert)
                 let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
                 alertController.addAction(okBut)
                 self.present(alertController, animated: true, completion: nil)
@@ -125,13 +125,4 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
         }
     }
     
-    
-    func userHaveRight(rights: JSON, code: String) -> Bool {
-        for (_, right) in rights {
-            if right[KEY_right][KEY_code].string == code {
-                return true
-            }
-        }
-        return false
-    }
 }

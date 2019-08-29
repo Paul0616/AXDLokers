@@ -75,14 +75,7 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
         }
     }
 
-    func userHaveRight(rights: JSON, code: String) -> Bool {
-        for (_, right) in rights {
-            if right[KEY_right][KEY_code].string == code {
-                return true
-            }
-        }
-        return false
-    }
+    
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)

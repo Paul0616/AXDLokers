@@ -219,8 +219,8 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
             UserDefaults.standard.set(true, forKey: "codeWasdetected")
             self.dismiss(animated: true, completion: {
                 pvc?.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+            
             })
-           // self.performSegue(withIdentifier: "newLockerToResidentsSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
             print("Cancel")

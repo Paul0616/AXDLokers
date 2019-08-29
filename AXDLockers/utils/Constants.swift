@@ -162,6 +162,15 @@ func getJSON(json: JSON!, desiredKey: String) -> JSON! {
     return items
 }
 
+func userHaveRight(rights: JSON, code: String) -> Bool {
+    for (_, right) in rights {
+        if right[KEY_right][KEY_code].string == code {
+            return true
+        }
+    }
+    return false
+}
+
 func isLastPageLoaded(json: JSON!) -> Bool {
     //var items: NSDictionary
     var lastPage:Bool = true

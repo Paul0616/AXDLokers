@@ -28,6 +28,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     var resident: Resident!
     var lockerId: Int!
     var lockerHistory: LockerHistory!
+    var userCanCreateLockers: Bool = false
+    var userCanViewAddresses: Bool = false
     
     
     override func viewDidLoad() {
@@ -124,21 +126,51 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func resultedData(data: Data!, requestID: Int) {
         let json = try? JSON(data: data)
-
-        let items: JSON = getJSON(json: json, desiredKey: KEY_items)
-        print(items.count)
-        if items.count > 0 && codeWasdetected {
-            let locker = items[0]
-            lockerId = locker[KEY_id].int!
-        
-            print("item found - \(lockerId!)")
-            let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
-            let lockerAddressArray = [lockerAddress.street, lockerAddress.cityName, lockerAddress.stateName, lockerAddress.zipCode]
-            lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: resident.firstName, lastName: resident.lastName, email: resident.email, phoneNumber: resident.phone, securityCode: resident.securityCode, residentAddress: resident.building.address, suiteNumber: resident.suiteNumber, buildingUniqueNumber: resident.building.buidingUniqueNumber, name: resident.building.name, buildingAddress: resident.building.address)
-            //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
-            self.performSegue(withIdentifier: "getLocker", sender: nil)
-        } else {
-           showAlert()
+        if requestID == LOCKERS_REQUEST {
+            let items: JSON = getJSON(json: json, desiredKey: KEY_items)
+            print(items.count)
+            if items.count > 0 && codeWasdetected {
+                let locker = items[0]
+                lockerId = locker[KEY_id].int!
+            
+                print("item found - \(lockerId!)")
+                let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
+                let lockerAddressArray = [lockerAddress.street, lockerAddress.cityName, lockerAddress.stateName, lockerAddress.zipCode]
+                lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: resident.firstName, lastName: resident.lastName, email: resident.email, phoneNumber: resident.phone, securityCode: resident.securityCode, residentAddress: resident.building.address, suiteNumber: resident.suiteNumber, buildingUniqueNumber: resident.building.buidingUniqueNumber, name: resident.building.name, buildingAddress: resident.building.address)
+                //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+                self.performSegue(withIdentifier: "getLocker", sender: nil)
+            } else {
+                if userCanCreateLockers {
+                    showAlert()
+                } else {
+                    if !userCanViewAddresses {
+                        let alertController = UIAlertController(title: "No proper right", message: "You don't have right to add lockers. Contact admistrator or scan another locker.", preferredStyle: UIAlertController.Style.alert)
+                        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+                        alertController.addAction(okBut)
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        let alertController = UIAlertController(title: "Temporary locker", message: "You don't have right to add lockers. You can put the parcel into unregistered locker. Do you want to do that?", preferredStyle: UIAlertController.Style.alert)
+                        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                            self.performSegue(withIdentifier: "addVirtualLocker", sender: nil)
+                        })
+                        let okCancel = UIAlertAction(title: "cancel", style: UIAlertAction.Style.default, handler: nil)
+                        alertController.addAction(okBut)
+                        alertController.addAction(okCancel)
+                        self.present(alertController, animated: true, completion: nil)
+                       //
+                        //VIEW ADD VIRTUAL LOCKER (choose Adress from list -> type number from locker front door -> type comments)
+                    }
+                }
+            }
+        }
+        if requestID == CHECK_USERS_REQUEST {
+            let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
+            userCanCreateLockers = userHaveRight(rights: userXRights, code: "CREATE_LOCKER")
+            userCanViewAddresses = userHaveRight(rights: userXRights, code: "READ_ADDRESS")
+            let keys = [KEY_address, KEY_city, KEY_state]
+            let val = keys.joined(separator: ".")
+            let param = [KEY_qrCode: qrCode!, "expand": val] as NSDictionary
+            restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
         }
     }
     
@@ -185,11 +217,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
                 qrCode = metadataObj.stringValue
-                let keys = [KEY_address, KEY_city, KEY_state]
-                let val = keys.joined(separator: ".")
-                let param = [KEY_qrCode: metadataObj.stringValue!, "expand": val] as NSDictionary
-                
-                restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
+                if let userId: Int = UserDefaults.standard.object(forKey: "userId") as? Int {
+                    let param = [KEY_userId: userId] as NSDictionary
+                    restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+                }
             }
         }
     }
