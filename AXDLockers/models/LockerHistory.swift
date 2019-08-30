@@ -17,14 +17,14 @@ class LockerHistory: NSObject {
     var lastName:String
     var email: String
     var phoneNumber: String!
-    var securityCode: String
+    var securityCode: String!
     var residentAddress: String
     var suiteNumber: String
     var buildingUniqueNumber: String
     var name: String
     var buildingAddress: String
     //MARK: - Initializare
-    init(qrCode: String, lockerAddress: String, number: String, size: String, firstName: String, lastName: String, email: String, phoneNumber: String!, securityCode: String, residentAddress: String, suiteNumber: String, buildingUniqueNumber: String, name: String, buildingAddress: String
+    init(qrCode: String, lockerAddress: String, number: String, size: String, firstName: String, lastName: String, email: String, phoneNumber: String!, residentAddress: String, suiteNumber: String, buildingUniqueNumber: String, name: String, buildingAddress: String
         ) {
         //Initializeaza proprietatile
         self.qrCode = qrCode
@@ -35,7 +35,6 @@ class LockerHistory: NSObject {
         self.lastName = lastName
         self.email = email
         self.phoneNumber = phoneNumber
-        self.securityCode = securityCode
         self.residentAddress = residentAddress
         self.suiteNumber = suiteNumber
         self.buildingUniqueNumber = buildingUniqueNumber

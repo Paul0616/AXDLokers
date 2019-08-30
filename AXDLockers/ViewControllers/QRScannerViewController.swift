@@ -136,7 +136,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 print("item found - \(lockerId!)")
                 let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
                 let lockerAddressArray = [lockerAddress.street, lockerAddress.cityName, lockerAddress.stateName, lockerAddress.zipCode]
-                lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: resident.firstName, lastName: resident.lastName, email: resident.email, phoneNumber: resident.phone, securityCode: resident.securityCode, residentAddress: resident.building.address, suiteNumber: resident.suiteNumber, buildingUniqueNumber: resident.building.buidingUniqueNumber, name: resident.building.name, buildingAddress: resident.building.address)
+                
+                lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: resident.firstName, lastName: resident.lastName, email: resident.email, phoneNumber: resident.phone, residentAddress: resident.building.address, suiteNumber: resident.suiteNumber, buildingUniqueNumber: resident.building.buidingUniqueNumber, name: resident.building.name, buildingAddress: resident.building.address)
                 //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
                 self.performSegue(withIdentifier: "getLocker", sender: nil)
             } else {

@@ -48,7 +48,8 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
         } else {
             let param = [
                 KEY_lockerId: self.lockerId!,
-                KEY_buildingResidentId: self.resident.buildingResidentId
+                KEY_buildingResidentId: self.resident.buildingResidentId,
+                KEY_securityCode: self.lockerHistory.securityCode!
                 ] as [String : Any]
             self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
         }
@@ -140,6 +141,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                 let param = [
                     KEY_lockerId: self.lockerId!,
                     KEY_buildingResidentId: self.resident.buildingResidentId,
+                    KEY_securityCode: self.lockerHistory.securityCode!,
                     KEY_status: STATUS_NOT_CONFIRMED
                     ] as [String : Any]
                 self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_BUILDING_RESIDENT_REQUEST)

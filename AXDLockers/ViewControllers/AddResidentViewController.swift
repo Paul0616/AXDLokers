@@ -147,7 +147,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                     let state = value[KEY_address][KEY_city][KEY_state][KEY_name].string!
                     let zipCode = value[KEY_address][KEY_zipCode].string!
                     lockeraddressLabel.text = street+", "+city+", "+state+", "+zipCode
-                    currentLockerHistory = LockerHistory(qrCode: value[KEY_qrCode].string!, lockerAddress: lockeraddressLabel.text!, number: value[KEY_number].string!, size: value[KEY_size].string!, firstName: "", lastName: "", email: "", phoneNumber: nil, securityCode: "", residentAddress: "", suiteNumber: "", buildingUniqueNumber: "", name: "", buildingAddress: "")
+                    currentLockerHistory = LockerHistory(qrCode: value[KEY_qrCode].string!, lockerAddress: lockeraddressLabel.text!, number: value[KEY_number].string!, size: value[KEY_size].string!, firstName: "", lastName: "", email: "", phoneNumber: nil, residentAddress: "", suiteNumber: "", buildingUniqueNumber: "", name: "", buildingAddress: "")
                     break
                 }
                 noDataMessage = "No available residents"
@@ -252,9 +252,9 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
                         phone = value[KEY_resident][KEY_phone].string!
                     }
                     let email = value[KEY_resident][KEY_email].string!
-                    let securityCode = value[KEY_resident][KEY_securityCode].string!
+                    //let securityCode = value[KEY_resident][KEY_securityCode].string!
                     
-                    let resident = Resident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, securityCode: securityCode, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
+                    let resident = Resident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
                     residents.append(resident)
                 }
             }
@@ -324,7 +324,7 @@ class AddResidentViewController: UIViewController, UITableViewDelegate, UITableV
         currentLockerHistory.lastName = selectedResident.lastName
         currentLockerHistory.email = selectedResident.email
         currentLockerHistory.phoneNumber = selectedResident.phone
-        currentLockerHistory.securityCode = selectedResident.securityCode
+        //currentLockerHistory.securityCode = selectedResident.securityCode
         currentLockerHistory.suiteNumber = selectedResident.suiteNumber
         self.refreshButton()
        // tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark

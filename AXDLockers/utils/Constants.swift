@@ -34,6 +34,7 @@ let notificationsRESTAction = "notifications"
 let sendNotificationToResident = "send-notification-to-resident"
 let resetPasswordRESTAction = "reset-password"
 let orphanParcelRESTAction = "orphan-parcels"
+let getNewSecurityCodeRESTAction = "get-new-security-code"
 
 //REST Keys
 let KEY_userEmail = "email"
@@ -102,6 +103,7 @@ let DELETE_LOCKER_HISTORIES_REQUEST = 18
 let RESET_PASSWORD_REQUEST = 19
 let GET_BY_FULL_NAME_AND_UNIT_NUMBER = 20
 let INSERT_ORPHAN_PARCEL = 21
+let GET_SECURITY_CODE = 22
 
 let STATUS_NOT_CONFIRMED = 1
 

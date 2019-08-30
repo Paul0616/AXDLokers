@@ -30,6 +30,7 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
     @IBOutlet weak var residentPhoneLabel: UILabel!
     @IBOutlet weak var residentEmailLabel: UILabel!
     @IBOutlet weak var securityCodeLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var imageLocker: UIImageView!
     @IBOutlet weak var imageResident: UIImageView!
@@ -48,13 +49,13 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
         residentView.layer.borderColor = UIColor.darkGray.cgColor
         imageLocker.tintColor = UIColor(red:0.70, green:0.76, blue:1.00, alpha:1.0)
         imageResident.tintColor = UIColor(red:0.70, green:0.76, blue:1.00, alpha:1.0)
-        
+        securityCodeLabel.text = ""
         if resident != nil {
             residentNameLabel.text = resident.firstName + " " + resident.lastName
             residentSuiteNumberLabel.text = resident.suiteNumber
             residentPhoneLabel.text = resident.phone
             residentEmailLabel.text = resident.email
-            securityCodeLabel.text = resident.securityCode
+            //securityCodeLabel.text = resident.securityCode 
         }
         if lockerHistory != nil {
             lockerNumberLabel.text = "#"+lockerHistory.number
@@ -69,6 +70,9 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
 //                ] as [String: Any?]
 //            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKERS_REQUEST)
 //        }
+        confirmButton.isEnabled = false
+        activityIndicator.startAnimating()
+        restRequest.checkForRequest(parameters: nil, requestID: GET_SECURITY_CODE)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,10 +110,11 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
     }
   
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
-        
+        activityIndicator.stopAnimating()
     }
     
     func resultedData(data: Data!, requestID: Int) {
+        activityIndicator.stopAnimating()
         let json = try? JSON(data: data)
         if requestID == CHECK_USERS_REQUEST {
             let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
@@ -121,6 +126,15 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
                 self.present(alertController, animated: true, completion: nil)
             } else {
                performSegue(withIdentifier: "finalConfirmationSegue", sender: nil)
+            }
+        }
+        if requestID == GET_SECURITY_CODE {
+            if let securityCode = json![KEY_securityCode].string {
+                confirmButton.isEnabled = true
+                securityCodeLabel.text = securityCode
+                if let _ = lockerHistory {
+                    lockerHistory.securityCode = securityCode
+                }
             }
         }
     }

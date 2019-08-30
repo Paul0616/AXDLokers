@@ -218,7 +218,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
             weak var pvc = self.presentingViewController
             UserDefaults.standard.set(true, forKey: "codeWasdetected")
             self.dismiss(animated: true, completion: {
-                pvc?.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
+                pvc?.performSegue(withIdentifier: "addLocker", sender: nil)
             
             })
         }))

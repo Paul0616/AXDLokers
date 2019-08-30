@@ -150,9 +150,9 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
                         phone = value[KEY_resident][KEY_phone].string!
                     }
                     let email = value[KEY_resident][KEY_email].string!
-                    let securityCode = value[KEY_resident][KEY_securityCode].string!
+                    //let securityCode = value[KEY_resident][KEY_securityCode].string!
                     
-                    let resident = Resident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, securityCode: securityCode, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
+                    let resident = Resident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
                     let buildingid = value[KEY_building][KEY_id].int!
                     let buildingName = value[KEY_building][KEY_name].string!
                     let buildingUniqueNumber = value[KEY_building][KEY_buildingUniqueNumber].string!

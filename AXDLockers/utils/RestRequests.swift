@@ -162,6 +162,9 @@ class RestRequests: NSObject {
         case INSERT_ORPHAN_PARCEL:
             self.postOrphan(body: parameters)
             break
+        case GET_SECURITY_CODE:
+            self.getNewSecurityCode()
+            break
         
         default:
             print(requestID)
@@ -541,6 +544,37 @@ class RestRequests: NSObject {
             })
     }
     
+    func getNewSecurityCode(){
+        var url: String = getURL()
+        url.append(contentsOf: residentsRESTAction)
+        url.append(contentsOf: "/")
+        url.append(contentsOf: getNewSecurityCodeRESTAction)
+        
+        let param: Parameters = [
+            //addREST_Filter(parameters: [qrCodeREST_Key]): qrCode,
+            addRest_Token(): UserDefaults.standard.object(forKey: "token") as! String
+        ]
+        
+        Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)
+            .validate()
+            .responseJSON(completionHandler: {response in
+                guard response.result.isSuccess else {
+                    var message = ""
+                    if let errorData = response.data {
+                        if let json = try? JSON(data: errorData) {
+                            message = json["message"].string!
+                        }
+                    } else {
+                        message = "Connection error: \(String(describing: response.result.error!))"
+                    }
+                    let statusCode = response.response?.statusCode
+                    self.delegate?.treatErrors(statusCode, errorMessage: message)
+                    return
+                }
+                self.delegate?.resultedData(data: response.data!, requestID: GET_SECURITY_CODE)
+            })
+    }
+    
     func getLockerHistory(parameters: NSDictionary!, list: [String]){
         var url: String = getURL()
         url.append(contentsOf: lockerHistoryREST_Action)
@@ -714,6 +748,9 @@ class RestRequests: NSObject {
         }
         if let buildingResidentId = parameters[KEY_buildingResidentId] {
             param[addREST_Filter(parameters: [KEY_buildingResidentId])] = buildingResidentId
+        }
+        if let securityCode = parameters[KEY_securityCode] {
+            param[addREST_Filter(parameters: [KEY_securityCode])] = securityCode
         }
         
         Alamofire.request(url, method: .get, parameters: param, encoding: URLEncoding.default, headers: nil)

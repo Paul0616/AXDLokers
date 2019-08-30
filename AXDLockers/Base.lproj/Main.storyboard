@@ -557,6 +557,9 @@
                                             <constraint firstAttribute="height" constant="50" id="q55-aN-meg"/>
                                         </constraints>
                                     </imageView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Nuy-P2-Lwy">
+                                        <rect key="frame" x="153" y="64.5" width="37" height="37"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -575,7 +578,9 @@
                                     <constraint firstItem="ZzB-aV-POy" firstAttribute="leading" secondItem="YYz-aW-Uuf" secondAttribute="leading" constant="60" id="Yg3-0v-XJT"/>
                                     <constraint firstItem="9ah-Mb-M2m" firstAttribute="leading" secondItem="BtB-63-tYm" secondAttribute="leading" id="ZOO-q6-s1x"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Jhn-xA-gPj" secondAttribute="trailing" constant="20" symbolic="YES" id="aUE-kx-uJX"/>
+                                    <constraint firstItem="Nuy-P2-Lwy" firstAttribute="centerX" secondItem="YYz-aW-Uuf" secondAttribute="centerX" id="aXa-CA-97D"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oiH-Dj-tRt" secondAttribute="trailing" constant="20" symbolic="YES" id="eVI-vy-W00"/>
+                                    <constraint firstItem="Nuy-P2-Lwy" firstAttribute="centerY" secondItem="YYz-aW-Uuf" secondAttribute="centerY" id="gWG-CI-Qh4"/>
                                     <constraint firstItem="ucb-4p-SWu" firstAttribute="leading" secondItem="YYz-aW-Uuf" secondAttribute="leading" constant="60" id="jVF-jB-zqo"/>
                                     <constraint firstItem="x7O-nx-VWg" firstAttribute="centerY" secondItem="YYz-aW-Uuf" secondAttribute="centerY" id="jkU-Eh-Qhj"/>
                                     <constraint firstItem="goe-rh-Pcd" firstAttribute="leading" secondItem="ZzB-aV-POy" secondAttribute="trailing" constant="8" symbolic="YES" id="lD9-Qe-mvk"/>
@@ -590,14 +595,14 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9ah-Mb-M2m" secondAttribute="trailing" constant="20" symbolic="YES" id="yCF-Yd-Z2z"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The security code is" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dd7-1F-4Km">
-                                <rect key="frame" x="110.5" y="461.5" width="154.5" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put the parcel into the locker, close de door and lock with this security code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dd7-1F-4Km">
+                                <rect key="frame" x="19.5" y="461.5" width="336.5" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="467001" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcg-3Q-iO0">
-                                <rect key="frame" x="8" y="490.5" width="359" height="48"/>
+                                <rect key="frame" x="8" y="510.5" width="359" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -643,6 +648,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Tu2-hp-OFU"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Nuy-P2-Lwy" id="WcF-Pw-K7S"/>
                         <outlet property="confirmButton" destination="yyW-kc-AhK" id="J4P-nH-mvO"/>
                         <outlet property="imageLocker" destination="Zy7-kl-wUL" id="yML-IM-zzS"/>
                         <outlet property="imageResident" destination="x7O-nx-VWg" id="G4k-OG-SmZ"/>
@@ -1327,7 +1333,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="continue" enablesReturnKeyAutomatically="YES" textContentType="username"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="continue" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot your password?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJZ-Gk-QhI">
                                 <rect key="frame" x="32" y="437" width="166" height="19"/>
@@ -1458,7 +1464,7 @@
                                             <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
                                         </state>
                                         <connections>
-                                            <segue destination="2kW-wp-wh4" kind="show" id="JYK-h1-lrr"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="RqZ-ts-VRD"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2495,7 +2501,7 @@
         <image name="person" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7MF-AW-axO"/>
-        <segue reference="JYK-h1-lrr"/>
+        <segue reference="diC-33-lKn"/>
+        <segue reference="zsA-7y-VRI"/>
     </inferredMetricsTieBreakers>
 </document>
