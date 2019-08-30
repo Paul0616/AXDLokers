@@ -32,6 +32,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     var userCanViewAddresses: Bool = false
     var userCanCreateParcels: Bool = false
     var addLockerOnly: Bool = false
+    var virtualLocker: Bool = false
     @IBOutlet weak var backButtonFromMain: UIButton!
     
     
@@ -190,7 +191,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                     } else {
                         let alertController = UIAlertController(title: "Temporary locker", message: "You don't have right to add lockers. You can put the parcel into unregistered locker. Do you want to do that?", preferredStyle: UIAlertController.Style.alert)
                         let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
-                            self.performSegue(withIdentifier: "addVirtualLocker", sender: nil)
+                            self.virtualLocker = true
+                            self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
                         })
                         let okCancel = UIAlertAction(title: "cancel", style: UIAlertAction.Style.default, handler: {alert -> Void in
                             self.codeWasdetected = false
@@ -223,6 +225,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             print("OK")
             //self.codeWasdetected = false
+            self.virtualLocker = false
             self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
@@ -275,6 +278,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let dest = navigationcontroller?.viewControllers.first as! AddLockerViewController
             dest.qrCode = qrCode
             dest.addLockerOnly = addLockerOnly
+            dest.virtualLocker = virtualLocker
         }
         if segue.identifier == "getLocker" {
             let navigationcontroller = segue.destination as? UINavigationController

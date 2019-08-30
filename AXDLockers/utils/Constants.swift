@@ -35,6 +35,7 @@ let sendNotificationToResident = "send-notification-to-resident"
 let resetPasswordRESTAction = "reset-password"
 let orphanParcelRESTAction = "orphan-parcels"
 let getNewSecurityCodeRESTAction = "get-new-security-code"
+let virtualParcelRESTAction = "virtual-parcels"
 
 //REST Keys
 let KEY_userEmail = "email"
@@ -104,6 +105,7 @@ let RESET_PASSWORD_REQUEST = 19
 let GET_BY_FULL_NAME_AND_UNIT_NUMBER = 20
 let INSERT_ORPHAN_PARCEL = 21
 let GET_SECURITY_CODE = 22
+let INSERT_VIRTUAL_PARCEL_REQUEST = 23
 
 let STATUS_NOT_CONFIRMED = 1
 

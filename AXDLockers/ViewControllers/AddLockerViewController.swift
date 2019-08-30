@@ -9,8 +9,10 @@
 import UIKit
 import SwiftyJSON
 
-class AddLockerViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate {
+class AddLockerViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, RestRequestsDelegate {
    
+    @IBOutlet weak var optionalLabel: UILabel!
+    @IBOutlet weak var addressDetailTextView: UITextView!
     
 
     @IBOutlet weak var lockerImage: UIImageView!
@@ -26,13 +28,14 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     @IBOutlet weak var lockerSizeTextField: UITextField!
     
     let restRequest = RestRequests()
-    var activeField: UITextField?
+    var activeField: UIView?
     var address: Address!
     var qrCode: String!
     var lockerId: Int!
     var isLoading: Bool = false
     var locker: Locker!
     var addLockerOnly: Bool!
+    var virtualLocker = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +62,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
                 zipCodeLabel.text = address.zipCode
             }
         }
+        //MARK: reload number and size after choosing address
         if let number = UserDefaults.standard.value(forKeyPath: "lockerNumber") {
             let nr = number as! String
             lockerNumberTextField.text = nr
@@ -67,8 +71,16 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
             let sz = size as! String
             lockerSizeTextField.text = sz
         }
+        if virtualLocker {
+            if let addressDetail = UserDefaults.standard.value(forKeyPath: "addressDetail") {
+                let ad = addressDetail as! String
+                addressDetailTextView.text = ad
+            }
+        }
         
-        
+        title = virtualLocker ? "Temporary Locker" : "Add Locker"
+        optionalLabel.isHidden = !virtualLocker
+        addressDetailTextView.isHidden = !virtualLocker
         saveBarButton.isEnabled = validation()
     }
     
@@ -141,17 +153,33 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         //hide keyboard
         saveBarButton.isEnabled = validation()
+        //MARK: save number and size after type
         if textField == lockerNumberTextField {
             lockerSizeTextField.becomeFirstResponder()
             UserDefaults.standard.set(lockerNumberTextField.text, forKey: "lockerNumber")
         }
         
         if textField == lockerSizeTextField {
-            textField.resignFirstResponder()
+            if virtualLocker{
+                addressDetailTextView.becomeFirstResponder()
+            } else {
+                textField.resignFirstResponder()
+            }
             UserDefaults.standard.set(lockerSizeTextField.text, forKey: "lockerSize")
             //attemptLogin()
         }
         return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        textView.resignFirstResponder()
+        UserDefaults.standard.set(addressDetailTextView.text, forKey: "addressDetail")
+        
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        activeField = textView
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField)
@@ -164,11 +192,13 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
         activeField = nil
     }
     
+    
     @IBAction func cancelAction(_ sender: Any) {
         if !isLoading {
             UserDefaults.standard.removeObject(forKey: "lockerSize")
             UserDefaults.standard.removeObject(forKey: "lockerNumber")
             UserDefaults.standard.removeObject(forKey: "address")
+            UserDefaults.standard.removeObject(forKey: "addressDetail")
             dismiss(animated: true, completion: nil)
         }
 //        let scannerViewController = (self.storyboard?.instantiateViewController(withIdentifier: "initController"))!
@@ -176,21 +206,43 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     }
     @IBAction func saveAction(_ sender: Any) {
         if !isLoading {
-            if lockerId != nil {
+            if lockerId != nil { // locker was already added
                 showAlert()
-            } else {
+            } else { // locker wasn't added yet
+                UserDefaults.standard.removeObject(forKey: "address")
                 UserDefaults.standard.removeObject(forKey: "lockerSize")
                 UserDefaults.standard.removeObject(forKey: "lockerNumber")
-                UserDefaults.standard.removeObject(forKey: "address")
-                isLoading = true
-                //let now = (Date().timeIntervalSince1970 as Double).rounded()
-                let param = [
-                    KEY_qrCode: qrCode!,
-                    KEY_number: lockerNumberTextField.text!,
-                    KEY_size: lockerSizeTextField.text!,
-                    KEY_addressId: address.id
-                    ] as [String : Any]
-                restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
+                UserDefaults.standard.removeObject(forKey: "addressDetail")
+                if !virtualLocker {
+                    isLoading = true
+                    let param = [
+                        KEY_qrCode: qrCode!,
+                        KEY_number: lockerNumberTextField.text!,
+                        KEY_size: lockerSizeTextField.text!,
+                        KEY_addressId: address.id
+                        ] as [String : Any]
+                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
+                } else {
+                    locker = Locker(id: 0, qrCode: qrCode, number: lockerNumberTextField.text!, size:  lockerSizeTextField.text!, address: address)
+                    locker.addressDetail = addressDetailTextView.text
+                    let userDefaults = UserDefaults.standard
+                    do {
+                        let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: self.locker!, requiringSecureCoding: false)
+                        userDefaults.set(encodedData, forKey: "locker")
+                        userDefaults.synchronize()
+                    } catch {
+                        print("can't save current locker")
+                    }
+                    
+                    let pvc = self.presentingViewController as? UINavigationController
+                    let n = pvc?.viewControllers.count
+                    let qrViewController = pvc?.viewControllers[n!-1] as? QRScannerViewController
+                    UserDefaults.standard.set(true, forKey: "codeWasdetected")
+                    self.dismiss(animated: true, completion: {
+                        qrViewController?.performSegue(withIdentifier: "getLocker", sender: nil)
+                        
+                    })
+                }
             }
         }
     }

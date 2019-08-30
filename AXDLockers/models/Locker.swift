@@ -14,6 +14,7 @@ class Locker: NSObject, NSCoding {
     var size: String
     var number: String
     var address: Address
+    var addressDetail: String!
     //MARK: - Initializare
     init(id: Int, qrCode: String, number: String, size: String, address: Address
         ) {
@@ -31,7 +32,11 @@ class Locker: NSObject, NSCoding {
         let size = aDecoder.decodeObject(forKey: "size") as! String
         let number = aDecoder.decodeObject(forKey: "number") as! String
         let address = aDecoder.decodeObject(forKey: "address") as! Address
+        let addressDetail = aDecoder.decodeObject(forKey: "addressDetail") as! String?
         self.init(id: id, qrCode: qrCode, number: number, size: size, address: address)
+        if let ad = addressDetail {
+            self.addressDetail = ad
+        }
     }
     
     func encode(with aCoder: NSCoder) {
@@ -40,5 +45,6 @@ class Locker: NSObject, NSCoding {
         aCoder.encode(size, forKey: "size")
         aCoder.encode(number, forKey: "number")
         aCoder.encode(address, forKey: "address")
+        aCoder.encode(addressDetail, forKey: "addressDetail")
     }
 }

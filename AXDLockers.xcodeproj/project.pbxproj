@@ -32,7 +32,6 @@
 		DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */; };
 		DA5A734323118ABB00305553 /* SummaryOrphanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */; };
 		DA5A73452311913D00305553 /* OrphanParcelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A73442311913D00305553 /* OrphanParcelModel.swift */; };
-		DA5AE0B7231811E6009807D9 /* AddVirtualLockerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5AE0B6231811E6009807D9 /* AddVirtualLockerViewController.swift */; };
 		DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA834B29224973C400996DEB /* AddLockerViewController.swift */; };
 		DA99BB412250C1B5005FD346 /* LockerHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB402250C1B5005FD346 /* LockerHistory.swift */; };
 		DA99BB432250E507005FD346 /* FinalConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */; };
@@ -75,7 +74,6 @@
 		DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrphanParcelViewController.swift; sourceTree = "<group>"; };
 		DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryOrphanViewController.swift; sourceTree = "<group>"; };
 		DA5A73442311913D00305553 /* OrphanParcelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrphanParcelModel.swift; sourceTree = "<group>"; };
-		DA5AE0B6231811E6009807D9 /* AddVirtualLockerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVirtualLockerViewController.swift; sourceTree = "<group>"; };
 		DA834B29224973C400996DEB /* AddLockerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLockerViewController.swift; sourceTree = "<group>"; };
 		DA99BB402250C1B5005FD346 /* LockerHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerHistory.swift; sourceTree = "<group>"; };
 		DA99BB422250E507005FD346 /* FinalConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				407AC213230FF22900404FF5 /* ConfirmResidentViewController.swift */,
 				DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */,
 				DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */,
-				DA5AE0B6231811E6009807D9 /* AddVirtualLockerViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -360,7 +357,6 @@
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				40FB034723191AFF00F9AEA1 /* Locker.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
-				DA5AE0B7231811E6009807D9 /* AddVirtualLockerViewController.swift in Sources */,
 				407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */,
 				DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */,
 				DAC5A6A02240135D005C0425 /* QRScannerViewController.swift in Sources */,
