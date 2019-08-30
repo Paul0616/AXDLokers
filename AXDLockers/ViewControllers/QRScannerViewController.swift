@@ -30,6 +30,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     var lockerHistory: LockerHistory!
     var userCanCreateLockers: Bool = false
     var userCanViewAddresses: Bool = false
+    var userCanCreateParcels: Bool = false
+    var addLockerOnly: Bool = false
+    @IBOutlet weak var backButtonFromMain: UIButton!
+    
     
     
     override func viewDidLoad() {
@@ -103,15 +107,30 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             view.addSubview(qrCodeFrameView) //view
             view.bringSubviewToFront(qrCodeFrameView) //view
         }
-
+        view.bringSubviewToFront(backButtonFromMain)
     }
     override func viewWillAppear(_ animated: Bool) {
+        backButtonFromMain.isHidden = !addLockerOnly
         if let code = UserDefaults.standard.object(forKey: "codeWasdetected") as? Bool {
             codeWasdetected = code
-            print("TRUE")
+            print(codeWasdetected)
         } else {
             codeWasdetected = false
         }
+        if codeWasdetected {
+            if let decoded  = UserDefaults.standard.data(forKey: "locker") {
+                do {
+                    let locker = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(decoded) as? Locker//unarchivedObject(ofClass: Address.self, from: decoded)
+                    lockerId = locker?.id
+                    lockerHistory = LockerHistory(locker: locker!, resident: resident)
+                    
+                } catch {
+                    print("Address could not be unarchived")
+                }
+            }
+        }
+        
+        
     }
 //    override func viewDidDisappear(_ animated: Bool) {
 //        codeWasdetected = false
@@ -121,7 +140,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
-        self.showToast(message: "Error code: \(errorCode!)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
     }
     
     func resultedData(data: Data!, requestID: Int) {
@@ -130,16 +151,33 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let items: JSON = getJSON(json: json, desiredKey: KEY_items)
             print(items.count)
             if items.count > 0 && codeWasdetected {
-                let locker = items[0]
-                lockerId = locker[KEY_id].int!
-            
-                print("item found - \(lockerId!)")
-                let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
-                let lockerAddressArray = [lockerAddress.street, lockerAddress.cityName, lockerAddress.stateName, lockerAddress.zipCode]
+                if userCanCreateParcels {
+                    let locker = items[0]
+                    lockerId = locker[KEY_id].int!
                 
-                lockerHistory = LockerHistory(qrCode: qrCode, lockerAddress: lockerAddressArray.joined(separator: ", "), number: locker[KEY_number].string!, size: locker[KEY_size].string!, firstName: resident.firstName, lastName: resident.lastName, email: resident.email, phoneNumber: resident.phone, residentAddress: resident.building.address, suiteNumber: resident.suiteNumber, buildingUniqueNumber: resident.building.buidingUniqueNumber, name: resident.building.name, buildingAddress: resident.building.address)
-                //self.performSegue(withIdentifier: "existingLockerToResidentsSegue", sender: nil)
-                self.performSegue(withIdentifier: "getLocker", sender: nil)
+                    print("item found - \(lockerId!)")
+                    if addLockerOnly {
+                        
+                        let alertController = UIAlertController(title: "Already exist", message: "This locker was already added in database. Try to add another one.", preferredStyle: UIAlertController.Style.alert)
+                        let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {alert -> Void in
+                            self.codeWasdetected = false
+                        })
+                        alertController.addAction(okBut)
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
+                        let lockerModel = Locker(id: lockerId, qrCode: qrCode, number: locker[KEY_number].string!, size: locker[KEY_size].string!, address: lockerAddress)
+                        lockerHistory = LockerHistory(locker: lockerModel, resident: resident)
+                        self.performSegue(withIdentifier: "getLocker", sender: nil)
+                    }
+                } else {
+                    let alertController = UIAlertController(title: "No proper rights", message: "You don't have right to add parcels into lockers. Contact administrator.", preferredStyle: UIAlertController.Style.alert)
+                    let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                        self.codeWasdetected = false
+                    })
+                    alertController.addAction(okBut)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             } else {
                 if userCanCreateLockers {
                     showAlert()
@@ -154,7 +192,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                         let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
                             self.performSegue(withIdentifier: "addVirtualLocker", sender: nil)
                         })
-                        let okCancel = UIAlertAction(title: "cancel", style: UIAlertAction.Style.default, handler: nil)
+                        let okCancel = UIAlertAction(title: "cancel", style: UIAlertAction.Style.default, handler: {alert -> Void in
+                            self.codeWasdetected = false
+                        })
                         alertController.addAction(okBut)
                         alertController.addAction(okCancel)
                         self.present(alertController, animated: true, completion: nil)
@@ -168,6 +208,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
             userCanCreateLockers = userHaveRight(rights: userXRights, code: "CREATE_LOCKER")
             userCanViewAddresses = userHaveRight(rights: userXRights, code: "READ_ADDRESS")
+            userCanCreateParcels = userHaveRight(rights: userXRights, code: "CREATE_PACKAGES")
             let keys = [KEY_address, KEY_city, KEY_state]
             let val = keys.joined(separator: ".")
             let param = [KEY_qrCode: qrCode!, "expand": val] as NSDictionary
@@ -233,6 +274,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             let navigationcontroller = segue.destination as? UINavigationController
             let dest = navigationcontroller?.viewControllers.first as! AddLockerViewController
             dest.qrCode = qrCode
+            dest.addLockerOnly = addLockerOnly
         }
         if segue.identifier == "getLocker" {
             let navigationcontroller = segue.destination as? UINavigationController
@@ -254,7 +296,7 @@ extension UIViewController {
     
     func showToast(message : String) {
         
-        let toastLabel = UILabel(frame: CGRect(x: 10, y: self.view.frame.size.height-100, width: self.view.frame.size.width-10, height: 75))
+        let toastLabel = UILabel(frame: CGRect(x: 10, y: self.view.frame.size.height-100, width: self.view.frame.size.width-20, height: 75))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.textAlignment = .center;

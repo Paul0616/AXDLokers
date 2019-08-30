@@ -17,6 +17,9 @@ class AddVirtualLockerViewController: UIViewController {
     }
     
 
+    @IBAction func onCancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

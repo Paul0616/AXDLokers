@@ -35,19 +35,22 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
         } else {
            Switcher.updateRootVC(isLogged: false)
         }
-        
+        UserDefaults.standard.set(false, forKey: "codeWasdetected")
     }
     
 
-    /*
+   
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "addLockerFromMain", let destination = segue.destination as? QRScannerViewController {
+            destination.addLockerOnly = true
+        }
     }
-    */
+   
     @IBAction func tapLogOut(_ sender: Any) {
         let alertController = UIAlertController(title: "Logging Out", message: "Do you really want to log out?", preferredStyle: UIAlertController.Style.alert)
         let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
@@ -79,7 +82,9 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
     
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
-        self.showToast(message: "Error code: \(errorCode!)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
     }
     
     func resultedData(data: Data!, requestID: Int) {

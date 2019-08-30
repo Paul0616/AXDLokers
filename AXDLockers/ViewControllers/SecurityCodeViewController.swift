@@ -58,9 +58,10 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
             //securityCodeLabel.text = resident.securityCode 
         }
         if lockerHistory != nil {
-            lockerNumberLabel.text = "#"+lockerHistory.number
-            lockerSizeLabel.text = lockerHistory.size
-            lockerAddressLabel.text = lockerHistory.lockerAddress
+            let lockerAddressArray = [lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName, lockerHistory.locker.address.zipCode]
+            lockerNumberLabel.text = "#"+lockerHistory.locker.number
+            lockerSizeLabel.text = lockerHistory.locker.size
+            lockerAddressLabel.text = lockerAddressArray.joined(separator: ", ")
         }
         // Do any additional setup after loading the view.
 //        if locker != nil {
@@ -79,6 +80,9 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
         UserDefaults.standard.removeObject(forKey: "codeWasdetected")
     }
    
+    @IBAction func onCancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func onConfirmAction(_ sender: Any) {
         if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
             let param = [KEY_userId: userId] as NSDictionary
@@ -120,7 +124,7 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
             let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
             
             if !userHaveRight(rights: userXRights, code: "READ_PACKAGES") || !userHaveRight(rights: userXRights, code: "DELETE_PACKAGES"){
-                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to see parcels. Contact admistrator.", preferredStyle: UIAlertController.Style.alert)
+                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to see parcels. Contact administrator.", preferredStyle: UIAlertController.Style.alert)
                 let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
                 alertController.addAction(okBut)
                 self.present(alertController, animated: true, completion: nil)

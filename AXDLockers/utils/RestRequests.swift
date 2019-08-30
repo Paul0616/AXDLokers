@@ -360,7 +360,14 @@ class RestRequests: NSObject {
         }
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return
@@ -391,7 +398,14 @@ class RestRequests: NSObject {
         }
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return
@@ -427,7 +441,14 @@ class RestRequests: NSObject {
             let url = response.request?.url
             print(url!)
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return
@@ -456,7 +477,14 @@ class RestRequests: NSObject {
         }
         Alamofire.request(request).validate().responseJSON { (response) in
             guard response.result.isSuccess else {
-                let message = "Connection error: \(String(describing: response.result.error!)) - \(response.data!)"
+                var message = ""
+                if let errorData = response.data {
+                    if let json = try? JSON(data: errorData) {
+                        message = json["message"].string!
+                    }
+                } else {
+                    message = "Connection error: \(String(describing: response.result.error!))"
+                }
                 let statusCode = response.response?.statusCode
                 self.delegate?.treatErrors(statusCode, errorMessage: message)
                 return

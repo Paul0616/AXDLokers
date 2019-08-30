@@ -31,6 +31,8 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     var qrCode: String!
     var lockerId: Int!
     var isLoading: Bool = false
+    var locker: Locker!
+    var addLockerOnly: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -196,7 +198,9 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
         isLoading = false
-        self.showToast(message: "Error code: \(errorCode!)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
     }
     
     func resultedData(data: Data!, requestID: Int) {
@@ -205,7 +209,20 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
         let json = try? JSON(data: data)
         lockerId = json![KEY_id].int
         qrCode = json![KEY_qrCode].string
-        showAlert()
+        locker = Locker(id: lockerId, qrCode: qrCode, number: json![KEY_number].string!, size:  json![KEY_size].string!, address: address)
+        if addLockerOnly {
+            let alertController = UIAlertController(title: "Locker added",
+                                                    message: "Locker #\(lockerNumberTextField.text!) was succsesfully added. Now you can try to add another one.",
+                preferredStyle: .alert)
+            
+            
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:{alert -> Void in
+                self.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            showAlert()
+        }
     }
     
     private func showAlert(){
@@ -214,14 +231,25 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, RestReques
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             print("OK")
-
-            weak var pvc = self.presentingViewController
+            let userDefaults = UserDefaults.standard
+            do {
+                let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: self.locker!, requiringSecureCoding: false)
+                userDefaults.set(encodedData, forKey: "locker")
+                userDefaults.synchronize()
+            } catch {
+                print("can't save current locker")
+            }
+            
+            let pvc = self.presentingViewController as? UINavigationController
+            let n = pvc?.viewControllers.count
+            let qrViewController = pvc?.viewControllers[n!-1] as? QRScannerViewController
             UserDefaults.standard.set(true, forKey: "codeWasdetected")
             self.dismiss(animated: true, completion: {
-                pvc?.performSegue(withIdentifier: "addLocker", sender: nil)
+                qrViewController?.performSegue(withIdentifier: "getLocker", sender: nil)
             
             })
         }))
+        
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
             print("Cancel")
             self.dismiss(animated: true, completion: nil)

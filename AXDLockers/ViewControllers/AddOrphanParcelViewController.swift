@@ -114,7 +114,9 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         activityIndicator.stopAnimating()
         print(errorMessage)
-        self.showToast(message: "Error code: \(errorCode!)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
     }
     
     func resultedData(data: Data!, requestID: Int) {
@@ -123,9 +125,9 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
         if requestID == CHECK_USERS_REQUEST {
             let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
             
-            addButton.isEnabled = userHaveRight(rights: userXRights, code: "CREATE_PACKAGES")
+            addButton.isEnabled = userHaveRight(rights: userXRights, code: "CREATE_ORPHAN_PARCEL")
             if !addButton.isEnabled {
-                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to add unknown parcels. Contact admistrator.", preferredStyle: UIAlertController.Style.alert)
+                let alertController = UIAlertController(title: "No proper right", message: "You don't have right to add unknown parcels. Contact administrator.", preferredStyle: UIAlertController.Style.alert)
                 let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
                 alertController.addAction(okBut)
                 self.present(alertController, animated: true, completion: nil)

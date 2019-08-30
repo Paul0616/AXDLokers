@@ -38,6 +38,10 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         searchBar.delegate = self
     }
     
+    @IBAction func onCancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         addresses.removeAll()
         isLoading = true
@@ -140,7 +144,9 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
         isLoading = false
-        self.showToast(message: "Error code: \(errorCode!)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
     }
     
     func resultedData(data: Data!, requestID: Int) {

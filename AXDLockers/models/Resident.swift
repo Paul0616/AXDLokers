@@ -40,7 +40,9 @@ class Resident: NSObject, NSCoding {
         let email = aDecoder.decodeObject(forKey: "email") as! String
         let suiteNumber = aDecoder.decodeObject(forKey: "suiteNumber") as! String
         let buildingResidentId = aDecoder.decodeObject(forKey: "buildingResidentId") as! Int
+        let building = aDecoder.decodeObject(forKey: "building") as! Building
         self.init(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
+        self.building = building
     }
     
     func encode(with aCoder: NSCoder) {
@@ -51,5 +53,6 @@ class Resident: NSObject, NSCoding {
         aCoder.encode(email, forKey: "email")
         aCoder.encode(suiteNumber, forKey: "suiteNumber")
         aCoder.encode(buildingResidentId, forKey: "buildingResidentId")
+        aCoder.encode(building, forKey: "building")
     }
 }

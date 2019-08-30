@@ -59,8 +59,10 @@ class ConfirmResidentViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        //let nc = segue.destination as? UINavigationController
         if segue.identifier == "scanQRCode", let destination = segue.destination as? QRScannerViewController {
             destination.resident = resident
+            destination.addLockerOnly = false
         }
     }
     

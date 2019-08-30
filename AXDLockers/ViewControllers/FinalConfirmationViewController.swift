@@ -111,29 +111,31 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
                     break
                 }
                 infoLabel.text = "Creating locker history..."
+                let lockerAddressArray = [lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName, lockerHistory.locker.address.zipCode]
+                
                 var param = [
-                    KEY_qrCode: lockerHistory.qrCode,
-                    KEY_number: lockerHistory.number,
-                    KEY_size: lockerHistory.size,
-                    KEY_lockerAddress: lockerHistory.lockerAddress,
-                    KEY_firstName: lockerHistory.firstName,
-                    KEY_lastName: lockerHistory.lastName,
-                    KEY_email: lockerHistory.email,
-                    KEY_securityCode: lockerHistory.securityCode,
-                    KEY_suiteNumber: lockerHistory.suiteNumber,
-                    KEY_buildingUniqueNumber: lockerHistory.buildingUniqueNumber,
-                    KEY_name: lockerHistory.name,
-                    KEY_buildingAddress: lockerHistory.buildingAddress,
-                    "residentAddress": lockerHistory.residentAddress,
+                    KEY_qrCode: lockerHistory.locker.qrCode,
+                    KEY_number: lockerHistory.locker.number,
+                    KEY_size: lockerHistory.locker.size,
+                    KEY_lockerAddress: lockerAddressArray.joined(separator: ", "),
+                    KEY_firstName: lockerHistory.resident.firstName,
+                    KEY_lastName: lockerHistory.resident.lastName,
+                    KEY_email: lockerHistory.resident.email,
+                    KEY_securityCode: lockerHistory.securityCode!,
+                    KEY_suiteNumber: lockerHistory.resident.suiteNumber,
+                    KEY_buildingUniqueNumber: lockerHistory.resident.building!.buidingUniqueNumber,
+                    KEY_name: lockerHistory.resident.building!.name,
+                    KEY_buildingAddress: [lockerHistory.resident.building!.street, lockerHistory.resident.building!.address].joined(separator: " "),
+                    "residentAddress": [lockerHistory.resident.building!.street, lockerHistory.resident.building!.address].joined(separator: " "),
                     "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String,
                     "packageStatus": "STATUS_NOT_CONFIRMED",
                     "createdByFirstName": UserDefaults.standard.object(forKey: "userFirstName") as! String,
                     "createdByLastName": UserDefaults.standard.object(forKey: "userLastName") as! String] as [String : Any]
-                if lockerHistory.phoneNumber != "-" {
-                    param[KEY_phone] = lockerHistory.phoneNumber
+                if lockerHistory.resident.phone != "-" {
+                    param[KEY_phone] = lockerHistory.resident.phone
                 }
-                if lockerHistory.size != "-" {
-                    param[KEY_size] = lockerHistory.size
+                if lockerHistory.locker.size != "-" {
+                    param[KEY_size] = lockerHistory.locker.size
                 }
                 restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
             } else {
@@ -163,29 +165,30 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             if let lastInsertedLockerBuildingResidentId = json?[KEY_id].int! {
                 UserDefaults.standard.set(lastInsertedLockerBuildingResidentId, forKey: "lastInsertedLockerBuildingResidentId")
                 infoLabel.text = "Creating locker history..."
+                let lockerAddressArray = [lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName, lockerHistory.locker.address.zipCode]
                 var param = [
-                    KEY_qrCode: lockerHistory.qrCode,
-                    KEY_number: lockerHistory.number,
-                    KEY_size: lockerHistory.size,
-                    KEY_lockerAddress: lockerHistory.lockerAddress,
-                    KEY_firstName: lockerHistory.firstName,
-                    KEY_lastName: lockerHistory.lastName,
-                    KEY_email: lockerHistory.email,
-                    KEY_securityCode: lockerHistory.securityCode,
-                    KEY_suiteNumber: lockerHistory.suiteNumber,
-                    KEY_buildingUniqueNumber: lockerHistory.buildingUniqueNumber,
-                    KEY_name: lockerHistory.name,
-                    KEY_buildingAddress: lockerHistory.buildingAddress,
-                    "residentAddress": lockerHistory.residentAddress,
+                    KEY_qrCode: lockerHistory.locker.qrCode,
+                    KEY_number: lockerHistory.locker.number,
+                    KEY_size: lockerHistory.locker.size,
+                    KEY_lockerAddress: lockerAddressArray.joined(separator: ", "),
+                    KEY_firstName: lockerHistory.resident.firstName,
+                    KEY_lastName: lockerHistory.resident.lastName,
+                    KEY_email: lockerHistory.resident.email,
+                    KEY_securityCode: lockerHistory.securityCode!,
+                    KEY_suiteNumber: lockerHistory.resident.suiteNumber,
+                    KEY_buildingUniqueNumber: lockerHistory.resident.building!.buidingUniqueNumber,
+                    KEY_name: lockerHistory.resident.building!.name,
+                    KEY_buildingAddress: [lockerHistory.resident.building!.street, lockerHistory.resident.building!.address].joined(separator: " "),
+                    "residentAddress": [lockerHistory.resident.building!.street, lockerHistory.resident.building!.address].joined(separator: " "),
                     "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String,
                     "packageStatus": "STATUS_NOT_CONFIRMED",
                     "createdByFirstName": UserDefaults.standard.object(forKey: "userFirstName") as! String,
                     "createdByLastName": UserDefaults.standard.object(forKey: "userLastName") as! String] as [String : Any]
-                if lockerHistory.phoneNumber != "-" {
-                    param[KEY_phone] = lockerHistory.phoneNumber
+                if lockerHistory.resident.phone != "-" {
+                    param[KEY_phone] = lockerHistory.resident.phone
                 }
-                if lockerHistory.size != "-" {
-                    param[KEY_size] = lockerHistory.size
+                if lockerHistory.locker.size != "-" {
+                    param[KEY_size] = lockerHistory.locker.size
                 }
                 restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
             }

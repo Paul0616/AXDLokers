@@ -141,7 +141,10 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
         isLoading = false
-        self.showToast(message: "Error code: \(errorCode!)")
+        if let _ = errorCode {
+            self.showToast(message: "Error code: \(errorCode!) - \(errorMessage)")
+        }
+    
     }
     
     func resultedData(data: Data!, requestID: Int) {
