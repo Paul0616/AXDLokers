@@ -187,6 +187,15 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             }
         }
         
+        if requestID == DELETE_VIRTUAL_PARCEL_REQUEST {
+            UserDefaults.standard.removeObject(forKey: "lastInsertedVirtualParcelId")
+            if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
+                deleteHistory(lastInsertedLockerHistoriesId)
+            } else {
+                insertParcel(isVirtual: true)
+            }
+        }
+        
         if requestID == INSERT_NOTIFICATION_REQUEST {
             handleSuccessAction(json)
         }

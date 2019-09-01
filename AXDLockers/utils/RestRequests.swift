@@ -198,6 +198,19 @@ class RestRequests: NSObject {
                 requestId: requestID
             )
             break
+        case DELETE_VIRTUAL_PARCEL_REQUEST:
+            print("DELETE_VIRTUAL_PARCEL_REQUEST")
+            let id = parameters[KEY_id] as! Int
+            callHandler(
+                urlStrings: [virtualParcelRESTAction, "\(id)"],
+                method: "DELETE",
+                useAuthentication: true,
+                isGetToken: false,
+                additionalQueryItems: nil,
+                body: nil,
+                requestId: requestID
+            )
+            break
         case DELETE_LOCKER_BUILDING_RESIDENT_REQUEST:
              print("DELETE_LOCKER_BUILDING_RESIDENT_REQUEST")
             let id = parameters[KEY_id] as! Int
