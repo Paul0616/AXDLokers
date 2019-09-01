@@ -23,42 +23,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please focus on QRCode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-Ix-O08">
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oan-J2-vt0">
                                 <rect key="frame" x="0.0" y="627" width="375" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39513591609589038" colorSpace="custom" customColorSpace="displayP3"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="qr_scan" translatesAutoresizingMaskIntoConstraints="NO" id="Jc5-Dz-lBq">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="1" green="0.83137254900000002" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="XVY-19-tIx"/>
+                                            <constraint firstAttribute="height" constant="40" id="dPZ-FM-Cti"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Please focus on QRCode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-Ix-O08">
+                                        <rect key="frame" x="40" y="0.0" width="335" height="40"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39513591609589038" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Wfb-b5-nn8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.83137254901960778" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.83137254900000002" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Wfb-b5-nn8"/>
+                                    <constraint firstAttribute="height" constant="40" id="hqx-RI-RV5"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IP-5C-f2c">
+                                <rect key="frame" x="8" y="72" width="50" height="33"/>
+                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="8qT-uT-FTe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.83137254901960778" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4IP-5C-f2c">
-                                <rect key="frame" x="8" y="72" width="34" height="30"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Back"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBack:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gzC-Mg-R7s"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T2v-Ix-O08" secondAttribute="trailing" id="5jo-Tt-1Cj"/>
-                            <constraint firstItem="T2v-Ix-O08" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ErS-EB-f0h"/>
                             <constraint firstItem="4IP-5C-f2c" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Nmr-br-pr9"/>
                             <constraint firstItem="4IP-5C-f2c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="bhj-js-Ick"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="T2v-Ix-O08" secondAttribute="bottom" id="uMm-WL-BBG"/>
+                            <constraint firstItem="oan-J2-vt0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="bx5-vg-e67"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4IP-5C-f2c" secondAttribute="trailing" constant="8" id="byu-9w-URQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oan-J2-vt0" secondAttribute="trailing" id="h4k-PG-cSg"/>
+                            <constraint firstItem="oan-J2-vt0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nNI-f5-kgq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="backButtonFromMain" destination="4IP-5C-f2c" id="eJh-rM-MyD"/>
-                        <outlet property="messageLabel" destination="T2v-Ix-O08" id="EOR-5e-NIQ"/>
+                        <outlet property="iconinfo" destination="Jc5-Dz-lBq" id="d31-YH-NTK"/>
+                        <outlet property="intructionsStackView" destination="oan-J2-vt0" id="Pes-8X-bNN"/>
+                        <outlet property="labelinfo" destination="T2v-Ix-O08" id="8H5-H0-crh"/>
                         <segue destination="2kW-wp-wh4" kind="show" identifier="addLockerSegue" id="nQx-sV-QiA"/>
                         <segue destination="j0C-YT-gWp" kind="show" identifier="getLocker" id="dHX-yy-t0F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="223"/>
+            <point key="canvasLocation" x="53.600000000000001" y="222.63868065967017"/>
         </scene>
         <!--Security Code View Controller-->
         <scene sceneID="oYv-h8-4VL">
@@ -1876,7 +1907,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nzL-Or-wr1">
                                 <rect key="frame" x="47" y="549" width="281" height="60"/>
-                                <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AGe-S0-7Nc"/>
                                 </constraints>
@@ -1888,16 +1919,31 @@
                                     <action selector="tapDetectText:" destination="67A-aj-fWs" eventType="touchUpInside" id="3wq-tY-vaI"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="image cropping so that it takes over only the area of interest, ensures better text detection" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="md6-hK-G5F">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="eOU-L8-VY3">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39513591609999998" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="7fi-Pk-tYM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_scan" translatesAutoresizingMaskIntoConstraints="NO" id="PSI-d9-ZQa">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="JuZ-4c-59o"/>
+                                            <constraint firstAttribute="height" constant="50" id="jFl-yX-AtJ"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="wf5-d6-8qR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="image cropping so that it takes over only the area of interest, ensures better text detection" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="md6-hK-G5F">
+                                        <rect key="frame" x="50" y="0.0" width="325" height="50"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39513591609999998" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="7fi-Pk-tYM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yez-am-5ea">
                                 <rect key="frame" x="67" y="95" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1907,11 +1953,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nzL-Or-wr1" firstAttribute="width" secondItem="6QG-Jk-djh" secondAttribute="width" multiplier="0.75" id="0bV-Ia-kCQ"/>
-                            <constraint firstItem="md6-hK-G5F" firstAttribute="trailing" secondItem="DGx-ck-yWu" secondAttribute="trailing" id="1mM-8A-We9"/>
-                            <constraint firstItem="md6-hK-G5F" firstAttribute="bottom" secondItem="DGx-ck-yWu" secondAttribute="bottom" id="AlZ-Ha-yUj"/>
+                            <constraint firstItem="eOU-L8-VY3" firstAttribute="leading" secondItem="6QG-Jk-djh" secondAttribute="leading" id="1fZ-q2-DSX"/>
                             <constraint firstItem="nzL-Or-wr1" firstAttribute="centerX" secondItem="6QG-Jk-djh" secondAttribute="centerX" id="IpJ-ka-dlb"/>
-                            <constraint firstItem="md6-hK-G5F" firstAttribute="leading" secondItem="DGx-ck-yWu" secondAttribute="leading" id="SXM-Og-SEn"/>
-                            <constraint firstItem="md6-hK-G5F" firstAttribute="top" secondItem="nzL-Or-wr1" secondAttribute="bottom" constant="8" id="lR7-yN-hXk"/>
+                            <constraint firstAttribute="trailing" secondItem="eOU-L8-VY3" secondAttribute="trailing" id="ez2-gg-OFn"/>
+                            <constraint firstItem="eOU-L8-VY3" firstAttribute="top" secondItem="nzL-Or-wr1" secondAttribute="bottom" constant="8" id="kkB-3d-amB"/>
+                            <constraint firstItem="DGx-ck-yWu" firstAttribute="bottom" secondItem="eOU-L8-VY3" secondAttribute="bottom" id="tsD-ug-57w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DGx-ck-yWu"/>
                     </view>
@@ -1922,6 +1968,7 @@
                         <outlet property="bottomRightDot" destination="9mm-HH-PiS" id="WdI-ob-mFV"/>
                         <outlet property="croppingView" destination="yez-am-5ea" id="T5A-kg-6qu"/>
                         <outlet property="detectButton" destination="nzL-Or-wr1" id="RGa-RI-n83"/>
+                        <outlet property="instructionStackView" destination="eOU-L8-VY3" id="1Ee-Ww-ibJ"/>
                         <outlet property="instructionsLabel" destination="md6-hK-G5F" id="oet-u7-DDs"/>
                         <outlet property="topLeftCircle" destination="4JU-c4-HPn" id="OiM-Qc-dpW"/>
                         <outlet property="topLeftDot" destination="dWA-ax-jzO" id="Y0H-CE-pkl"/>
@@ -2023,9 +2070,11 @@
         <image name="logoWhite" width="225" height="66"/>
         <image name="parcel-1" width="99" height="100.5"/>
         <image name="person" width="36" height="36"/>
+        <image name="qr_scan" width="100.5" height="92.5"/>
+        <image name="text_scan" width="100" height="86"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7MF-AW-axO"/>
+        <segue reference="diC-33-lKn"/>
         <segue reference="zsA-7y-VRI"/>
     </inferredMetricsTieBreakers>
 </document>

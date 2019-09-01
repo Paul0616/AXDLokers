@@ -36,6 +36,8 @@ let resetPasswordRESTAction = "reset-password"
 let orphanParcelRESTAction = "orphan-parcels"
 let getNewSecurityCodeRESTAction = "get-new-security-code"
 let virtualParcelRESTAction = "virtual-parcels"
+let sendNotificationToResidentForVirtualParcelRESTAction = "send-notification-to-resident-for-virtual-parcel"
+
 
 //REST Keys
 let KEY_userEmail = "email"
@@ -82,16 +84,17 @@ let KEY_status = "status"
 let KEY_userRights = "userXRights"
 let KEY_right = "right"
 let KEY_code = "code"
+let KEY_virtualParcelId = "virtualParcelId"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
-let TOKEN_REQUEST = 3
+//let TOKEN_REQUEST = 3
 let CITIES_REQUEST = 4
 let ADDRESSES_REQUEST = 5
 let INSERT_LOCKER_REQUEST = 6
 let INSERT_ADDRESS_REQUEST = 7
-let LOCKER_HISTORY_REQUEST = 8
-let BUILDING_REQUEST = 9
+//let LOCKER_HISTORY_REQUEST = 8
+//let BUILDING_REQUEST = 9
 let BUILDING_RESIDENTS_REQUEST = 10
 let GET_FILTERED_RESIDENTS_REQUEST = 11
 let BUILDING_ID_REQUEST = 12
@@ -106,7 +109,8 @@ let GET_BY_FULL_NAME_AND_UNIT_NUMBER = 20
 let INSERT_ORPHAN_PARCEL = 21
 let GET_SECURITY_CODE = 22
 let INSERT_VIRTUAL_PARCEL_REQUEST = 23
-
+let INSERT_NOTIFICATION_FOR_VIRTUAL_PARCEL_REQUEST = 24
+let DELETE_VIRTUAL_PARCEL_REQUEST = 25
 let STATUS_NOT_CONFIRMED = 1
 
 func getURL() -> String {

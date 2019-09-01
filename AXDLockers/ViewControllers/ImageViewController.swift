@@ -25,6 +25,7 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var detectButton: UIButton!
     @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var croppingView: UIView!
+    @IBOutlet weak var instructionStackView: UIStackView!
     
     
     override func viewDidLoad() {
@@ -43,7 +44,7 @@ class ImageViewController: UIViewController {
         closeButton.addTarget(self, action: #selector(closeAction), for: .touchDown)
         setupActivityIndicator()
         
-        view.bringSubviewToFront(instructionsLabel)
+        view.bringSubviewToFront(instructionStackView)
         view.bringSubviewToFront(detectButton)
         detectButton.titleLabel?.textAlignment = .center
         

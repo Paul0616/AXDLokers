@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class AddAddressViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UITextFieldDelegate, RestRequestsDelegate {
     
@@ -35,21 +36,25 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
         activityIndicator.startAnimating()
         saveBarButton.isEnabled = false
         isLoading = true
-        let param = ["per-page": PAGE_SIZE] as NSDictionary
+        let param: Parameters = [
+            "expand": KEY_state,
+            "sort": KEY_name,
+            "per-page": PAGE_SIZE
+        ]
         restRequests.checkForRequest(parameters: param, requestID: CITIES_REQUEST)
     }
     @IBAction func onSave(_ sender: UIBarButtonItem) {
         if streetTextField.text != "" && zipCodeTextField.text != "" && selectedCityId != 0 {
-            print("\(streetTextField.text!) - \(zipCodeTextField.text!) - \(selectedCityId)")
+            //print("\(streetTextField.text!) - \(zipCodeTextField.text!) - \(selectedCityId)")
             activityIndicator.startAnimating()
             isLoading = true
-            //let now = (Date().timeIntervalSince1970 as Double).rounded()
-            let param = [
+           
+            let body = [
                 KEY_cityId: selectedCityId,
                 KEY_zipCode: zipCodeTextField.text!,
                 KEY_streetName: streetTextField.text!
                 ] as [String : Any]
-            restRequests.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_ADDRESS_REQUEST)
+            restRequests.checkForRequest(parameters: nil, requestID: INSERT_ADDRESS_REQUEST, body: body as NSDictionary)
         }
        //  self.navigationController?.popViewController(animated: true)
     }
@@ -89,7 +94,11 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
         if indexPath.row == cities.count-1 && !isLoading && !isLastPage {
             //we are at the last cell and need to load more
             loadedPages = loadedPages + 1
-            let param = ["per-page": PAGE_SIZE, "page": loadedPages] as NSDictionary
+            let param = [
+                "expand": KEY_state,
+                "sort": KEY_name,
+                "per-page": PAGE_SIZE,
+                "page": loadedPages] as Parameters
             restRequests.checkForRequest(parameters: param, requestID: CITIES_REQUEST)
         }
     }
@@ -110,7 +119,12 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
         cities.removeAll()
         activityIndicator.startAnimating()
         isLoading = true
-        let param = ["likeName": searchBar.text!, "per-page": PAGE_SIZE, "page": loadedPages] as NSDictionary
+        let param = [
+            "expand": KEY_state,
+            "sort": KEY_name,
+            addREST_Filter(parameters: [KEY_name, "like"]): searchBar.text!,
+            "per-page": PAGE_SIZE,
+            "page": loadedPages] as Parameters
         restRequests.checkForRequest(parameters: param, requestID: CITIES_REQUEST)
     }
     //MARK: - ButtonBarEnabled
@@ -151,7 +165,7 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
         activityIndicator.stopAnimating()
         isLoading = false
         let json = try? JSON(data: data)
-        print(requestID)
+        //print(requestID)
         if requestID == CITIES_REQUEST {
             if let meta: JSON = getJSON(json: json, desiredKey: KEY_meta) {
                 let currentPage = meta["currentPage"].int
@@ -180,7 +194,7 @@ class AddAddressViewController: UIViewController, UITableViewDelegate, UITableVi
                                                         message: "Address was succsesfully added.",
                     preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                    print("OK")
+                    //print("OK")
                     self.navigationController?.popViewController(animated: true)
                     
                 }))

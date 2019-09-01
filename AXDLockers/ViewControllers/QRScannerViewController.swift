@@ -9,13 +9,17 @@
 import UIKit
 import AVFoundation
 import SwiftyJSON
+import Alamofire
 
 
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, RestRequestsDelegate {
     
     
     
-    @IBOutlet weak var messageLabel: UILabel!
+   @IBOutlet weak var intructionsStackView: UIStackView!
+    @IBOutlet weak var labelinfo: UILabel!
+    @IBOutlet weak var iconinfo: UIImageView!
+    
    
     
     var captureSession = AVCaptureSession()
@@ -40,10 +44,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         restRequests.delegate = self
-//        if AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined {
-//            AVCaptureDevice.requestAccess(for: .video, completionHandler: { granted in })
-//        }
+        navigationController?.isNavigationBarHidden = true
+//        navigationController?.navigationBar.backgroundColor = UIColor.clear
+//        navigationController?.navigationBar.isTranslucent = false
         var captureDevice: AVCaptureDevice!
         if let device = AVCaptureDevice.default(.builtInDualCamera, for: AVMediaType.video, position: .back) {
             captureDevice = device
@@ -52,16 +57,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         } else {
             return
         }
-        
-    
-//        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: AVMediaType.video, position: .back)
-//        print(deviceDiscoverySession.devices.count)
-//
-//        guard let captureDevice = deviceDiscoverySession.devices.first else {
-//            print("Failed to get the camera device")
-//            return
-//        }
-        //messageFrame.layer.cornerRadius = 6
 
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
@@ -95,8 +90,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         // Start video capture.
         captureSession.startRunning()
        
-        // Move the message label and top bar to the front
-        view.bringSubviewToFront(messageLabel)
         
         // Initialize QR Code Frame to highlight the QR code
         qrCodeFrameView = UIView()
@@ -109,9 +102,35 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             view.bringSubviewToFront(qrCodeFrameView) //view
         }
         view.bringSubviewToFront(backButtonFromMain)
+        // Move the message label and icon to the front
+        //view.sendSubviewToBack(intructionsStackView)
+        view.bringSubviewToFront(intructionsStackView)
+//        view.bringSubviewToFront(iconinfo)
+//        view.bringSubviewToFront(labelinfo)
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        videoPreviewLayer?.frame = self.view.bounds;
+        videoPreviewLayer?.frame = self.view.bounds;
+        
+        let orientation: UIDeviceOrientation = UIDevice.current.orientation;
+        switch (orientation) {
+        case .portrait:
+            videoPreviewLayer?.connection?.videoOrientation = .portrait
+        case .landscapeRight:
+            videoPreviewLayer?.connection?.videoOrientation = .landscapeLeft
+        case .landscapeLeft:
+            videoPreviewLayer?.connection?.videoOrientation = .landscapeRight
+        case .portraitUpsideDown:
+            videoPreviewLayer?.connection?.videoOrientation = .portraitUpsideDown
+        default:
+            videoPreviewLayer?.connection?.videoOrientation = .portrait
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-        backButtonFromMain.isHidden = !addLockerOnly
+        //backButtonFromMain.isHidden = !addLockerOnly
         if let code = UserDefaults.standard.object(forKey: "codeWasdetected") as? Bool {
             codeWasdetected = code
             print(codeWasdetected)
@@ -133,9 +152,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         
         
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        codeWasdetected = false
-//    }
+
     
     
     
@@ -213,7 +230,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             userCanCreateParcels = userHaveRight(rights: userXRights, code: "CREATE_PACKAGES")
             let keys = [KEY_address, KEY_city, KEY_state]
             let val = keys.joined(separator: ".")
-            let param = [KEY_qrCode: qrCode!, "expand": val] as NSDictionary
+            let param = [
+                addREST_Filter(parameters: [KEY_qrCode])  : qrCode!,
+                "expand": val
+                ] as Parameters
             restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
         }
     }
@@ -223,13 +243,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                                                 message: "This locker was not found in database. Would you like to add it?",
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            print("OK")
+//            print("OK")
             //self.codeWasdetected = false
             self.virtualLocker = false
             self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
-            print("Cancel")
+//            print("Cancel")
             self.codeWasdetected = false
         }))
         self.present(alertController, animated: true, completion: nil)
@@ -262,11 +282,18 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
                 qrCode = metadataObj.stringValue
-                if let userId: Int = UserDefaults.standard.object(forKey: "userId") as? Int {
-                    let param = [KEY_userId: userId] as NSDictionary
-                    restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+                if let _ = UserDefaults.standard.object(forKey: "userId") as? Int {
+                    //let param = [KEY_userId: userId] as NSDictionary
+                    restRequests.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
                 }
             }
+        }
+    }
+    @IBAction func onBack(_ sender: Any) {
+        if addLockerOnly {
+            dismiss(animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -312,7 +339,7 @@ extension UIViewController {
         toastLabel.clipsToBounds  =  true
         toastLabel.numberOfLines = 0
         self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 4.0, delay: 1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()

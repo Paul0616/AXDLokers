@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, RestRequestsDelegate {
     
@@ -46,7 +47,12 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         addresses.removeAll()
         isLoading = true
         activityIndicatorView.startAnimating()
-        let param = ["per-page": PAGE_SIZE] as NSDictionary
+        
+        let param = [
+            "per-page": PAGE_SIZE,
+            "expand": KEY_city+"."+KEY_state,
+            "sort": KEY_streetName
+            ] as Parameters
         restRequests.checkForRequest(parameters: param, requestID: ADDRESSES_REQUEST)
     }
     
@@ -105,7 +111,12 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         if indexPath.row == addresses.count-1 && !isLoading && !isLastPage {
             //we are at the last cell and need to load more
             loadedPages = loadedPages + 1
-            let param = ["per-page": PAGE_SIZE, "page": loadedPages] as NSDictionary
+            let param = [
+                "per-page": PAGE_SIZE,
+                "page": loadedPages,
+                "expand": KEY_city+"."+KEY_state,
+                "sort": KEY_streetName
+                ] as Parameters
             restRequests.checkForRequest(parameters: param, requestID: ADDRESSES_REQUEST)
         }
     }
@@ -137,7 +148,14 @@ class ChooseAddressViewController: UITableViewController, UISearchBarDelegate, R
         addresses.removeAll()
         activityIndicatorView.startAnimating()
         isLoading = true
-        let param = ["likeStreetName": searchBar.text!, "per-page": PAGE_SIZE, "page": loadedPages] as NSDictionary
+        
+        let param = [
+            addREST_Filter(parameters: [KEY_streetName, "like"]): searchBar.text!,
+            "per-page": PAGE_SIZE,
+            "page": loadedPages,
+            "expand": KEY_city+"."+KEY_state,
+            "sort": KEY_streetName
+            ] as Parameters
         restRequests.checkForRequest(parameters: param, requestID: ADDRESSES_REQUEST)
     }
    

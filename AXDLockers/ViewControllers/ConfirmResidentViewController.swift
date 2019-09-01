@@ -50,7 +50,7 @@ class ConfirmResidentViewController: UIViewController {
     
     @IBAction func tapOnConfirmButton(_ sender: Any) {
         //performSegue(withIdentifier: "confirmResident", sender: nil)
-        print("CONFIRM resident id = \(resident!.id) building id = \(resident!.buildingResidentId)")
+//        print("CONFIRM resident id = \(resident!.id) building id = \(resident!.buildingResidentId)")
     }
     
     // MARK: - Navigation

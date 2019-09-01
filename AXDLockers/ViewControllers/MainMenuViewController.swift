@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class MainMenuViewController: UIViewController, RestRequestsDelegate {
    
@@ -29,16 +30,17 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
         addParcelButton.layer.cornerRadius = 10
         restRequests.delegate = self
         
-        if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
-            let param = [KEY_userId: userId] as NSDictionary
-            restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let _ = UserDefaults.standard.object(forKey: "userId") as? Int {
+            restRequests.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
         } else {
-           Switcher.updateRootVC(isLogged: false)
+            Switcher.updateRootVC(isLogged: false)
         }
         UserDefaults.standard.set(false, forKey: "codeWasdetected")
     }
-    
-
    
     // MARK: - Navigation
 

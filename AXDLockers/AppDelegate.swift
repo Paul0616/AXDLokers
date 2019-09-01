@@ -17,12 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
     func resultedData(data: Data!, requestID: Int) {
         let json = try? JSON(data: data)
         
-        if json?["createdBy"].type == SwiftyJSON.Type.string {
-            print("string")
-        }
-        if json?["createdBy"].type == SwiftyJSON.Type.null {
-            print("null")
-        }
+//        if json?["createdBy"].type == SwiftyJSON.Type.string {
+//            print("string")
+//        }
+//        if json?["createdBy"].type == SwiftyJSON.Type.null {
+//            print("null")
+//        }
         if let role: JSON = getJSON(json: json, desiredKey: KEY_role) {
             let hasRelatedBuilding: Bool = role[KEY_hasRelatedBuildings].int == 1 ? true : false
             if hasRelatedBuilding {
@@ -82,8 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, RestRequestsDelegate {
             //userId is not set or zero go to login screen
             Switcher.updateRootVC(isLogged: false)
         } else {
-            let param = [KEY_userId: userId!] as NSDictionary
-            restRequests.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+            restRequests.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
         }
     }
 

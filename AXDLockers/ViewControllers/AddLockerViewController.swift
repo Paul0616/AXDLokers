@@ -42,10 +42,12 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, UITextView
         lockerImage.tintColor = UIColor(red:0.70, green:0.76, blue:1.00, alpha:1.0)
         lockerNumberTextField.delegate = self
         lockerSizeTextField.delegate = self
+        addressDetailTextView.delegate = self
         self.scrollView.isScrollEnabled = false
         addaddressButton.layer.cornerRadius = 20
         restRequest.delegate = self
         // Do any additional setup after loading the view.
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,8 +181,16 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, UITextView
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        activeField = nil
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
         activeField = textView
     }
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        activeField = textView
+        return true
+    }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
@@ -221,7 +231,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, UITextView
                         KEY_size: lockerSizeTextField.text!,
                         KEY_addressId: address.id
                         ] as [String : Any]
-                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_REQUEST)
+                    restRequest.checkForRequest(parameters: nil, requestID: INSERT_LOCKER_REQUEST, body: param as NSDictionary)
                 } else {
                     locker = Locker(id: 0, qrCode: qrCode, number: lockerNumberTextField.text!, size:  lockerSizeTextField.text!, address: address)
                     locker.addressDetail = addressDetailTextView.text
@@ -282,7 +292,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, UITextView
                                                 message: "Locker #\(lockerNumberTextField.text!) was succsesfully added. You want to continue with resident assignment for this locker?",
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            print("OK")
+//            print("OK")
             let userDefaults = UserDefaults.standard
             do {
                 let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: self.locker!, requiringSecureCoding: false)
@@ -303,7 +313,7 @@ class AddLockerViewController: UIViewController, UITextFieldDelegate, UITextView
         }))
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
-            print("Cancel")
+//            print("Cancel")
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(alertController, animated: true, completion: nil)

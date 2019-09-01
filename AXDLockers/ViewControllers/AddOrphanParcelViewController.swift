@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestRequestsDelegate {
     
@@ -53,10 +54,10 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
         }
         parcelDescriptionTextView.text = parcelDescription.trimmingCharacters(in: CharacterSet("\n".unicodeScalars)).trimmingCharacters(in: CharacterSet(" - ".unicodeScalars))
         
-        if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
+        if let _ = UserDefaults.standard.object(forKey: "userId") as? Int {
             activityIndicator.startAnimating()
-            let param = [KEY_userId: userId] as NSDictionary
-            restRequest.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+            //let param = [KEY_userId: userId] as NSDictionary
+            restRequest.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
         } else {
             Switcher.updateRootVC(isLogged: false)
         }
@@ -77,12 +78,12 @@ class AddOrphanParcelViewController: UIViewController, UITextViewDelegate, RestR
     func postOrphanParcel (){
         guard parcelDescriptionTextView.text != "" else {return}
         activityIndicator.startAnimating()
-        var param:[String: Any] = [:]
-        param["parcelDescription"] = parcelDescriptionTextView.text
+        var body:[String: Any] = [:]
+        body["parcelDescription"] = parcelDescriptionTextView.text
         if commentsTextView.text != "" {
-            param["comments"] = commentsTextView.text
+            body["comments"] = commentsTextView.text
         }
-        restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_ORPHAN_PARCEL)
+        restRequest.checkForRequest(parameters: nil, requestID: INSERT_ORPHAN_PARCEL, body: body as NSDictionary)
        
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
     var lockerId: Int!
@@ -22,6 +23,10 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     let restRequest = RestRequests()
+   
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         popUpView.layer.cornerRadius = 6
@@ -31,59 +36,42 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
         // Do any additional setup after loading the view.
         activityIndicator.startAnimating()
         /* ##############################
-            1. If I found something in UserDefaults Delete lastInsertedLockerBuildingResidentId and lastInsertedLockerHistoriesId
-            2. First check locker-bulding-residents if pair lockerId / buildingResidentId was used before
-            3. If YES just get lastInsertedLockerBuildingResidentId and save it in UserDefaults. If NO insert it, then get lastInsertedLockerBuildingResidentId and save it in UserDefaults.
-            4. Insert record in locker-histories and save lastInsertedLockerHistoriesId it in UserDefaults.
-            5. Once I know lockerBuildibgResidentId = lastInsertedLockerBuildingResidentId I'm inserting notification and if it was successful going to scan screen, else do nothing and user can go back to security code screen and try again
+            1. If I found something in UserDefaults Delete lastInsertedParcelId and lastInsertedLockerHistoriesId
+            2. Insert parcel, then get lastInsertedParcelId and save it in UserDefaults.
+            3. Insert record in locker-histories and save lastInsertedLockerHistoriesId it in UserDefaults.
+            4. Once I know lockerBuildingResidentId, wich will be equal with lastInsertedParcelId I'm inserting notification and if it was successful going to scan screen, else do nothing and user can go back to security code screen and try again
          ##############################*/
-        infoLabel.text = "Checking locker - bulding - resident association..."
+       
         if lockerId != 0 {
-            if let lastInsertedLockerBuildingResidentId = UserDefaults.standard.object(forKey: "lastInsertedLockerBuildingResidentId") as? Int {
-                let parameter = [KEY_id: lastInsertedLockerBuildingResidentId]
-                self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_BUILDING_RESIDENT_REQUEST)
+            UserDefaults.standard.removeObject(forKey: "lastInsertedVirtualParcelId")
+            if let lastInsertedParcelId = UserDefaults.standard.object(forKey: "lastInsertedParcelId") as? Int {
+                deleteParcel(lastInsertedParcelId, isVirtual: false)
             } else if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
-                let parameter = [KEY_id: lastInsertedLockerHistoriesId]
-                self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+                deleteHistory(lastInsertedLockerHistoriesId)
             } else {
-                let param = [
-                    KEY_lockerId: self.lockerId!,
-                    KEY_buildingResidentId: self.resident.buildingResidentId,
-                    KEY_securityCode: self.lockerHistory.securityCode!
-                    ] as [String : Any]
-                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+                insertParcel(isVirtual: false)
             }
         } else {
-            UserDefaults.standard.removeObject(forKey: "lastInsertedLockerBuildingResidentId")
-            if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
-                let parameter = [KEY_id: lastInsertedLockerHistoriesId]
-                self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+            UserDefaults.standard.removeObject(forKey: "lastInsertedParcelId")
+            if let lastInsertedVirtualParcelId = UserDefaults.standard.object(forKey: "lastInsertedVirtualParcelId") as? Int {
+                deleteParcel(lastInsertedVirtualParcelId, isVirtual: true)
+            } else if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
+                deleteHistory(lastInsertedLockerHistoriesId)
             } else {
-                infoLabel.text = "Creating association with temporary locker..."
-                let param = [
-                    KEY_buildingResidentId: self.resident.buildingResidentId,
-                    "lockerNumber": self.lockerHistory.locker.number,
-                    "lockerSize": self.lockerHistory.locker.size,
-                    KEY_addressId: self.lockerHistory.locker.address.id,
-                    "addressDetails": self.lockerHistory.locker.addressDetail!,
-                    KEY_securityCode: self.lockerHistory.securityCode!,
-                    KEY_status: STATUS_NOT_CONFIRMED
-                ] as [String : Any]
-            
-                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_VIRTUAL_PARCEL_REQUEST)
+                insertParcel(isVirtual: true)
             }
-        
         }
-        
     }
     
     @IBAction func onClose(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         
     }
+    
     @IBAction func backToScanAction(_ sender: Any) {
         self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
     }
+    
     func treatErrors(_ errorCode: Int!, errorMessage: String) {
         print(errorMessage)
         if let _ = errorCode {
@@ -99,123 +87,145 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
       //  }
     }
     
+    fileprivate func handleSuccessAction(_ json: JSON?) {
+        if (json?[KEY_id].int!) != nil {
+            activityIndicator.stopAnimating()
+            popUpView.backgroundColor = UIColor.green
+            backToScanButton.isHidden = false
+            label.text = "A notification about package was sent to resident."
+            infoLabel.text = ""
+            UserDefaults.standard.removeObject(forKey: "lastInsertedParcelId")
+            UserDefaults.standard.removeObject(forKey: "lastInsertedLockerHistoriesId")
+            UserDefaults.standard.removeObject(forKey: "lastInsertedVirtualParcelId")
+        }
+    }
+    
+    fileprivate func deleteParcel(_ lastInsertedParcelId: Int, isVirtual: Bool) {
+        infoLabel.text = "Deleting last failed parcel..."
+        if !isVirtual {
+            let parameter:Parameters = [KEY_id: lastInsertedParcelId] as Parameters
+            self.restRequest.checkForRequest(parameters: parameter, requestID: DELETE_LOCKER_BUILDING_RESIDENT_REQUEST)
+        } else {
+            //TODO: - delete virtual parcel not implemented(405 method not allowed). need method on API
+            let parameter:Parameters = [KEY_id: lastInsertedParcelId] as Parameters
+            self.restRequest.checkForRequest(parameters: parameter, requestID: DELETE_VIRTUAL_PARCEL_REQUEST)
+        }
+    }
+
+    fileprivate func deleteHistory(_ lastInsertedLockerHistoriesId: Int) {
+        infoLabel.text = "Deleting last failed locker history..."
+        let parameter = [KEY_id: lastInsertedLockerHistoriesId] as Parameters
+        self.restRequest.checkForRequest(parameters: parameter, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+    }
+    
+    fileprivate func insertLockerHistory() {
+        infoLabel.text = "Creating locker history..."
+        let body = createHistoryParameter()
+        restRequest.checkForRequest(parameters: nil, requestID: INSERT_LOCKER_HISTORIES_REQUEST, body: body)
+    }
+    
+    fileprivate func insertParcel(isVirtual: Bool) {
+        if !isVirtual {
+            infoLabel.text = "Creating locker - bulding - resident association..."
+            let body = [
+                KEY_lockerId: self.lockerId!,
+                KEY_buildingResidentId: self.resident.buildingResidentId,
+                KEY_securityCode: self.lockerHistory.securityCode!,
+                KEY_status: STATUS_NOT_CONFIRMED
+                ] as [String : Any]
+            self.restRequest.checkForRequest(parameters: nil, requestID: INSERT_LOCKER_BUILDING_RESIDENT_REQUEST, body: body as NSDictionary)
+        } else {
+            infoLabel.text = "Creating association with temporary locker..."
+            let body = [
+                KEY_buildingResidentId: self.resident.buildingResidentId,
+                "lockerNumber": self.lockerHistory.locker.number,
+                "lockerSize": self.lockerHistory.locker.size,
+                KEY_addressId: self.lockerHistory.locker.address.id,
+                "addressDetails": self.lockerHistory.locker.addressDetail!,
+                KEY_securityCode: self.lockerHistory.securityCode!,
+                KEY_status: STATUS_NOT_CONFIRMED
+                ] as [String : Any]
+            
+            self.restRequest.checkForRequest(parameters: nil, requestID: INSERT_VIRTUAL_PARCEL_REQUEST, body: body as NSDictionary)
+        }
+    }
+    
+    fileprivate func insertNotification(isVirtual: Bool) {
+        infoLabel.text = "Sending notification to resident..."
+        if !isVirtual{
+            let body = [
+                KEY_lockerBuildingResidentId: UserDefaults.standard.object(forKey: "lastInsertedParcelId") as! Int
+                ] as [String : Any]
+            restRequest.checkForRequest(parameters: nil, requestID: INSERT_NOTIFICATION_REQUEST, body: body as NSDictionary)
+        } else {
+            let body = [
+                KEY_virtualParcelId: UserDefaults.standard.object(forKey: "lastInsertedVirtualParcelId") as! Int
+                ] as [String : Any]
+            restRequest.checkForRequest(parameters: nil, requestID: INSERT_NOTIFICATION_FOR_VIRTUAL_PARCEL_REQUEST, body: body as NSDictionary)
+        }
+    }
+    
     func resultedData(data: Data!, requestID: Int) {
         let json = try? JSON(data: data)
-        print(requestID)
+//        print(requestID)
+        
         if requestID == DELETE_LOCKER_BUILDING_RESIDENT_REQUEST {
-           UserDefaults.standard.removeObject(forKey: "lastInsertedLockerBuildingResidentId")
+           UserDefaults.standard.removeObject(forKey: "lastInsertedParcelId")
             if let lastInsertedLockerHistoriesId = UserDefaults.standard.object(forKey: "lastInsertedLockerHistoriesId") as? Int {
-                let parameter = [KEY_id: lastInsertedLockerHistoriesId]
-                self.restRequest.checkForRequest(parameters: parameter as NSDictionary, requestID: DELETE_LOCKER_HISTORIES_REQUEST)
+                deleteHistory(lastInsertedLockerHistoriesId)
             } else {
-                let param = [
-                    KEY_lockerId: self.lockerId!,
-                    KEY_buildingResidentId: self.resident.buildingResidentId
-                    ] as [String : Any]
-                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+                insertParcel(isVirtual: false)
             }
         }
+        
         if requestID == DELETE_LOCKER_HISTORIES_REQUEST {
            UserDefaults.standard.removeObject(forKey: "lastInsertedLockerHistoriesId")
             if lockerId != 0 {
-                let param = [
-                            KEY_lockerId: self.lockerId!,
-                            KEY_buildingResidentId: self.resident.buildingResidentId
-                            ] as [String : Any]
-                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: LOCKER_BUILDING_RESIDENT_REQUEST)
+                insertParcel(isVirtual: false)
             } else {
-                infoLabel.text = "Creating association with temporary locker..."
-                let param = [
-                    KEY_buildingResidentId: self.resident.buildingResidentId,
-                    "lockerNumber": self.lockerHistory.locker.number,
-                    "lockerSize": self.lockerHistory.locker.size,
-                    KEY_addressId: self.lockerHistory.locker.address.id,
-                    "addressDetails": self.lockerHistory.locker.addressDetail!,
-                    KEY_securityCode: self.lockerHistory.securityCode!,
-                    KEY_status: STATUS_NOT_CONFIRMED
-                    ] as [String : Any]
-                
-                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_VIRTUAL_PARCEL_REQUEST)
+                insertParcel(isVirtual: true)
             }
         }
-        if requestID == LOCKER_BUILDING_RESIDENT_REQUEST {
-            if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
-                for (_, value) in items {
-                    if let lastInsertedLockerBuildingResidentId = value[KEY_id].int {
-                        UserDefaults.standard.set(lastInsertedLockerBuildingResidentId, forKey: "lastInsertedLockerBuildingResidentId")
-                    }
-                    break
-                }
-                infoLabel.text = "Creating locker history..."
-               
-                let param = createHistoryParameter()
-                restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
-            } else {
-                infoLabel.text = "Creating locker - bulding - resident association..."
-                let param = [
-                    KEY_lockerId: self.lockerId!,
-                    KEY_buildingResidentId: self.resident.buildingResidentId,
-                    KEY_securityCode: self.lockerHistory.securityCode!,
-                    KEY_status: STATUS_NOT_CONFIRMED
-                    ] as [String : Any]
-                self.restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_BUILDING_RESIDENT_REQUEST)
-            }
-        }
+        
         if requestID == INSERT_NOTIFICATION_REQUEST {
-            if (json?[KEY_id].int!) != nil {
-                activityIndicator.stopAnimating()
-                popUpView.backgroundColor = UIColor.green
-                backToScanButton.isHidden = false
-                label.text = "A notification about package was sent to resident."
-                infoLabel.text = ""
-                UserDefaults.standard.removeObject(forKey: "lastInsertedLockerBuildingResidentId")
-                UserDefaults.standard.removeObject(forKey: "lastInsertedLockerHistoriesId")
-                UserDefaults.standard.removeObject(forKey: "lastInsertedVirtualParcelId")
-            }
+            handleSuccessAction(json)
+        }
+        
+        if requestID == INSERT_NOTIFICATION_FOR_VIRTUAL_PARCEL_REQUEST {
+            //TODO: - this method return NIL in body and need to return created entity
+            handleSuccessAction(json)
         }
        
         if requestID == INSERT_LOCKER_BUILDING_RESIDENT_REQUEST {
-            if let lastInsertedLockerBuildingResidentId = json?[KEY_id].int! {
-                UserDefaults.standard.set(lastInsertedLockerBuildingResidentId, forKey: "lastInsertedLockerBuildingResidentId")
-                infoLabel.text = "Creating locker history..."
-                let param = createHistoryParameter()
-                restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
+            if let lastInsertedParcelId = json?[KEY_id].int! {
+                UserDefaults.standard.set(lastInsertedParcelId, forKey: "lastInsertedParcelId")
+                insertLockerHistory()
             }
         }
+        
         if requestID == INSERT_LOCKER_HISTORIES_REQUEST {
             if let lastInsertedLockerHistoriesId = json?[KEY_id].int! {
-                
                 UserDefaults.standard.set(lastInsertedLockerHistoriesId, forKey: "lastInsertedLockerHistoriesId")
-                 infoLabel.text = "Sending notification to resident..."
                 if lockerId != 0 {
-                    let param = [
-                        KEY_lockerBuildingResidentId: UserDefaults.standard.object(forKey: "lastInsertedLockerBuildingResidentId") as! Int
-                        ] as [String : Any]
-                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_NOTIFICATION_REQUEST)
+                    insertNotification(isVirtual: false)
                 } else {
                     //#########??????????????????
-                    let param = [
-                        KEY_lockerBuildingResidentId: UserDefaults.standard.object(forKey: "lastInsertedVirtualParcelId") as! Int
-                        ] as [String : Any]
-                    restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_NOTIFICATION_REQUEST)
+                    insertNotification(isVirtual: true)
                     //##########?????????????????
                 }
-                
-                
             }
         }
+        
         if requestID == INSERT_VIRTUAL_PARCEL_REQUEST {
-            if let lastInsertedVirtualParcelId = json?[KEY_id].int! {
-                UserDefaults.standard.set(lastInsertedVirtualParcelId, forKey: "lastInsertedVirtualParcelId")
-                infoLabel.text = "Creating locker history..."
-                let param = createHistoryParameter()
-                restRequest.checkForRequest(parameters: param as NSDictionary, requestID: INSERT_LOCKER_HISTORIES_REQUEST)
+            if let lastInsertedParcelId = json?[KEY_id].int! {
+                UserDefaults.standard.set(lastInsertedParcelId, forKey: "lastInsertedVirtualParcelId")
+                insertLockerHistory()
             }
         }
     }
 
     
-    func createHistoryParameter() -> [String:Any]{
+    func createHistoryParameter() -> NSDictionary{
         let lockerAddressArray = [lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName, lockerHistory.locker.address.zipCode]
         var param = [
             KEY_qrCode: lockerHistory.locker.qrCode,
@@ -241,7 +251,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
         if lockerHistory.locker.size != "-" {
             param[KEY_size] = lockerHistory.locker.size
         }
-        return param
+        return param as NSDictionary
     }
     /*
     // MARK: - Navigation

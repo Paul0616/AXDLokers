@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RestRequestsDelegate {
     
@@ -61,28 +62,51 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
     }
     
     
-    func getFilteredResidents(){
+    func getFilteredResidents(page: Int! = nil){
         
-        var param:[String: Any]!
+        var body:[String: Any]!
         if let fullName = fullName{
-            param = [:]
-            param["fullName"] = fullName
+            body = [:]
+            body["fullName"] = fullName
         }
         if let unitNumber = unitNumber{
-            if param == nil {
-                param = [:]
+            if body == nil {
+                body = [:]
             }
-            param["unitNumber"] = unitNumber
+            body["unitNumber"] = unitNumber
         }
-        if let _ = param {
+        if let _ = body {
             activityIndicator.startAnimating()
-            let param1 = ["per-page": PAGE_SIZE,
-                          "expand": KEY_resident+","+KEY_building+"."+KEY_address+"."+KEY_city+"."+KEY_state+"."+KEY_country] as NSDictionary
-        
-            restRequest.checkForRequest(parameters: param as NSDictionary, requestID: GET_BY_FULL_NAME_AND_UNIT_NUMBER, param1: param1)
+            var param = [
+                "per-page": PAGE_SIZE,
+                "expand": KEY_resident+","+KEY_building+"."+KEY_address+"."+KEY_city+"."+KEY_state+"."+KEY_country
+                ] as Parameters
+            if let page = page {
+                param["page"] = page
+            }
+            restRequest.checkForRequest(parameters: param, requestID: GET_BY_FULL_NAME_AND_UNIT_NUMBER, body: body as NSDictionary?)
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var numOfSections: Int = 0
+        if residents.count > 0
+        {
+            tableView.separatorStyle = .singleLine
+            numOfSections            = 1
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            let noDataLabel: UILabel  = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No residents found"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
+        return numOfSections
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return residents.count
     }
@@ -101,8 +125,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
         if indexPath.row == residents.count-1 && !isLoading && !isLastPage {
             //we are at the last cell and need to load more
             loadedPages = loadedPages + 1
-            let param1 = ["per-page": PAGE_SIZE, "page": loadedPages, "expand": KEY_resident+","+KEY_building+"."+KEY_address] as NSDictionary
-            restRequest.checkForRequest(parameters: param1 as NSDictionary, requestID: GET_BY_FULL_NAME_AND_UNIT_NUMBER, param1: param1)
+            getFilteredResidents(page: loadedPages)
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -143,7 +166,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
             if let items: JSON = getJSON(json: json, desiredKey: KEY_items), items.count > 0 {
                 for (_, value) in items {
                     guard let id = value[KEY_resident][KEY_id].int else { return  }
-                    guard let buildingResidentId = value[KEY_buildingId].int else { return  }
+                    guard let buildingResidentId = value[KEY_id].int else { return  }
                     let suiteNumber = value[KEY_suiteNumber].string!
                     let firstName = value[KEY_resident][KEY_firstName].string!
                     let lastName = value[KEY_resident][KEY_lastName].string!

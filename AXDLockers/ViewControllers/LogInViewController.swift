@@ -8,13 +8,14 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate{
    
     func resultedData(data: Data!, requestID: Int) {
         if requestID == RESET_PASSWORD_REQUEST {
             activityIndicator.stopAnimating()
-            let alertController1 = UIAlertController(title: "Check your email", message: "A message with password recovery was send to you.", preferredStyle: UIAlertController.Style.alert)
+            let alertController1 = UIAlertController(title: "Check your email", message: "A message about password recovery was sent to you.", preferredStyle: UIAlertController.Style.alert)
             let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
             alertController1.addAction(okBut)
             self.present(alertController1, animated: true, completion: nil)
@@ -23,7 +24,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
         if requestID == CHECK_USERS_REQUEST {
             activityIndicator.stopAnimating()
             let json = try? JSON(data: data)
-            
+            UserDefaults.standard.set(json![KEY_firstName].string, forKey: "userFirstName")
+            UserDefaults.standard.set(json![KEY_lastName].string, forKey: "userLastName")
             if let role: JSON = getJSON(json: json, desiredKey: KEY_role) {
                 let hasRelatedBuilding: Bool = role[KEY_hasRelatedBuildings].int == 1 ? true : false
                 if hasRelatedBuilding {
@@ -111,7 +113,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
             UserDefaults.standard.set(userEmailTextField.text!, forKey: "userEmail")
             UserDefaults.standard.set(encryptedPassword, forKey: "encryptedPassword")
             activityIndicator.startAnimating()
-            restRequests.checkForRequest(parameters: nil, requestID: TOKEN_REQUEST)
+            restRequests.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
         }
     }
     //MARK: - UItextfieldDelegate
@@ -133,9 +135,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
         }
         let saveAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
-            print(firstTextField.text!)
-            let param = [KEY_email: firstTextField.text!] as NSDictionary
-            self.restRequests.resetPassword(parameters: param, requestID: RESET_PASSWORD_REQUEST)
+//            print(firstTextField.text!)
+            let body = [KEY_email: firstTextField.text!] as NSDictionary
+            self.restRequests.checkForRequest(parameters: nil, requestID: RESET_PASSWORD_REQUEST, body: body)
             
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {

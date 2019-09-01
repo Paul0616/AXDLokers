@@ -84,9 +84,9 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
         dismiss(animated: true, completion: nil)
     }
     @IBAction func onConfirmAction(_ sender: Any) {
-        if let userId = UserDefaults.standard.object(forKey: "userId") as? Int {
-            let param = [KEY_userId: userId] as NSDictionary
-            restRequest.checkForRequest(parameters: param, requestID: CHECK_USERS_REQUEST)
+        if let _ = UserDefaults.standard.object(forKey: "userId") as? Int {
+            //let param = [KEY_userId: userId] as NSDictionary
+            restRequest.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
         } else {
             Switcher.updateRootVC(isLogged: false)
         }
