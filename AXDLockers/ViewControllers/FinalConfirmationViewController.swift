@@ -88,7 +88,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
     }
     
     fileprivate func handleSuccessAction(_ json: JSON?) {
-        if (json?[KEY_id].int!) != nil {
+       if (json?[KEY_id].int!) != nil {
             activityIndicator.stopAnimating()
             popUpView.backgroundColor = UIColor.green
             backToScanButton.isHidden = false
@@ -106,7 +106,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
             let parameter:Parameters = [KEY_id: lastInsertedParcelId] as Parameters
             self.restRequest.checkForRequest(parameters: parameter, requestID: DELETE_LOCKER_BUILDING_RESIDENT_REQUEST)
         } else {
-            //TODO: - delete virtual parcel not implemented(405 method not allowed). need method on API
+            //TODO: - 1. delete virtual parcel not implemented(405 method not allowed). need method on API
             let parameter:Parameters = [KEY_id: lastInsertedParcelId] as Parameters
             self.restRequest.checkForRequest(parameters: parameter, requestID: DELETE_VIRTUAL_PARCEL_REQUEST)
         }
@@ -201,8 +201,17 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
         }
         
         if requestID == INSERT_NOTIFICATION_FOR_VIRTUAL_PARCEL_REQUEST {
-            //TODO: - this method return NIL in body and need to return created entity
-            handleSuccessAction(json)
+            //TODO: - 2. this method return NIL in body and need to return created entity
+            //handleSuccessAction(json)
+            //Following will be deleted after 2. will be resolved
+            activityIndicator.stopAnimating()
+            popUpView.backgroundColor = UIColor.green
+            backToScanButton.isHidden = false
+            label.text = "A notification about package was sent to resident."
+            infoLabel.text = ""
+            UserDefaults.standard.removeObject(forKey: "lastInsertedParcelId")
+            UserDefaults.standard.removeObject(forKey: "lastInsertedLockerHistoriesId")
+            UserDefaults.standard.removeObject(forKey: "lastInsertedVirtualParcelId")
         }
        
         if requestID == INSERT_LOCKER_BUILDING_RESIDENT_REQUEST {
