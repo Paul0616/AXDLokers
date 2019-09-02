@@ -290,9 +290,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
         }
     }
     @IBAction func onBack(_ sender: Any) {
+        
         if addLockerOnly {
-            dismiss(animated: true, completion: nil)
+            dismiss(animated: true, completion:nil)
         } else {
+            navigationController?.isNavigationBarHidden = false
             navigationController?.popViewController(animated: true)
         }
     }

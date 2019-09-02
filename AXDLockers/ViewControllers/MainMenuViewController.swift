@@ -39,7 +39,12 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
         } else {
             Switcher.updateRootVC(isLogged: false)
         }
-        UserDefaults.standard.set(false, forKey: "codeWasdetected")
+//        UserDefaults.standard.set(false, forKey: "codeWasdetected")
+//        let defaults = UserDefaults.standard
+//        let dictionary = defaults.dictionaryRepresentation()
+//        dictionary.keys.forEach { key in
+//            print(key)
+//        }
     }
    
     // MARK: - Navigation
@@ -61,6 +66,10 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
             UserDefaults.standard.removeObject(forKey: "isSuperAdmin")
             UserDefaults.standard.removeObject(forKey: "tokenExpiresAt")
             UserDefaults.standard.removeObject(forKey: "encryptedPassword")
+            
+            UserDefaults.standard.removeObject(forKey: "lastInsertedParcelId")
+            UserDefaults.standard.removeObject(forKey: "lastInsertedLockerHistoriesId")
+            UserDefaults.standard.removeObject(forKey: "lastInsertedVirtualParcelId")
             Switcher.updateRootVC(isLogged: false)
         })
         let canBut = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil)
