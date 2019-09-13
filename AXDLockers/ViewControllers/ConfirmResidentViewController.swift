@@ -51,6 +51,10 @@ class ConfirmResidentViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
+    @IBAction func test(_ sender: Any) {
+        performSegue(withIdentifier: "lockerMenu", sender: nil)
+    }
+    
     @IBAction func tapOnConfirmButton(_ sender: Any) {
         //performSegue(withIdentifier: "confirmResident", sender: nil)
 //        print("CONFIRM resident id = \(resident!.id) building id = \(resident!.buildingResidentId)")
@@ -64,6 +68,11 @@ class ConfirmResidentViewController: UIViewController {
         // Pass the selected object to the new view controller.
         //let nc = segue.destination as? UINavigationController
         if segue.identifier == "scanQRCode", let destination = segue.destination as? QRScannerViewController {
+            destination.resident = resident
+            destination.addLockerOnly = false
+        }
+        
+        if segue.identifier == "lockerMenu", let destination = segue.destination as? ChoseLockerMenuViewController {
             destination.resident = resident
             destination.addLockerOnly = false
         }

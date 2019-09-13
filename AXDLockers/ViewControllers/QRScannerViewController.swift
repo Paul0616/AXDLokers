@@ -228,11 +228,16 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             userCanCreateLockers = userHaveRight(rights: userXRights, code: "CREATE_LOCKER")
             userCanViewAddresses = userHaveRight(rights: userXRights, code: "READ_ADDRESS")
             userCanCreateParcels = userHaveRight(rights: userXRights, code: "CREATE_PACKAGES")
-            let keys = [KEY_address, KEY_city, KEY_state]
-            let val = keys.joined(separator: ".")
+            let keys0 = [KEY_address, KEY_city, KEY_state]
+            let keys1 = [KEY_parcel, KEY_buildingResident, KEY_resident]
+            let keys2 = [KEY_parcel, KEY_buildingResident, KEY_building, KEY_address, KEY_city, KEY_state]
+            let val0 = keys0.joined(separator: ".")
+            let val1 = keys1.joined(separator: ".")
+            let val2 = keys2.joined(separator: ".")
+            let keys = [val0, val1, val2]
             let param = [
                 addREST_Filter(parameters: [KEY_qrCode])  : qrCode!,
-                "expand": val
+                "expand": keys.joined(separator: ",")
                 ] as Parameters
             restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
         }

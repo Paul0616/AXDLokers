@@ -15,6 +15,7 @@ class Locker: NSObject, NSCoding {
     var number: String
     var address: Address
     var addressDetail: String!
+ 
     //MARK: - Initializare
     init(id: Int, qrCode: String, number: String, size: String, address: Address
         ) {

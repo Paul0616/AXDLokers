@@ -77,17 +77,7 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
         alertController.addAction(canBut)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func alignTextBelow(button: UIButton, spacing: CGFloat = 6.0) {
-       button.imageView?.contentMode = .scaleAspectFit
-        if let image = button.imageView?.image {
-            let imageSize: CGSize = image.size
-            button.titleEdgeInsets = UIEdgeInsets(top: spacing, left: -imageSize.width, bottom: -(imageSize.height), right: 0.0)
-            let labelString = NSString(string: button.titleLabel!.text!)
-            let titleSize = labelString.size(withAttributes: [NSAttributedString.Key.font: button.titleLabel!.font!])
-            button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0.0, bottom: 0.0, right: -titleSize.width)
-        }
-    }
+ 
 
     
     

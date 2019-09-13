@@ -85,6 +85,8 @@ let KEY_userRights = "userXRights"
 let KEY_right = "right"
 let KEY_code = "code"
 let KEY_virtualParcelId = "virtualParcelId"
+let KEY_parcel = "lockerXBuildingXResidents"
+let KEY_buildingResident = "buildingResident"
 //requests IDs
 let LOCKERS_REQUEST = 1
 let CHECK_USERS_REQUEST = 2
@@ -210,6 +212,17 @@ func setupCloseButton(viewController: UIViewController) -> UIButton {
     closeButton.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor, constant: 20).isActive = true
     closeButton.topAnchor.constraint(equalTo: viewController.view.topAnchor, constant: 20).isActive = true
     return closeButton
+}
+
+func alignTextBelow(button: UIButton, spacing: CGFloat = 6.0) {
+    button.imageView?.contentMode = .scaleAspectFit
+    if let image = button.imageView?.image {
+        let imageSize: CGSize = image.size
+        button.titleEdgeInsets = UIEdgeInsets(top: spacing, left: -imageSize.width, bottom: -(imageSize.height), right: 0.0)
+        let labelString = NSString(string: button.titleLabel!.text!)
+        let titleSize = labelString.size(withAttributes: [NSAttributedString.Key.font: button.titleLabel!.font!])
+        button.imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0.0, bottom: 0.0, right: -titleSize.width)
+    }
 }
 
 

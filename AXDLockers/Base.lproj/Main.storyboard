@@ -1718,12 +1718,20 @@
                                 <color key="textColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSO-Jn-xPT">
+                                <rect key="frame" x="164.5" y="563" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="test:" destination="qfq-NY-Yix" eventType="touchUpInside" id="SGg-Mz-UNS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bd0-et-Rvm" firstAttribute="top" secondItem="a1q-OG-Sag" secondAttribute="bottom" constant="4" id="267-Xw-x08"/>
                             <constraint firstItem="GTb-X9-fg0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UBv-An-hcX" secondAttribute="trailing" constant="4" id="2ea-t9-pgl"/>
                             <constraint firstItem="hKK-vP-VZY" firstAttribute="leading" secondItem="zbg-im-pDm" secondAttribute="trailing" constant="50" id="3J5-fV-ZKa"/>
+                            <constraint firstItem="gSO-Jn-xPT" firstAttribute="centerX" secondItem="Rs8-9t-4ey" secondAttribute="centerX" id="3bH-HV-MP0"/>
                             <constraint firstItem="hKK-vP-VZY" firstAttribute="top" secondItem="GTb-X9-fg0" secondAttribute="bottom" constant="4" id="6ox-zr-Lcs"/>
                             <constraint firstItem="hKK-vP-VZY" firstAttribute="leading" secondItem="GTb-X9-fg0" secondAttribute="leading" id="ATu-7B-Uzz"/>
                             <constraint firstItem="Amj-bi-UY7" firstAttribute="width" secondItem="Rs8-9t-4ey" secondAttribute="width" multiplier="0.75" id="B3j-iw-CXA"/>
@@ -1745,6 +1753,7 @@
                             <constraint firstItem="UBv-An-hcX" firstAttribute="leading" secondItem="Trn-KS-buP" secondAttribute="leading" constant="16" id="Sm4-QY-mRS"/>
                             <constraint firstItem="gSr-gS-F9l" firstAttribute="leading" secondItem="Trn-KS-buP" secondAttribute="leading" constant="16" id="Y2d-J4-Wmw"/>
                             <constraint firstItem="Trn-KS-buP" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GTb-X9-fg0" secondAttribute="trailing" constant="16" id="ZN2-vg-ef5"/>
+                            <constraint firstItem="Amj-bi-UY7" firstAttribute="top" secondItem="gSO-Jn-xPT" secondAttribute="bottom" constant="8" symbolType="layoutAnchor" id="Zb6-lf-Dgx"/>
                             <constraint firstItem="Trn-KS-buP" firstAttribute="trailing" secondItem="a1q-OG-Sag" secondAttribute="trailing" constant="16" id="a7e-2Y-Krk"/>
                             <constraint firstItem="t1O-S4-5lm" firstAttribute="centerX" secondItem="Rs8-9t-4ey" secondAttribute="centerX" multiplier="0.5" id="a7j-AG-3eI"/>
                             <constraint firstItem="zbg-im-pDm" firstAttribute="top" secondItem="GTb-X9-fg0" secondAttribute="bottom" constant="4" id="aUk-7X-eda"/>
@@ -1775,6 +1784,7 @@
                         <outlet property="fullNameLabel" destination="a1q-OG-Sag" id="HiV-Sv-Tcu"/>
                         <outlet property="phoneLabel" destination="YT1-jn-w5R" id="djq-2e-yTo"/>
                         <outlet property="uniqueNumberLabel" destination="hKK-vP-VZY" id="aes-ym-arv"/>
+                        <segue destination="WuL-St-Rhz" kind="show" identifier="lockerMenu" id="D9i-64-hPZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Deg-W1-xtp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2041,6 +2051,69 @@
             </objects>
             <point key="canvasLocation" x="-2753" y="1406"/>
         </scene>
+        <!--Chose Locker Menu View Controller-->
+        <scene sceneID="dRQ-SN-UUr">
+            <objects>
+                <viewController id="WuL-St-Rhz" customClass="ChoseLockerMenuViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="99K-Qy-er0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="gVT-8k-EWg">
+                                <rect key="frame" x="37.5" y="86.5" width="300" height="534"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yik-1h-OK0">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="259"/>
+                                        <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="SCAN QR CODE" image="qr_scan">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnScanQR:" destination="WuL-St-Rhz" eventType="touchUpInside" id="f3t-mx-Tq0"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="scanQRCode" id="6c7-OC-PYs"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lc-4c-3IY">
+                                        <rect key="frame" x="0.0" y="275" width="300" height="259"/>
+                                        <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="SEARCH FOR LOCKER" image="search">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnSearchLocker:" destination="WuL-St-Rhz" eventType="touchUpInside" id="nff-Ip-FtX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gVT-8k-EWg" firstAttribute="height" secondItem="99K-Qy-er0" secondAttribute="height" multiplier="0.8" id="IxM-dK-qab"/>
+                            <constraint firstItem="gVT-8k-EWg" firstAttribute="width" secondItem="99K-Qy-er0" secondAttribute="width" multiplier="0.8" id="Zfi-zb-Mr9"/>
+                            <constraint firstItem="gVT-8k-EWg" firstAttribute="centerY" secondItem="99K-Qy-er0" secondAttribute="centerY" constant="20" id="eDF-gX-V0Q"/>
+                            <constraint firstItem="gVT-8k-EWg" firstAttribute="centerX" secondItem="99K-Qy-er0" secondAttribute="centerX" id="xKr-ie-2ES"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NrG-nw-IO5"/>
+                    </view>
+                    <connections>
+                        <outlet property="scanQRButton" destination="Yik-1h-OK0" id="PB1-Yo-DGc"/>
+                        <outlet property="searchLockerButton" destination="0Lc-4c-3IY" id="jCf-hJ-Fn7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D4D-in-aEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="54" y="1521"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="yy6-1h-S6M">
             <objects>
@@ -2059,7 +2132,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Wb-3d-QtI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="620" y="1649"/>
+            <point key="canvasLocation" x="902" y="1453"/>
         </scene>
     </scenes>
     <resources>
@@ -2071,10 +2144,11 @@
         <image name="parcel-1" width="99" height="100.5"/>
         <image name="person" width="36" height="36"/>
         <image name="qr_scan" width="100.5" height="92.5"/>
+        <image name="search" width="100" height="100"/>
         <image name="text_scan" width="100" height="86"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="diC-33-lKn"/>
-        <segue reference="zsA-7y-VRI"/>
+        <segue reference="7MF-AW-axO"/>
+        <segue reference="6c7-OC-PYs"/>
     </inferredMetricsTieBreakers>
 </document>
