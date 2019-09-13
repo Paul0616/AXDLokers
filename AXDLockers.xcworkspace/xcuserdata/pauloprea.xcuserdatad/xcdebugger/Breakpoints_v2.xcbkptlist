@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
-            landmarkName = "checkForRequest(parameters:requestID:list:param1:)"
+            landmarkName = "checkForRequest(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "checkForRequest(parameters:requestID:list:param1:)"
+            landmarkName = "switchRequestFunction(parameters:requestID:body:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -351,7 +351,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "154"
             endingLineNumber = "154"
-            landmarkName = "switchRequestFunction(parameters:requestID:list:param1:)"
+            landmarkName = "switchRequestFunction(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -367,7 +367,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
             endingLineNumber = "104"
-            landmarkName = "switchRequestFunction(parameters:requestID:list:param1:)"
+            landmarkName = "switchRequestFunction(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "switchRequestFunction(parameters:requestID:list:param1:)"
+            landmarkName = "switchRequestFunction(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -415,7 +415,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
             endingLineNumber = "66"
-            landmarkName = "checkForRequest(parameters:requestID:list:param1:)"
+            landmarkName = "checkForRequest(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -446,9 +446,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "456"
-            endingLineNumber = "456"
-            landmarkName = "postGetByFullNameAndUnit(body:param:)"
-            landmarkType = "7">
+            endingLineNumber = "456">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -462,9 +460,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "460"
-            endingLineNumber = "460"
-            landmarkName = "postLockerHistories(body:)"
-            landmarkType = "7">
+            endingLineNumber = "460">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -575,7 +571,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
-            landmarkName = "checkForRequest(parameters:requestID:list:param1:)"
+            landmarkName = "checkForRequest(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -591,7 +587,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "100"
             endingLineNumber = "100"
-            landmarkName = "switchRequestFunction(parameters:requestID:list:param1:)"
+            landmarkName = "switchRequestFunction(parameters:requestID:body:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -908,9 +904,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "659"
-            endingLineNumber = "659"
-            landmarkName = "getBuildingWithId(parameters:)"
-            landmarkType = "7">
+            endingLineNumber = "659">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -972,9 +966,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "662"
-            endingLineNumber = "662"
-            landmarkName = "getBuildingWithId(parameters:)"
-            landmarkType = "7">
+            endingLineNumber = "662">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1085,7 +1077,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "deleteParcel(_:isVirtual:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1101,7 +1093,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "treatErrors(_:errorMessage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1117,7 +1109,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "handleSuccessAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1133,8 +1125,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "166"
             endingLineNumber = "166"
-            landmarkName = "resultedData(data:requestID:)"
-            landmarkType = "7">
+            landmarkName = "FinalConfirmationViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1149,8 +1141,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "151"
             endingLineNumber = "151"
-            landmarkName = "resultedData(data:requestID:)"
-            landmarkType = "7">
+            landmarkName = "FinalConfirmationViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1165,7 +1157,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "163"
             endingLineNumber = "163"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "insertNotification(isVirtual:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1245,7 +1237,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "handleSuccessAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1261,8 +1253,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "resultedData(data:requestID:)"
-            landmarkType = "7">
+            landmarkName = "FinalConfirmationViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1277,7 +1269,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "139"
             endingLineNumber = "139"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "insertParcel(isVirtual:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1293,7 +1285,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "147"
             endingLineNumber = "147"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "insertParcel(isVirtual:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1325,7 +1317,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "246"
             endingLineNumber = "246"
-            landmarkName = "deleteLockerBuildingResident(parameters:)"
+            landmarkName = "switchRequestFunction(parameters:requestID:body:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1340,9 +1332,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "750"
-            endingLineNumber = "750"
-            landmarkName = "getBuildingResidents(parameters:)"
-            landmarkType = "7">
+            endingLineNumber = "750">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1356,9 +1346,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "397"
-            endingLineNumber = "397"
-            landmarkName = "postLockerBuildingResident(body:)"
-            landmarkType = "7">
+            endingLineNumber = "397">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1372,9 +1360,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "476"
-            endingLineNumber = "476"
-            landmarkName = "postLockerHistories(body:)"
-            landmarkType = "7">
+            endingLineNumber = "476">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1389,7 +1375,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
             endingLineNumber = "66"
-            landmarkName = "treatErrors(_:errorMessage:)"
+            landmarkName = "onClose(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1405,7 +1391,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "83"
             endingLineNumber = "83"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "treatErrors(_:errorMessage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1421,7 +1407,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "148"
             endingLineNumber = "148"
-            landmarkName = "resultedData(data:requestID:)"
+            landmarkName = "insertParcel(isVirtual:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1436,9 +1422,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "516"
-            endingLineNumber = "516"
-            landmarkName = "postNotifications(body:)"
-            landmarkType = "7">
+            endingLineNumber = "516">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1452,9 +1436,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "515"
-            endingLineNumber = "515"
-            landmarkName = "postNotifications(body:)"
-            landmarkType = "7">
+            endingLineNumber = "515">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1496,13 +1478,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.530996"
+            timestampString = "590055621.8047709"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "170"
             endingLineNumber = "170"
-            landmarkName = "resultedData(data:requestID:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1544,13 +1526,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.531399"
+            timestampString = "590055621.8051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "279"
             endingLineNumber = "279"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1560,13 +1542,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.531624"
+            timestampString = "590055621.805307"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "247"
             endingLineNumber = "247"
-            landmarkName = "metadataOutput(_:didOutput:from:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1576,13 +1558,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.531845"
+            timestampString = "590055621.805518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "121"
             endingLineNumber = "121"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1592,13 +1574,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.532045"
+            timestampString = "590055621.805696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "280"
             endingLineNumber = "280"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1608,13 +1590,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.5322371"
+            timestampString = "590055621.805902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1628,9 +1610,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "947"
-            endingLineNumber = "947"
-            landmarkName = "getAddresses(parameters:)"
-            landmarkType = "7">
+            endingLineNumber = "947">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1661,7 +1641,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "362"
             endingLineNumber = "362"
-            landmarkName = "postAddress(body:)"
+            landmarkName = "callHandler(urlStrings:method:useAuthentication:isGetToken:additionalQueryItems:body:requestId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1672,13 +1652,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.532542"
+            timestampString = "590055621.806136"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "metadataOutput(_:didOutput:from:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1688,13 +1668,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
-            timestampString = "588863998.532735"
+            timestampString = "590055621.80632"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "264"
             endingLineNumber = "264"
-            landmarkName = "metadataOutput(_:didOutput:from:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1711,6 +1691,38 @@
             endingLineNumber = "50"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
+            timestampString = "590055621.806535"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AXDLockers/ViewControllers/QRScannerViewController.swift"
+            timestampString = "590055621.806717"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

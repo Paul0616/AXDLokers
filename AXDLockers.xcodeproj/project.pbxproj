@@ -44,7 +44,7 @@
 		DAC5A6A82240135E005C0425 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC5A6A62240135E005C0425 /* LaunchScreen.storyboard */; };
 		DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC5A6B12240CF08005C0425 /* LogInViewController.swift */; };
 		DADC98FA224ABE6D00ABA881 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC98F9224ABE6D00ABA881 /* City.swift */; };
-		DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC98FE224D3F4200ABA881 /* Resident.swift */; };
+		DADC98FF224D3F4200ABA881 /* BuildingXResident.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC98FE224D3F4200ABA881 /* BuildingXResident.swift */; };
 		DADC9901224D49DF00ABA881 /* ResidentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,7 +90,7 @@
 		DAC5A6A92240135E005C0425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAC5A6B12240CF08005C0425 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		DADC98F9224ABE6D00ABA881 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
-		DADC98FE224D3F4200ABA881 /* Resident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resident.swift; sourceTree = "<group>"; };
+		DADC98FE224D3F4200ABA881 /* BuildingXResident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingXResident.swift; sourceTree = "<group>"; };
 		DADC9900224D49DF00ABA881 /* ResidentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,7 +192,7 @@
 			children = (
 				4041FF06224B672800C27574 /* Address.swift */,
 				DADC98F9224ABE6D00ABA881 /* City.swift */,
-				DADC98FE224D3F4200ABA881 /* Resident.swift */,
+				DADC98FE224D3F4200ABA881 /* BuildingXResident.swift */,
 				4041FF0E224E082900C27574 /* Building.swift */,
 				DA99BB402250C1B5005FD346 /* LockerHistory.swift */,
 				DA5A73442311913D00305553 /* OrphanParcelModel.swift */,
@@ -358,7 +358,7 @@
 				4041FF0F224E082900C27574 /* Building.swift in Sources */,
 				407AC20E230EB75600404FF5 /* ImageViewController.swift in Sources */,
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
-				DADC98FF224D3F4200ABA881 /* Resident.swift in Sources */,
+				DADC98FF224D3F4200ABA881 /* BuildingXResident.swift in Sources */,
 				DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				40FB034723191AFF00F9AEA1 /* Locker.swift in Sources */,

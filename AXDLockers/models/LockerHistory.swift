@@ -27,10 +27,10 @@ class LockerHistory: NSObject {
 //    var name: String
 //    var buildingAddress: String
     
-    var resident: Resident
+    var resident: BuildingXResident
     
     //MARK: - Initializare
-    init(locker: Locker, resident: Resident){
+    init(locker: Locker, resident: BuildingXResident){
         self.locker = locker
         self.resident = resident
     }

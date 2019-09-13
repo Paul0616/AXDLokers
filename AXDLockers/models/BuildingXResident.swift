@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Resident: NSObject, NSCoding {
+class BuildingXResident: NSObject, NSCoding {
     var firstName: String
     var lastName: String
     var phone: String

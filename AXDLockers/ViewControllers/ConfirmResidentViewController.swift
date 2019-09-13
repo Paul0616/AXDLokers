@@ -24,7 +24,7 @@ class ConfirmResidentViewController: UIViewController {
 //    var buildingName: String!
 //    var address: String!
 //    var residentId: Int!
-    var resident: Resident!
+    var resident: BuildingXResident!
     
     override func viewDidLoad() {
         super.viewDidLoad()

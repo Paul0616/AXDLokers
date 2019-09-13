@@ -16,7 +16,7 @@ class SecurityCodeViewController: UIViewController, RestRequestsDelegate{
     
     var lockerId: Int!
     var lockerHistory: LockerHistory!
-    var resident: Resident!
+    var resident: BuildingXResident!
     
     
     

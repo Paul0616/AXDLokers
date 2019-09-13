@@ -14,11 +14,12 @@ class Parcel: NSObject, NSCoding {
     var buildingResidentId: Int
     var securityCode: String
     var status: Int
-    var buildingResident: Resident
+    var buildingResident: BuildingXResident
+    var building: Building
     
 
     //MARK: - Initializare
-    init(id: Int, lockerId: Int, buildingResidentId: Int, securityCode: String, status: Int, buildingResident: Resident
+    init(id: Int, lockerId: Int, buildingResidentId: Int, securityCode: String, status: Int, buildingResident: BuildingXResident, building: Building
         ) {
         //Initializeaza proprietatile
         self.id = id
@@ -27,6 +28,7 @@ class Parcel: NSObject, NSCoding {
         self.securityCode = securityCode
         self.status = status
         self.buildingResident = buildingResident
+        self.building = building
     }
     
     required convenience init(coder aDecoder: NSCoder) {
@@ -35,8 +37,9 @@ class Parcel: NSObject, NSCoding {
         let buildingResidentId = aDecoder.decodeInteger(forKey: "buildingResidentId")
         let securityCode = aDecoder.decodeObject(forKey: "securityCode") as! String
         let status = aDecoder.decodeInteger(forKey: "status")
-        let buildingResident = aDecoder.decodeObject(forKey: "buildingResident") as! Resident
-        self.init(id: id, lockerId: lockerId, buildingResidentId: buildingResidentId, securityCode: securityCode, status: status, buildingResident: buildingResident)
+        let buildingResident = aDecoder.decodeObject(forKey: "buildingResident") as! BuildingXResident
+        let building = aDecoder.decodeObject(forKey: "building") as! Building
+        self.init(id: id, lockerId: lockerId, buildingResidentId: buildingResidentId, securityCode: securityCode, status: status, buildingResident: buildingResident, building: building)
     }
     
     func encode(with aCoder: NSCoder) {
@@ -46,5 +49,6 @@ class Parcel: NSObject, NSCoding {
         aCoder.encode(securityCode, forKey: "securityCode")
         aCoder.encode(status, forKey: "status")
         aCoder.encode(buildingResident, forKey: "buildingResident")
+        aCoder.encode(building, forKey: "building")
     }
 }

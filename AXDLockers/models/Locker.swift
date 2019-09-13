@@ -15,6 +15,7 @@ class Locker: NSObject, NSCoding {
     var number: String
     var address: Address
     var addressDetail: String!
+    var parcels: [Parcel] = [Parcel]()
  
     //MARK: - Initializare
     init(id: Int, qrCode: String, number: String, size: String, address: Address
@@ -47,5 +48,9 @@ class Locker: NSObject, NSCoding {
         aCoder.encode(number, forKey: "number")
         aCoder.encode(address, forKey: "address")
         aCoder.encode(addressDetail, forKey: "addressDetail")
+    }
+    
+    func isLockerFree() -> Bool {
+        return parcels.count == 0
     }
 }

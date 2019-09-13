@@ -13,7 +13,7 @@ import Alamofire
 class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
     var lockerId: Int!
     var lockerHistory: LockerHistory!
-    var resident: Resident!
+    var resident: BuildingXResident!
     
 
     @IBOutlet weak var cancelButton: UIButton!
@@ -233,7 +233,7 @@ class FinalConfirmationViewController: UIViewController, RestRequestsDelegate {
 
     
     func createHistoryParameter() -> NSDictionary{
-        let lockerAddressArray = [lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName, lockerHistory.locker.address.zipCode]
+        let lockerAddressArray = [lockerHistory.locker.address.zipCode, lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName]
         var param = [
             KEY_qrCode: lockerHistory.locker.qrCode,
             KEY_number: lockerHistory.locker.number,

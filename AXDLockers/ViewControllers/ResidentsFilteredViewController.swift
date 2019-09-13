@@ -28,7 +28,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
     var isLastPage: Bool = true
     //    var isFiltered: Bool = false
     var loadedPages: Int = 0
-    var residents: [Resident] = [Resident]()
+    var residents: [BuildingXResident] = [BuildingXResident]()
     var currentResidentIndex: Int!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -177,7 +177,7 @@ class ResidentsFilteredViewController: UIViewController, UITableViewDelegate, UI
                     let email = value[KEY_resident][KEY_email].string!
                     //let securityCode = value[KEY_resident][KEY_securityCode].string!
                     
-                    let resident = Resident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
+                    let resident = BuildingXResident(id: id, firstName: firstName, lastName: lastName, phone: phone, email: email, suiteNumber: suiteNumber, buildingResidentId: buildingResidentId)
                     let buildingid = value[KEY_building][KEY_id].int!
                     let buildingName = value[KEY_building][KEY_name].string!
                     let buildingUniqueNumber = value[KEY_building][KEY_buildingUniqueNumber].string!

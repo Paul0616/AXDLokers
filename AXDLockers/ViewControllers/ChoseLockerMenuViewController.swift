@@ -13,7 +13,7 @@ class ChoseLockerMenuViewController: UIViewController {
     @IBOutlet weak var scanQRButton: UIButton!
     @IBOutlet weak var searchLockerButton: UIButton!
     
-    var resident: Resident!
+    var resident: BuildingXResident!
     var addLockerOnly: Bool = false
     
     override func viewDidLoad() {

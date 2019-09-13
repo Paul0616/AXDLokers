@@ -29,7 +29,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
     
     let restRequests = RestRequests()
     var qrCode: String!
-    var resident: Resident!
+    var resident: BuildingXResident!
     var lockerId: Int!
     var lockerHistory: LockerHistory!
     var userCanCreateLockers: Bool = false
@@ -185,8 +185,41 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                     } else {
                         let lockerAddress = Address(street: locker[KEY_address][KEY_streetName].string!, id: locker[KEY_address][KEY_id].int!, cityName: locker[KEY_address][KEY_city][KEY_name].string!, stateName: locker[KEY_address][KEY_city][KEY_state][KEY_name].string!, zipCode: locker[KEY_address][KEY_zipCode].string!)
                         let lockerModel = Locker(id: lockerId, qrCode: qrCode, number: locker[KEY_number].string!, size: locker[KEY_size].string!, address: lockerAddress)
+                        if let associatedParcels = getJSON(json: locker, desiredKey: KEY_parcel) {
+                            var parcels = [Parcel]()
+                            for (_, value) in associatedParcels{
+                                let oldResident = BuildingXResident(id: value[KEY_buildingResident][KEY_resident][KEY_id].int!, firstName: value[KEY_buildingResident][KEY_resident][KEY_firstName].string!, lastName: value[KEY_buildingResident][KEY_resident][KEY_lastName].string!, phone: value[KEY_buildingResident][KEY_resident][KEY_phone].string!, email: value[KEY_buildingResident][KEY_resident][KEY_email].string!, suiteNumber: value[KEY_buildingResident][KEY_suiteNumber].string!, buildingResidentId: value[KEY_buildingResident][KEY_id].int!)
+                                
+                                let oldBuildingAddressKeys = [value[KEY_buildingResident][KEY_building][KEY_address][KEY_zipCode].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_streetName].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_city][KEY_name].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_city][KEY_state][KEY_name].string!]
+                                let oldBuildingAddress = oldBuildingAddressKeys.joined(separator: ", ")
+                                let oldBuilding = Building(id: value[KEY_buildingResident][KEY_building][KEY_id].int!, name: value[KEY_buildingResident][KEY_building][KEY_name].string!, address: oldBuildingAddress, buidingUniqueNumber: value[KEY_buildingResident][KEY_building][KEY_buildingUniqueNumber].string!)
+                                
+                                let parcel = Parcel(id: value[KEY_id].int!, lockerId: value[KEY_lockerId].int!, buildingResidentId: value[KEY_buildingResidentId].int!, securityCode: value[KEY_securityCode].string!, status: value[KEY_status].int!, buildingResident: oldResident, building: oldBuilding)
+                                parcels.append(parcel)
+                            }
+                            lockerModel.parcels = parcels
+                        }
                         lockerHistory = LockerHistory(locker: lockerModel, resident: resident)
-                        self.performSegue(withIdentifier: "getLocker", sender: nil)
+                        if lockerModel.isLockerFree() {
+                            self.performSegue(withIdentifier: "getLocker", sender: nil)
+                        } else {
+                            let alertController = UIAlertController(title: "Locker occupied",
+                                                                    message: "This locker appear in system as not being free. Are you sure you want to use it? (This action will force release the locker in the system)",
+                                                                    preferredStyle: UIAlertController.Style.alert)
+                            
+                            let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                                
+                                let parameter:Parameters = [KEY_id: lockerModel.parcels[0].id] as Parameters
+                                self.restRequests.checkForRequest(parameters: parameter, requestID: DELETE_LOCKER_BUILDING_RESIDENT_REQUEST)
+                            })
+                            let okCancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {alert -> Void in
+                                self.codeWasdetected = false
+                            })
+                            alertController.addAction(okBut)
+                            alertController.addAction(okCancel)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                        
                     }
                 } else {
                     let alertController = UIAlertController(title: "No proper rights", message: "You don't have right to add parcels into lockers. Contact administrator.", preferredStyle: UIAlertController.Style.alert)
@@ -223,6 +256,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 }
             }
         }
+        
         if requestID == CHECK_USERS_REQUEST {
             let userXRights: JSON = getJSON(json: json, desiredKey: KEY_userRights)
             userCanCreateLockers = userHaveRight(rights: userXRights, code: "CREATE_LOCKER")
@@ -240,6 +274,43 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 "expand": keys.joined(separator: ",")
                 ] as Parameters
             restRequests.checkForRequest(parameters: param, requestID: LOCKERS_REQUEST)
+        }
+        
+        if requestID == DELETE_LOCKER_BUILDING_RESIDENT_REQUEST {
+            let lockerAddressArray = [lockerHistory.locker.address.zipCode, lockerHistory.locker.address.street, lockerHistory.locker.address.cityName, lockerHistory.locker.address.stateName]
+            let oldResident = lockerHistory.locker.parcels[0].buildingResident
+            let oldBuilding = lockerHistory.locker.parcels[0].building
+            let body = [
+                KEY_qrCode: lockerHistory.locker.qrCode,
+                KEY_number: lockerHistory.locker.number,
+                KEY_size: lockerHistory.locker.size,
+                KEY_phone: oldResident.phone,
+                KEY_lockerAddress: lockerAddressArray.joined(separator: ", "),
+                KEY_firstName: oldResident.firstName,
+                KEY_lastName: oldResident.lastName,
+                KEY_email: oldResident.email,
+                KEY_securityCode: lockerHistory.locker.parcels[0].securityCode,
+                KEY_suiteNumber: oldResident.suiteNumber,
+                KEY_buildingUniqueNumber: oldBuilding.buidingUniqueNumber,
+                KEY_name: oldBuilding.name,
+                KEY_buildingAddress: oldBuilding.address,
+                "residentAddress": oldBuilding.address,
+                "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String,
+                "packageStatus": "FORCED FREE",
+                "createdByFirstName": UserDefaults.standard.object(forKey: "userFirstName") as! String,
+                "createdByLastName": UserDefaults.standard.object(forKey: "userLastName") as! String
+            ] as [String : Any]
+            
+            restRequests.checkForRequest(parameters: nil, requestID: INSERT_LOCKER_HISTORIES_REQUEST, body: body as NSDictionary)
+        }
+        
+        if requestID == INSERT_LOCKER_HISTORIES_REQUEST {
+            let alertController = UIAlertController(title: "LOCKER FREE", message: "The locker was set to FREE. Scan the QRCode again to use it.", preferredStyle: UIAlertController.Style.alert)
+            let okBut = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{ action in
+                self.codeWasdetected = false
+            })
+            alertController.addAction(okBut)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
