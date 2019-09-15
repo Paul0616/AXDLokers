@@ -16,14 +16,7 @@ class ConfirmResidentViewController: UIViewController {
     @IBOutlet weak var uniqueNumberLabel: UILabel!
     @IBOutlet weak var buildingNameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    
-//    var fullName: String!
-//    var phone: String!
-//    var email: String!
-//    var uniqueNumber: String!
-//    var buildingName: String!
-//    var address: String!
-//    var residentId: Int!
+
     var resident: BuildingXResident!
     
     override func viewDidLoad() {
@@ -51,13 +44,9 @@ class ConfirmResidentViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
-    @IBAction func test(_ sender: Any) {
-        performSegue(withIdentifier: "lockerMenu", sender: nil)
-    }
     
     @IBAction func tapOnConfirmButton(_ sender: Any) {
-        //performSegue(withIdentifier: "confirmResident", sender: nil)
-//        print("CONFIRM resident id = \(resident!.id) building id = \(resident!.buildingResidentId)")
+        performSegue(withIdentifier: "lockerMenu", sender: nil)
     }
     
     // MARK: - Navigation
@@ -66,11 +55,6 @@ class ConfirmResidentViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        //let nc = segue.destination as? UINavigationController
-        if segue.identifier == "scanQRCode", let destination = segue.destination as? QRScannerViewController {
-            destination.resident = resident
-            destination.addLockerOnly = false
-        }
         
         if segue.identifier == "lockerMenu", let destination = segue.destination as? ChoseLockerMenuViewController {
             destination.resident = resident

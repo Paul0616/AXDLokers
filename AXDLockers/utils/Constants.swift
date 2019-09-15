@@ -37,7 +37,7 @@ let orphanParcelRESTAction = "orphan-parcels"
 let getNewSecurityCodeRESTAction = "get-new-security-code"
 let virtualParcelRESTAction = "virtual-parcels"
 let sendNotificationToResidentForVirtualParcelRESTAction = "send-notification-to-resident-for-virtual-parcel"
-
+let manualLockersRESTAction = "search-by-number-and-address"
 
 //REST Keys
 let KEY_userEmail = "email"
@@ -113,6 +113,8 @@ let GET_SECURITY_CODE = 22
 let INSERT_VIRTUAL_PARCEL_REQUEST = 23
 let INSERT_NOTIFICATION_FOR_VIRTUAL_PARCEL_REQUEST = 24
 let DELETE_VIRTUAL_PARCEL_REQUEST = 25
+let MANUAL_LOCKERS_REQUEST = 26
+
 let STATUS_NOT_CONFIRMED = 1
 
 func getURL() -> String {

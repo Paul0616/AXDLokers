@@ -14,12 +14,12 @@ class Parcel: NSObject, NSCoding {
     var buildingResidentId: Int
     var securityCode: String
     var status: Int
-    var buildingResident: BuildingXResident
-    var building: Building
+    var buildingResident: BuildingXResident!
+    var building: Building!
     
 
     //MARK: - Initializare
-    init(id: Int, lockerId: Int, buildingResidentId: Int, securityCode: String, status: Int, buildingResident: BuildingXResident, building: Building
+    init(id: Int, lockerId: Int, buildingResidentId: Int, securityCode: String, status: Int, buildingResident: BuildingXResident!, building: Building!
         ) {
         //Initializeaza proprietatile
         self.id = id

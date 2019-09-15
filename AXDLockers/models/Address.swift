@@ -44,4 +44,8 @@ class Address: NSObject, NSCoding {
         aCoder.encode(stateName, forKey: "stateName")
         aCoder.encode(zipCode, forKey: "zipCode")
     }
+    func getAddressString() -> String {
+        let keys = [zipCode, street, cityName, stateName]
+        return keys.joined(separator: ", ")
+    }
 }

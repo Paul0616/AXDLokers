@@ -44,6 +44,11 @@ class ChoseLockerMenuViewController: UIViewController {
             destination.resident = resident
             destination.addLockerOnly = false
         }
+        if segue.identifier == "lockerFilter" {
+            let navigationcontroller = segue.destination as? UINavigationController
+            let destination = navigationcontroller?.viewControllers.first as! LockerFilterViewController
+            destination.resident = resident
+        }
     }
  
 

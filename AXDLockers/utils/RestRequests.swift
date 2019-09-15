@@ -198,6 +198,18 @@ class RestRequests: NSObject {
                 requestId: requestID
             )
             break
+        case MANUAL_LOCKERS_REQUEST:
+            print("MANUAL_LOCKERS_REQUEST")
+            callHandler(
+                urlStrings: [lockersREST_Action, manualLockersRESTAction],
+                method: "GET",
+                useAuthentication: true,
+                isGetToken: false,
+                additionalQueryItems: parameters,
+                body: nil,
+                requestId: requestID
+            )
+            break
         case DELETE_VIRTUAL_PARCEL_REQUEST:
             print("DELETE_VIRTUAL_PARCEL_REQUEST")
             let id = parameters[KEY_id] as! Int

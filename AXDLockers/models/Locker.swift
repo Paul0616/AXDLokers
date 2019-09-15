@@ -53,4 +53,5 @@ class Locker: NSObject, NSCoding {
     func isLockerFree() -> Bool {
         return parcels.count == 0
     }
+    
 }

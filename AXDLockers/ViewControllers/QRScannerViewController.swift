@@ -190,7 +190,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                             for (_, value) in associatedParcels{
                                 let oldResident = BuildingXResident(id: value[KEY_buildingResident][KEY_resident][KEY_id].int!, firstName: value[KEY_buildingResident][KEY_resident][KEY_firstName].string!, lastName: value[KEY_buildingResident][KEY_resident][KEY_lastName].string!, phone: value[KEY_buildingResident][KEY_resident][KEY_phone].string!, email: value[KEY_buildingResident][KEY_resident][KEY_email].string!, suiteNumber: value[KEY_buildingResident][KEY_suiteNumber].string!, buildingResidentId: value[KEY_buildingResident][KEY_id].int!)
                                 
-                                let oldBuildingAddressKeys = [value[KEY_buildingResident][KEY_building][KEY_address][KEY_zipCode].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_streetName].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_city][KEY_name].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_city][KEY_state][KEY_name].string!]
+                                let oldBuildingAddressKeys = [value[KEY_buildingResident][KEY_building][KEY_address][KEY_streetName].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_zipCode].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_city][KEY_name].string!, value[KEY_buildingResident][KEY_building][KEY_address][KEY_city][KEY_state][KEY_name].string!]
                                 let oldBuildingAddress = oldBuildingAddressKeys.joined(separator: ", ")
                                 let oldBuilding = Building(id: value[KEY_buildingResident][KEY_building][KEY_id].int!, name: value[KEY_buildingResident][KEY_building][KEY_name].string!, address: oldBuildingAddress, buidingUniqueNumber: value[KEY_buildingResident][KEY_building][KEY_buildingUniqueNumber].string!)
                                 
@@ -284,17 +284,17 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                 KEY_qrCode: lockerHistory.locker.qrCode,
                 KEY_number: lockerHistory.locker.number,
                 KEY_size: lockerHistory.locker.size,
-                KEY_phone: oldResident.phone,
+                KEY_phone: oldResident!.phone,
                 KEY_lockerAddress: lockerAddressArray.joined(separator: ", "),
-                KEY_firstName: oldResident.firstName,
-                KEY_lastName: oldResident.lastName,
-                KEY_email: oldResident.email,
+                KEY_firstName: oldResident!.firstName,
+                KEY_lastName: oldResident!.lastName,
+                KEY_email: oldResident!.email,
                 KEY_securityCode: lockerHistory.locker.parcels[0].securityCode,
-                KEY_suiteNumber: oldResident.suiteNumber,
-                KEY_buildingUniqueNumber: oldBuilding.buidingUniqueNumber,
-                KEY_name: oldBuilding.name,
-                KEY_buildingAddress: oldBuilding.address,
-                "residentAddress": oldBuilding.address,
+                KEY_suiteNumber: oldResident!.suiteNumber,
+                KEY_buildingUniqueNumber: oldBuilding!.buidingUniqueNumber,
+                KEY_name: oldBuilding!.name,
+                KEY_buildingAddress: oldBuilding!.address,
+                "residentAddress": oldBuilding!.address,
                 "createdByEmail": UserDefaults.standard.object(forKey: "userEmail") as! String,
                 "packageStatus": "FORCED FREE",
                 "createdByFirstName": UserDefaults.standard.object(forKey: "userFirstName") as! String,
@@ -312,6 +312,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
             alertController.addAction(okBut)
             self.present(alertController, animated: true, completion: nil)
         }
+        
     }
     
     private func showAlert(){
@@ -320,8 +321,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
                                                 preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
 //            print("OK")
-            //self.codeWasdetected = false
-            self.virtualLocker = false
+            self.codeWasdetected = false
             self.performSegue(withIdentifier: "addLockerSegue", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler:{ action in
@@ -352,14 +352,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
             if metadataObj.stringValue != nil && !codeWasdetected {
                 codeWasdetected = true
-               // msglabel.text = metadataObj.stringValue
-               // let generator = UIImpactFeedbackGenerator(style: .heavy)
-               // generator.impactOccurred()
+               
                 //AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 AudioServicesPlayAlertSound(1105) //1352
                 qrCode = metadataObj.stringValue
-                if let _ = UserDefaults.standard.object(forKey: "userId") as? Int {
-                    //let param = [KEY_userId: userId] as NSDictionary
+                if let _ = UserDefaults.standard.object(forKey: "userId"){
                     restRequests.checkForRequest(parameters: nil, requestID: CHECK_USERS_REQUEST)
                 }
             }

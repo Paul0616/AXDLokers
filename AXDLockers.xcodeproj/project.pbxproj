@@ -27,6 +27,9 @@
 		40FB034723191AFF00F9AEA1 /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FB034623191AFF00F9AEA1 /* Locker.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
 		DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277D78224E6C700039235D /* SecurityCodeViewController.swift */; };
+		DA34AE5F232C31DD00DFE604 /* LockerFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34AE5E232C31DD00DFE604 /* LockerFilterViewController.swift */; };
+		DA34AE61232C31F900DFE604 /* LockersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34AE60232C31F900DFE604 /* LockersListViewController.swift */; };
+		DA34AE63232CEBD100DFE604 /* LockerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34AE62232CEBD100DFE604 /* LockerTableViewCell.swift */; };
 		DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */; };
 		DA5A733F230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */; };
 		DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */; };
@@ -71,6 +74,9 @@
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
 		D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AXDLockers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA277D78224E6C700039235D /* SecurityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeViewController.swift; sourceTree = "<group>"; };
+		DA34AE5E232C31DD00DFE604 /* LockerFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerFilterViewController.swift; sourceTree = "<group>"; };
+		DA34AE60232C31F900DFE604 /* LockersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockersListViewController.swift; sourceTree = "<group>"; };
+		DA34AE62232CEBD100DFE604 /* LockerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerTableViewCell.swift; sourceTree = "<group>"; };
 		DA5A733C230EE35700305553 /* ResidentsFilteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentsFilteredViewController.swift; sourceTree = "<group>"; };
 		DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentAndBuildingTableViewCell.swift; sourceTree = "<group>"; };
 		DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrphanParcelViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +161,7 @@
 				DA5A733E230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift */,
 				4041FF08224B710500C27574 /* AddressTableViewCell.swift */,
 				4041FF10224E0B2E00C27574 /* BuildingTableViewCell.swift */,
+				DA34AE62232CEBD100DFE604 /* LockerTableViewCell.swift */,
 				DAC5A6B12240CF08005C0425 /* LogInViewController.swift */,
 				4041FF04224B660800C27574 /* ChooseAddressViewController.swift */,
 				DA834B29224973C400996DEB /* AddLockerViewController.swift */,
@@ -171,6 +178,8 @@
 				DA5A734023111BF700305553 /* AddOrphanParcelViewController.swift */,
 				DA5A734223118ABB00305553 /* SummaryOrphanViewController.swift */,
 				DA61FF76232AC2520050C5AD /* ChoseLockerMenuViewController.swift */,
+				DA34AE5E232C31DD00DFE604 /* LockerFilterViewController.swift */,
+				DA34AE60232C31F900DFE604 /* LockersListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -360,8 +369,10 @@
 				4026FBC0224A584300924B64 /* CityTableViewCell.swift in Sources */,
 				DADC98FF224D3F4200ABA881 /* BuildingXResident.swift in Sources */,
 				DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */,
+				DA34AE5F232C31DD00DFE604 /* LockerFilterViewController.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
 				40FB034723191AFF00F9AEA1 /* Locker.swift in Sources */,
+				DA34AE61232C31F900DFE604 /* LockersListViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
 				407AC20A230EAEF800404FF5 /* OCRResultViewController.swift in Sources */,
 				DA5A734123111BF700305553 /* AddOrphanParcelViewController.swift in Sources */,
@@ -379,6 +390,7 @@
 				4016050622412CD100D57C14 /* Switcher.swift in Sources */,
 				DADC98FA224ABE6D00ABA881 /* City.swift in Sources */,
 				DAC5A6B22240CF08005C0425 /* LogInViewController.swift in Sources */,
+				DA34AE63232CEBD100DFE604 /* LockerTableViewCell.swift in Sources */,
 				408B4AFF2243A6C20044583B /* RestRequests.swift in Sources */,
 				DA5A734323118ABB00305553 /* SummaryOrphanViewController.swift in Sources */,
 				DA5A733F230EEE4F00305553 /* ResidentAndBuildingTableViewCell.swift in Sources */,
