@@ -8,4 +8,5 @@ target 'AXDLockers' do
   # Pods for AXDLockers
   pod 'Alamofire', '~> 4.0'
   pod 'SwiftyJSON'
+  #pod 'SwiftDate', '~> 4.4'
 end

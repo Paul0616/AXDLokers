@@ -15,7 +15,7 @@ let baseURL: String = "lockers.ondesign.ro" //"admin.smartlockers.ca"
 let port: String = ""
 let urlFolders: [String] = ["v1"]
 
-let API_KEY = "AIzaSyA137QmmGAd-Wi-hbt_SPIm4F1iPFNauGY"
+let API_KEY = "AIzaSyA7Ac6XSk4v3Tkf-zGbWAolsVaBphE7k5E"
 
 //REST Control Actions
 let tokensREST_Action = "tokens"

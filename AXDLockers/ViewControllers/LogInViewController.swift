@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+//import SwiftDate
 
 class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDelegate{
    
@@ -82,7 +83,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate, RestRequestsDe
     let restRequests = RestRequests()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        let date1970 = Date(timeIntervalSince1970: 0)
+//        var lastSyncDate = date1970.string(format: DateFormat.iso8601Auto)
+//        lastSyncDate = lastSyncDate.replacingOccurrences(of: "Z", with: "")
+//               print(lastSyncDate)
         userEmailTextField.delegate = self
         passwordTextField.delegate = self
         self.logo.alpha = 0

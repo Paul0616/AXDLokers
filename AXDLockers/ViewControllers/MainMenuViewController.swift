@@ -21,6 +21,10 @@ class MainMenuViewController: UIViewController, RestRequestsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      
+//       lastSyncDate = Defaults[.lastSyncDateUser] ?? date1970.string(format: DateFormat.iso8601Auto)
+//       lastSyncDate = lastSyncDate.replacingOccurrences(of: "Z", with: "")
+        
         // Do any additional setup after loading the view.
         alignTextBelow(button: addParcelButton)
         alignTextBelow(button: addLockerButton)
