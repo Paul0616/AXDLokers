@@ -18,11 +18,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="QRScannerViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oan-J2-vt0">
-                                <rect key="frame" x="0.0" y="607" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="qr_scan" translatesAutoresizingMaskIntoConstraints="NO" id="Jc5-Dz-lBq">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -82,8 +82,8 @@
                         <outlet property="iconinfo" destination="Jc5-Dz-lBq" id="d31-YH-NTK"/>
                         <outlet property="intructionsStackView" destination="oan-J2-vt0" id="Pes-8X-bNN"/>
                         <outlet property="labelinfo" destination="T2v-Ix-O08" id="8H5-H0-crh"/>
-                        <segue destination="2kW-wp-wh4" kind="show" identifier="addLockerSegue" id="nQx-sV-QiA"/>
-                        <segue destination="j0C-YT-gWp" kind="show" identifier="getLocker" id="dHX-yy-t0F"/>
+                        <segue destination="2kW-wp-wh4" kind="presentation" identifier="addLockerSegue" modalPresentationStyle="fullScreen" id="nQx-sV-QiA"/>
+                        <segue destination="j0C-YT-gWp" kind="presentation" identifier="getLocker" modalPresentationStyle="fullScreen" id="dHX-yy-t0F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -95,11 +95,11 @@
             <objects>
                 <viewController id="XXG-qm-YWs" customClass="SecurityCodeViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ho5-Ij-OYT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uwi-5C-g7J">
-                                <rect key="frame" x="16" y="72" width="343" height="162"/>
+                                <rect key="frame" x="16" y="60" width="343" height="167"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locker details:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO0-WB-7Gs">
                                         <rect key="frame" x="8" y="8" width="100" height="18"/>
@@ -144,7 +144,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locker" translatesAutoresizingMaskIntoConstraints="NO" id="Zy7-kl-wUL">
-                                        <rect key="frame" x="4" y="30.5" width="40" height="100.5"/>
+                                        <rect key="frame" x="4" y="33" width="40" height="100.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="gRf-ki-mp0"/>
                                         </constraints>
@@ -178,7 +178,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYz-aW-Uuf">
-                                <rect key="frame" x="16" y="250" width="343" height="161.5"/>
+                                <rect key="frame" x="16" y="243" width="343" height="166.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Resident details:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhn-xA-gPj">
                                         <rect key="frame" x="8" y="8" width="114" height="18"/>
@@ -235,14 +235,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="x7O-nx-VWg">
-                                        <rect key="frame" x="8" y="55.5" width="50" height="50"/>
+                                        <rect key="frame" x="8" y="58" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="WRh-t6-Ndu"/>
                                             <constraint firstAttribute="height" constant="50" id="q55-aN-meg"/>
                                         </constraints>
                                     </imageView>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Nuy-P2-Lwy">
-                                        <rect key="frame" x="153" y="62" width="37" height="37"/>
+                                        <rect key="frame" x="153" y="64.5" width="37" height="37"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -280,19 +280,19 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Put the parcel into the locker, close de door and lock with this security code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dd7-1F-4Km">
-                                <rect key="frame" x="19.5" y="443.5" width="336.5" height="41"/>
+                                <rect key="frame" x="19.5" y="441.5" width="336.5" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="467001" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcg-3Q-iO0">
-                                <rect key="frame" x="8" y="492.5" width="359" height="48"/>
+                                <rect key="frame" x="8" y="490.5" width="359" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyW-kc-AhK">
-                                <rect key="frame" x="16" y="565" width="343" height="50"/>
+                                <rect key="frame" x="16" y="585" width="343" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.83137254901960778" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="pZr-HB-G6Q"/>
@@ -364,23 +364,23 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="Yxr-hn-Fm3" customClass="FinalConfirmationViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lkJ-XW-5UH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9m-pr-MpT">
-                                <rect key="frame" x="56.5" y="226.5" width="262.5" height="194"/>
+                                <rect key="frame" x="56.5" y="233.5" width="262.5" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait until you get confirmation that notification was sent to resident..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMm-Br-ODl">
-                                        <rect key="frame" x="8" y="34.5" width="246.5" height="61"/>
+                                        <rect key="frame" x="8" y="37.5" width="246.5" height="61"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Uql-pk-Q50">
-                                        <rect key="frame" x="121" y="103.5" width="20" height="20"/>
+                                        <rect key="frame" x="121" y="106.5" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fQ-0U-poe">
-                                        <rect key="frame" x="46" y="135.5" width="170" height="30"/>
+                                        <rect key="frame" x="46" y="138.5" width="170" height="30"/>
                                         <state key="normal" title="BACK TO SCAN SCREEN">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
@@ -396,7 +396,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cY-C0-Z58">
-                                        <rect key="frame" x="131" y="127.5" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="131" y="130.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -696,7 +696,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="SRR-J3-bZs" id="3aL-3m-z2I"/>
                         <outlet property="tableView" destination="ER5-b9-E0l" id="jRc-Q0-Geb"/>
-                        <segue destination="j0C-YT-gWp" kind="show" identifier="getLocker1" id="d09-ep-CHz"/>
+                        <segue destination="j0C-YT-gWp" kind="presentation" identifier="getLocker1" modalPresentationStyle="fullScreen" id="d09-ep-CHz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ND5-nw-08k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -708,11 +708,11 @@
             <objects>
                 <viewController id="Em6-y4-DOe" customClass="AddLockerViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KyG-jR-s3L">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="880"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tKh-a2-qol">
-                                <rect key="frame" x="0.0" y="56" width="375" height="824"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="856"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOv-U9-Iph">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
@@ -816,7 +816,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="addAddressAction:" destination="Em6-y4-DOe" eventType="touchUpInside" id="hnh-0M-vzr"/>
-                                                    <segue destination="OAW-Kb-8iJ" kind="show" identifier="chooseAddressSegue" id="ulY-I9-Ysv"/>
+                                                    <segue destination="OAW-Kb-8iJ" kind="presentation" identifier="chooseAddressSegue" modalPresentationStyle="fullScreen" id="ulY-I9-Ysv"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Optional address detail:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYR-7C-uIG">
@@ -943,7 +943,7 @@
             <objects>
                 <tableViewController id="gOf-hk-H4b" customClass="ChooseAddressViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TXq-Bq-8oP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="591"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search by street name" id="c5B-m8-mVr">
@@ -1031,11 +1031,11 @@
             <objects>
                 <viewController id="34Z-m5-euB" customClass="AddAddressViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5D0-Vt-oJ7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="591"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BdL-1p-jfw">
-                                <rect key="frame" x="0.0" y="238" width="375" height="304"/>
+                                <rect key="frame" x="0.0" y="238" width="375" height="336"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cityCell" id="noA-4g-FMJ" customClass="CityTableViewCell" customModule="AXDLockers" customModuleProvider="target">
@@ -1315,7 +1315,7 @@
                                             <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
                                         </state>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="addLockerFromMain" id="RqZ-ts-VRD"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="addLockerFromMain" modalPresentationStyle="fullScreen" id="RqZ-ts-VRD"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1776,7 +1776,7 @@
                         <outlet property="addButton" destination="qPv-X6-dee" id="P8O-pd-cA0"/>
                         <outlet property="commentsTextView" destination="ggl-lJ-EKQ" id="iYh-VK-s6g"/>
                         <outlet property="parcelDescriptionTextView" destination="mEA-6x-qjH" id="Fbk-AE-SbK"/>
-                        <segue destination="YWU-eX-MwY" kind="presentation" identifier="showSummary" id="Sns-ZE-WID"/>
+                        <segue destination="YWU-eX-MwY" kind="presentation" identifier="showSummary" modalPresentationStyle="fullScreen" id="Sns-ZE-WID"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="opx-EM-10W" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1788,7 +1788,7 @@
             <objects>
                 <viewController id="YWU-eX-MwY" customClass="SummaryOrphanViewController" customModule="AXDLockers" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DfD-9K-osu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You just added at August 24, 2019 18:00 an unknown parcel with specifications:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8G-ug-mCT">
@@ -1824,7 +1824,7 @@
                                 <connections>
                                     <action selector="tapOnAdd:" destination="pxA-1N-S5y" eventType="touchUpInside" id="TMB-yO-lu9"/>
                                     <action selector="tapOnConfirmButton:" destination="qfq-NY-Yix" eventType="touchUpInside" id="NGA-es-iu1"/>
-                                    <segue destination="Uyn-Lh-85d" kind="show" id="WTI-Uh-FNk"/>
+                                    <segue destination="dQj-bP-51D" kind="presentation" modalPresentationStyle="fullScreen" id="csO-CZ-jsC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1845,6 +1845,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Mg-QK-zWP"/>
                     </view>
+                    <navigationItem key="navigationItem" id="dOF-Xj-U50"/>
                     <connections>
                         <outlet property="commentsLabel" destination="K8b-2m-2rZ" id="qQW-Gw-BIK"/>
                         <outlet property="parcelDescriptionLabel" destination="FQC-OY-dvX" id="IeR-bB-RkH"/>
@@ -2028,7 +2029,7 @@
                         <outlet property="fullNameLabel" destination="a1q-OG-Sag" id="HiV-Sv-Tcu"/>
                         <outlet property="phoneLabel" destination="YT1-jn-w5R" id="djq-2e-yTo"/>
                         <outlet property="uniqueNumberLabel" destination="hKK-vP-VZY" id="aes-ym-arv"/>
-                        <segue destination="WuL-St-Rhz" kind="show" identifier="lockerMenu" id="D9i-64-hPZ"/>
+                        <segue destination="WuL-St-Rhz" kind="presentation" identifier="lockerMenu" modalPresentationStyle="fullScreen" id="D9i-64-hPZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Deg-W1-xtp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2079,86 +2080,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4JU-c4-HPn">
-                                <rect key="frame" x="167" y="313" width="40" height="40"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWA-ax-jzO">
-                                        <rect key="frame" x="15" y="15" width="10" height="10"/>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="10" id="k4f-ju-qfg"/>
-                                            <constraint firstAttribute="width" constant="10" id="qTX-dn-kUS"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="5Sd-qZ-gb5"/>
-                                    <constraint firstAttribute="width" constant="40" id="9Yk-oy-NpT"/>
-                                    <constraint firstItem="dWA-ax-jzO" firstAttribute="centerX" secondItem="4JU-c4-HPn" secondAttribute="centerX" id="CII-2a-Ygs"/>
-                                    <constraint firstItem="dWA-ax-jzO" firstAttribute="centerY" secondItem="4JU-c4-HPn" secondAttribute="centerY" id="lJK-1R-3ls"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lz4-95-2XG">
-                                <rect key="frame" x="167" y="313" width="40" height="40"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AKO-Ec-VjN">
-                                        <rect key="frame" x="15" y="15" width="10" height="10"/>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="10" id="H3G-4Z-6dg"/>
-                                            <constraint firstAttribute="height" constant="10" id="NbW-n8-AVO"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="AKO-Ec-VjN" firstAttribute="centerX" secondItem="lz4-95-2XG" secondAttribute="centerX" id="WCg-dW-eKD"/>
-                                    <constraint firstAttribute="width" constant="40" id="hiP-jY-LGf"/>
-                                    <constraint firstAttribute="height" constant="40" id="uMX-E1-yXI"/>
-                                    <constraint firstItem="AKO-Ec-VjN" firstAttribute="centerY" secondItem="lz4-95-2XG" secondAttribute="centerY" id="vTr-jg-teX"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dmx-oc-Id3">
-                                <rect key="frame" x="167" y="313" width="40" height="40"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iDN-Xc-hdN">
-                                        <rect key="frame" x="15" y="15" width="10" height="10"/>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="10" id="GU4-L8-ZOf"/>
-                                            <constraint firstAttribute="width" constant="10" id="nre-W7-WiS"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="iDN-Xc-hdN" firstAttribute="centerY" secondItem="Dmx-oc-Id3" secondAttribute="centerY" id="K8f-wk-X6K"/>
-                                    <constraint firstItem="iDN-Xc-hdN" firstAttribute="centerX" secondItem="Dmx-oc-Id3" secondAttribute="centerX" id="lbj-Lf-eET"/>
-                                    <constraint firstAttribute="width" constant="40" id="q79-vf-gse"/>
-                                    <constraint firstAttribute="height" constant="40" id="txB-O5-myH"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kpd-mN-pd2">
-                                <rect key="frame" x="167" y="313" width="40" height="40"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mm-HH-PiS">
-                                        <rect key="frame" x="15" y="15" width="10" height="10"/>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="10" id="4ZD-Cs-Z0M"/>
-                                            <constraint firstAttribute="width" constant="10" id="d6D-zn-TSA"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="TeX-FL-Kbm"/>
-                                    <constraint firstAttribute="height" constant="40" id="Uws-Db-Je8"/>
-                                    <constraint firstItem="9mm-HH-PiS" firstAttribute="centerX" secondItem="kpd-mN-pd2" secondAttribute="centerX" id="W5V-eD-2FB"/>
-                                    <constraint firstItem="9mm-HH-PiS" firstAttribute="centerY" secondItem="kpd-mN-pd2" secondAttribute="centerY" id="ekK-Vk-Onx"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="nzL-Or-wr1">
                                 <rect key="frame" x="47" y="549" width="281" height="60"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.41960784309999999" blue="0.1764705882" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -2198,11 +2119,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yez-am-5ea">
-                                <rect key="frame" x="67" y="95" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2215,20 +2131,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DGx-ck-yWu"/>
                     </view>
+                    <navigationItem key="navigationItem" id="ysU-NU-zi0"/>
                     <connections>
-                        <outlet property="bottomLeftCircle" destination="Dmx-oc-Id3" id="MUn-Wc-qoU"/>
-                        <outlet property="bottomLeftDot" destination="iDN-Xc-hdN" id="oqs-0f-GMA"/>
-                        <outlet property="bottomRightCircle" destination="kpd-mN-pd2" id="IAx-EG-HEz"/>
-                        <outlet property="bottomRightDot" destination="9mm-HH-PiS" id="WdI-ob-mFV"/>
-                        <outlet property="croppingView" destination="yez-am-5ea" id="T5A-kg-6qu"/>
                         <outlet property="detectButton" destination="nzL-Or-wr1" id="RGa-RI-n83"/>
                         <outlet property="instructionStackView" destination="eOU-L8-VY3" id="1Ee-Ww-ibJ"/>
                         <outlet property="instructionsLabel" destination="md6-hK-G5F" id="oet-u7-DDs"/>
-                        <outlet property="topLeftCircle" destination="4JU-c4-HPn" id="OiM-Qc-dpW"/>
-                        <outlet property="topLeftDot" destination="dWA-ax-jzO" id="Y0H-CE-pkl"/>
-                        <outlet property="topRightCircle" destination="lz4-95-2XG" id="qzw-vt-dtx"/>
-                        <outlet property="topRightDot" destination="AKO-Ec-VjN" id="NrV-zJ-Key"/>
-                        <segue destination="Uyn-Lh-85d" kind="show" identifier="backToResult" id="diC-33-lKn"/>
+                        <segue destination="Uyn-Lh-85d" kind="presentation" identifier="backToResult" modalPresentationStyle="fullScreen" id="diC-33-lKn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o2g-1W-0gg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2242,7 +2150,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="rSZ-bg-cSH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="rXZ-g2-dia">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.098039215686274508" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2263,7 +2171,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="r0N-Ze-c7Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="tMM-TW-g5t">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2322,7 +2230,7 @@
                                         </state>
                                         <connections>
                                             <action selector="tapOnScanQR:" destination="WuL-St-Rhz" eventType="touchUpInside" id="f3t-mx-Tq0"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="scanQRCode" id="6c7-OC-PYs"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="scanQRCode" modalPresentationStyle="fullScreen" id="6c7-OC-PYs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Lc-4c-3IY">
@@ -2338,7 +2246,7 @@
                                         </state>
                                         <connections>
                                             <action selector="tapOnSearchLocker:" destination="WuL-St-Rhz" eventType="touchUpInside" id="nff-Ip-FtX"/>
-                                            <segue destination="J32-nb-tDc" kind="show" identifier="lockerFilter" id="ETA-ap-Wbr"/>
+                                            <segue destination="J32-nb-tDc" kind="presentation" identifier="lockerFilter" modalPresentationStyle="fullScreen" id="ETA-ap-Wbr"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2370,7 +2278,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="tBi-MI-2MZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="LgH-JI-1gI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0039215686274509803" green="0.098039215686274508" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2420,8 +2328,8 @@
         <image name="text_scan" width="100" height="86"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dHX-yy-t0F"/>
-        <segue reference="7MF-AW-axO"/>
-        <segue reference="RqZ-ts-VRD"/>
+        <segue reference="d09-ep-CHz"/>
+        <segue reference="diC-33-lKn"/>
+        <segue reference="6c7-OC-PYs"/>
     </inferredMetricsTieBreakers>
 </document>

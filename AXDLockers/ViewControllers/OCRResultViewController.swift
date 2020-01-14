@@ -47,7 +47,7 @@ class OCRResultViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func tapScan(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "SCANLabel") as! ScanLabelViewController
-        
+        vc.modalPresentationStyle = .fullScreen
         navigationController?.present(vc, animated: true, completion: nil)
     }
     

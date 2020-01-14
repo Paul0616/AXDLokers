@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,6 +26,7 @@
 		40F01221230E866A009B2527 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F01220230E866A009B2527 /* MainMenuViewController.swift */; };
 		40FB034723191AFF00F9AEA1 /* Locker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FB034623191AFF00F9AEA1 /* Locker.swift */; };
 		9D08FE70FD10FFB490FE9BCF /* Pods_AXDLockers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */; };
+		DA2174E823CE4AED00BA7BA4 /* CropperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2174E723CE4AED00BA7BA4 /* CropperView.swift */; };
 		DA277D79224E6C700039235D /* SecurityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA277D78224E6C700039235D /* SecurityCodeViewController.swift */; };
 		DA34AE5F232C31DD00DFE604 /* LockerFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34AE5E232C31DD00DFE604 /* LockerFilterViewController.swift */; };
 		DA34AE61232C31F900DFE604 /* LockersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34AE60232C31F900DFE604 /* LockersListViewController.swift */; };
@@ -73,6 +74,7 @@
 		40FB034623191AFF00F9AEA1 /* Locker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locker.swift; sourceTree = "<group>"; };
 		871E51F609258B91C690172C /* Pods-AXDLockers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AXDLockers.release.xcconfig"; path = "Pods/Target Support Files/Pods-AXDLockers/Pods-AXDLockers.release.xcconfig"; sourceTree = "<group>"; };
 		D395A263B4062A7B62BAFABE /* Pods_AXDLockers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AXDLockers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA2174E723CE4AED00BA7BA4 /* CropperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperView.swift; sourceTree = "<group>"; };
 		DA277D78224E6C700039235D /* SecurityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityCodeViewController.swift; sourceTree = "<group>"; };
 		DA34AE5E232C31DD00DFE604 /* LockerFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockerFilterViewController.swift; sourceTree = "<group>"; };
 		DA34AE60232C31F900DFE604 /* LockersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockersListViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		DADC98FC224CAE4B00ABA881 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				DA2174E723CE4AED00BA7BA4 /* CropperView.swift */,
 				407AC211230EB98700404FF5 /* GoogleCloudOCRModel.swift */,
 				407AC20F230EB97E00404FF5 /* GoogleCloudOCR.swift */,
 				4016050522412CD100D57C14 /* Switcher.swift */,
@@ -293,7 +296,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		40B0467C227AC98000AB645D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -364,6 +367,7 @@
 				DA5A733D230EE35700305553 /* ResidentsFilteredViewController.swift in Sources */,
 				DA34AE5F232C31DD00DFE604 /* LockerFilterViewController.swift in Sources */,
 				DA834B2A224973C400996DEB /* AddLockerViewController.swift in Sources */,
+				DA2174E823CE4AED00BA7BA4 /* CropperView.swift in Sources */,
 				40FB034723191AFF00F9AEA1 /* Locker.swift in Sources */,
 				DA34AE61232C31F900DFE604 /* LockersListViewController.swift in Sources */,
 				408B4AFD22437DC30044583B /* Constants.swift in Sources */,
@@ -546,6 +550,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ro.duoline.AXDSmartLockers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -567,6 +572,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ro.duoline.AXDSmartLockers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
